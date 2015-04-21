@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.annotation.Annotation;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -29,45 +29,45 @@ import com.google.gson.stream.JsonWriter;
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public final class TypesWriter implements MessageBodyWriter<TreeSet<Type>>
+public final class TypesWriter implements MessageBodyWriter<ArrayList<Type>>
 {
 	private Gson gson;
 
 	public TypesWriter()
 	{
-		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).create();
+		gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new TypesAdapter()).create();
 	}
 
 	// MessageBodyWriter
 	@Override
 	public boolean isWriteable(Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
 	{
-		return type.isAssignableFrom(TreeSet.class);
+		return type.isAssignableFrom(ArrayList.class);
 	}
 
 	@Override
-	public long getSize(TreeSet<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
+	public long getSize(ArrayList<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
 	{
 		return 0;
 	}
 
 	@Override
-	public void writeTo(TreeSet<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations,
+	public void writeTo(ArrayList<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations,
 			MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
 			OutputStream entityStream)
 			throws IOException, WebApplicationException
 	{
 		try(final JsonWriter writer = new JsonWriter(new OutputStreamWriter(entityStream)))
 		{
-			gson.toJson(types, TreeSet.class, writer);
+			gson.toJson(types, ArrayList.class, writer);
 		}
 	}
 
-	private static final class TypesAdapter implements JsonSerializer<TreeSet<Type>>
+	private static final class TypesAdapter implements JsonSerializer<ArrayList<Type>>
 	{
 
 		@Override
-		public JsonElement serialize(TreeSet<Type> types, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
+		public JsonElement serialize(ArrayList<Type> types, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
 		{
 			// The Object which will be returned
 			final JsonObject jsonToReturn = new JsonObject();

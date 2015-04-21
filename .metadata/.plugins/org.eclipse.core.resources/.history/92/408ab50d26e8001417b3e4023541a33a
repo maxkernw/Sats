@@ -1,0 +1,5 @@
+package se.piedpiper.server.mappers;
+
+public class ActivitiesWriter {
+
+}

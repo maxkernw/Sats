@@ -1,12 +1,11 @@
 package se.piedpiper.server.models;
 
-import java.sql.Date;
 
-public final class Activity {
+public final class Activity implements Comparable<Object>{
 
 	private final Booking booking;
 	private final String comment;
-	private final Date date;
+	private final String date;
 	private final int distanceInKm;
 	private final int durationInMinutes;
 	private final int id;
@@ -15,7 +14,7 @@ public final class Activity {
 	private final String subType;
 	private final String type;
 	
-	public Activity(Booking booking, String comment, Date date, int distanceInKm,
+	public Activity(Booking booking, String comment, String date, int distanceInKm,
 			int durationInMinutes, int id, String source, String status,
 			String subType, String type) {
 		this.booking = booking;
@@ -36,10 +35,10 @@ public final class Activity {
 	public String getComment() {
 		return comment;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public int getDistance() {
+	public int getDistanceInKm() {
 		return distanceInKm;
 	}
 	public int getDurationInMinutes() {
@@ -59,6 +58,11 @@ public final class Activity {
 	}
 	public String getType() {
 		return type;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		return ((Integer)this.booking.getId()).compareTo( ((Activity) o).getBooking().getId());
 	}
 	
 }
