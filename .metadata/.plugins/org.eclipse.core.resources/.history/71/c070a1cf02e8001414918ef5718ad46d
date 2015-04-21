@@ -1,0 +1,18 @@
+package se.piedpiper.server.services;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+@Path("se/training/activities")
+public class Service {
+
+	@Path("types")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getIt() {
+        return Response.ok("{test: test}").build();
+    }
+}

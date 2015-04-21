@@ -1,0 +1,5 @@
+package se.piedpiper.server.models;
+
+public class Booking {
+
+}

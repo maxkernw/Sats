@@ -1,0 +1,64 @@
+package se.piedpiper.server.models;
+
+import java.sql.Date;
+
+public final class Activity {
+
+	private final Booking booking;
+	private final String comment;
+	private final Date date;
+	private final int distanceInKm;
+	private final int durationInMinutes;
+	private final int id;
+	private final String source;
+	private final String status;
+	private final String subType;
+	private final String type;
+	
+	public Activity(Booking booking, String comment, Date date, int distance,
+			int durationInMinutes, int id, String source, String status,
+			String subType, String type) {
+		this.booking = booking;
+		this.comment = comment;
+		this.date = date;
+		this.distanceInKm = distance;
+		this.durationInMinutes = durationInMinutes;
+		this.id = id;
+		this.source = source;
+		this.status = status;
+		this.subType = subType;
+		this.type = type;
+	}
+	
+	public Booking getBooking() {
+		return booking;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public int getDistance() {
+		return distanceInKm;
+	}
+	public int getDurationInMinutes() {
+		return durationInMinutes;
+	}
+	public int getId() {
+		return id;
+	}
+	public String getSource() {
+		return source;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public String getSubType() {
+		return subType;
+	}
+	public String getType() {
+		return type;
+	}
+	
+}

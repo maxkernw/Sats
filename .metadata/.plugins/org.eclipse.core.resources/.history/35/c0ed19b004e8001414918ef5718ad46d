@@ -1,0 +1,39 @@
+package se.piedpiper.server.models;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(name = "Type", propOrder = {
+    "name",
+    "type",
+    "subtype"
+})
+public final class Type {
+	
+    @XmlElement(required = true)
+	private final String name;
+    @XmlElement(required = true)
+	private final String type;
+    @XmlElement(required = true)
+	private final String subtype;
+	
+	public Type(String name, String type, String subtype) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.subtype = subtype;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getSubtype() {
+		return subtype;
+	}
+
+}

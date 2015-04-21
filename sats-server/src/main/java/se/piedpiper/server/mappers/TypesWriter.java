@@ -1,0 +1,95 @@
+package se.piedpiper.server.mappers;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.annotation.Annotation;
+import java.util.TreeSet;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.Provider;
+
+import se.piedpiper.server.models.Type;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.stream.JsonWriter;
+
+@Provider
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public final class TypesWriter implements MessageBodyWriter<TreeSet<Type>>
+{
+	private Gson gson;
+
+	public TypesWriter()
+	{
+		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).create();
+	}
+
+	// MessageBodyWriter
+	@Override
+	public boolean isWriteable(Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
+	{
+		return type.isAssignableFrom(TreeSet.class);
+	}
+
+	@Override
+	public long getSize(TreeSet<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
+	{
+		return 0;
+	}
+
+	@Override
+	public void writeTo(TreeSet<Type> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations,
+			MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
+			OutputStream entityStream)
+			throws IOException, WebApplicationException
+	{
+		try(final JsonWriter writer = new JsonWriter(new OutputStreamWriter(entityStream)))
+		{
+			gson.toJson(types, TreeSet.class, writer);
+		}
+	}
+
+	private static final class TypesAdapter implements JsonSerializer<TreeSet<Type>>
+	{
+
+		@Override
+		public JsonElement serialize(TreeSet<Type> types, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
+		{
+			// The Object which will be returned
+			final JsonObject jsonToReturn = new JsonObject();
+			// An array to hold all Types
+			final JsonArray jsonArrayForTypes = new JsonArray();
+
+			for(Type type : types)
+			{
+				// An object to hold all information~ about the Types one by
+				// one
+				final JsonObject jsonObjectForType = new JsonObject();
+				jsonObjectForType.add("name", new JsonPrimitive(type.getName()));
+				jsonObjectForType.add("type", new JsonPrimitive(type.getType()));
+				jsonObjectForType.add("subtype", new JsonPrimitive(type.getSubType()));
+				// Adding the object to the array
+				jsonArrayForTypes.add(jsonObjectForType);
+			}
+			
+			// Adding the array to the jsonReturn-object
+			jsonToReturn.add("Types", jsonArrayForTypes);
+
+			return jsonToReturn;
+		}
+	}
+}

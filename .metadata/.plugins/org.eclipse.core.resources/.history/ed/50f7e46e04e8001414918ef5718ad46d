@@ -1,0 +1,31 @@
+package se.piedpiper.server.models;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public final class Type {
+	
+	private final String name;
+	private final String type;
+	private final String subtype;
+	
+	public Type(String name, String type, String subtype) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.subtype = subtype;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getSubtype() {
+		return subtype;
+	}
+
+}

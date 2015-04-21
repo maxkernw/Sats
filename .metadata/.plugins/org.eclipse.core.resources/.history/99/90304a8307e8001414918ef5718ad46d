@@ -1,0 +1,96 @@
+package se.piedpiper.server.mappers;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.annotation.Annotation;
+
+import se.piedpiper.server.models.Type;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.Provider;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.stream.JsonWriter;
+
+@Provider
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public final class TypeMapper implements MessageBodyReader<Type>, MessageBodyWriter<Type>
+{
+	private Gson gson;
+
+	public TypeMapper()
+	{
+		gson = new GsonBuilder().registerTypeAdapter(Type.class, new TypeAdapter()).create();
+	}
+
+	// MessageBodyReader
+
+	// MessageBodyWriter
+
+	@Override
+	public boolean isWriteable(Class<?> type,
+			java.lang.reflect.Type genericType, Annotation[] annotations,
+			MediaType mediaType) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public long getSize(Type t, Class<?> type,
+			java.lang.reflect.Type genericType, Annotation[] annotations,
+			MediaType mediaType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeTo(Type t, Class<?> type,
+			java.lang.reflect.Type genericType, Annotation[] annotations,
+			MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
+			OutputStream entityStream) throws IOException,
+			WebApplicationException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// MessageBodyReader
+		@Override
+		public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
+		{
+			return type.isAssignableFrom(Type.class);
+		}
+
+	@Override
+	public Type readFrom(Class<Type> type, java.lang.reflect.Type genericType,
+			Annotation[] annotations, MediaType mediaType,
+			MultivaluedMap<String, String> httpHeaders, InputStream entityStream)
+			throws IOException, WebApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private static final class TypeAdapter implements JsonDeserializer<Type>, JsonSerializer<Type>
+	{
+		
+	}
+	
+}
