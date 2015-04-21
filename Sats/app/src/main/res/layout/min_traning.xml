@@ -17,7 +17,7 @@
         android:id="@+id/minträning"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_light"
+        android:background="#f7f7f7"
         android:layout_below="@+id/graph">
 
         <ImageButton
@@ -34,10 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/drag_button"
-            android:background="@color/light_gray"
-            android:text="Vecka: Skit ner dig"
+            android:background="#efefef"
+            android:text="Vecka: 12 (25-31/3)"
             android:paddingLeft="15dp"
-            android:textSize="10dp"/>
+            android:textSize="8dp"/>
 
         <TextView
             android:id="@+id/tidigare"

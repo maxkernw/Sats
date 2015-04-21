@@ -27,27 +27,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date"
+        android:textSize="10dp"
         android:layout_below="@+id/type"
         android:layout_toRightOf="@+id/image_list"
         />
     <ImageView
         android:id="@+id/ic_comment"
         android:src="@drawable/ic_comment"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_toRightOf="@+id/image_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.45"
+        android:scaleY="0.45"
+        android:layout_marginLeft="35dp"
         android:layout_below="@+id/date"
-        android:layout_marginTop="5dp"/>
+
+  />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ic_comment"
-
-        android:text="kommentera"
-        android:layout_below="@id/date"
-        android:layout_marginLeft="10dp"
-        android:textSize="10dp"
-        android:layout_marginTop="5dp"/>
+        android:text="lägg till kommentar"
+        android:textSize="7dp"
+        android:textColor="@color/light_gray"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/image_list"
+        android:layout_toEndOf="@+id/ic_comment"/>
 
     <TextView
         android:id="@+id/avklarat"
