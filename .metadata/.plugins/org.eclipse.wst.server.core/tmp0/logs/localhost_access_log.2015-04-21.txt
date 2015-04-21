@@ -158,3 +158,10 @@
 127.0.0.1 - - [21/Apr/2015:14:44:32 +0200] "GET / HTTP/1.1" 404 994
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:44:34 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:44:38 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+127.0.0.1 - - [21/Apr/2015:14:45:08 +0200] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:08 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:09 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:10 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
