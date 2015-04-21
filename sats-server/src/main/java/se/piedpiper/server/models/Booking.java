@@ -1,0 +1,38 @@
+package se.piedpiper.server.models;
+
+public final class Booking {
+
+	private final String status;
+	private final Class classId;
+	private final int center;
+	private final int id;
+	private final int positionInQueue;
+	
+	public Booking(String status, Class classId, int center, int id,
+			int positionInQueue) {
+		this.status = status;
+		this.classId = classId;
+		this.center = center;
+		this.id = id;
+		this.positionInQueue = positionInQueue;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public Class getClassId() {
+		return classId;
+	}
+	public int getCenter() {
+		return center;
+	}
+	public int getId() {
+		return id;
+	}
+	public int getPositionInQueue() {
+		return positionInQueue;
+	}
+	
+	
+	
+}

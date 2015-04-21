@@ -640,3 +640,94 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.glassfish
 2015-04-21 13:48:43,186 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2015-04-21 13:48:43,187 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-04-21 13:48:43,187 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 13:50:10,463 [Worker-8] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 13:50:10,764 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:50:10,764 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 13:50:10,765 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:50:10,766 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 13:53:09,204 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:53:09,205 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 13:53:09,206 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:53:09,206 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 13:54:33,003 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:54:33,003 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 13:54:33,004 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 13:54:33,004 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:00:42,995 [Stop Help Server] INFO  o.e.j.server.handler.ContextHandler - stopped o.e.j.s.ServletContextHandler{/help,null}
+2015-04-21 14:03:51,211 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:03:51,230 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:03:51,234 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:03:51,234 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:04:10,184 [Worker-4] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 14:04:10,539 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-servlet/1.13/jersey-servlet-1.13.pom
+2015-04-21 14:04:10,601 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-servlet/1.13/jersey-servlet-1.13.pom
+2015-04-21 14:04:10,636 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-project/1.13/jersey-project-1.13.pom
+2015-04-21 14:04:10,721 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-project/1.13/jersey-project-1.13.pom
+2015-04-21 14:04:10,760 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-server/1.13/jersey-server-1.13.pom
+2015-04-21 14:04:10,817 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-server/1.13/jersey-server-1.13.pom
+2015-04-21 14:04:10,851 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/asm/asm/3.1/asm-3.1.pom
+2015-04-21 14:04:10,906 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/asm/asm/3.1/asm-3.1.pom
+2015-04-21 14:04:10,937 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/asm/asm-parent/3.1/asm-parent-3.1.pom
+2015-04-21 14:04:10,992 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/asm/asm-parent/3.1/asm-parent-3.1.pom
+2015-04-21 14:04:11,027 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-core/1.13/jersey-core-1.13.pom
+2015-04-21 14:04:11,084 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-core/1.13/jersey-core-1.13.pom
+2015-04-21 14:04:11,129 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-servlet/1.13/jersey-servlet-1.13.jar
+2015-04-21 14:04:11,271 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-servlet/1.13/jersey-servlet-1.13.jar
+2015-04-21 14:04:11,301 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-server/1.13/jersey-server-1.13.jar
+2015-04-21 14:04:11,482 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-server/1.13/jersey-server-1.13.jar
+2015-04-21 14:04:11,510 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/asm/asm/3.1/asm-3.1.jar
+2015-04-21 14:04:11,571 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/asm/asm/3.1/asm-3.1.jar
+2015-04-21 14:04:11,600 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-core/1.13/jersey-core-1.13.jar
+2015-04-21 14:04:11,729 [Worker-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/com/sun/jersey/jersey-core/1.13/jersey-core-1.13.jar
+2015-04-21 14:04:12,672 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:04:12,676 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:04:12,678 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:04:12,678 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:04:12,680 [Worker-4] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of server
+2015-04-21 14:04:12,680 [Worker-4] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for server
+2015-04-21 14:04:12,685 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:06:07,618 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 14:06:07,925 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:06:07,927 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:06:07,929 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:06:07,929 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:06:07,929 [Worker-6] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of server
+2015-04-21 14:06:07,929 [Worker-6] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for server
+2015-04-21 14:06:07,932 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:11:10,578 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-8.1.14.v20131031
+2015-04-21 14:11:10,618 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started SelectChannelConnector@127.0.0.1:50795
+2015-04-21 14:20:17,752 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:17,769 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:20:17,770 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:17,770 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:20:21,375 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:21,376 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:20:21,377 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:21,377 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:20:22,407 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:22,407 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:20:22,408 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:20:22,408 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:23:24,430 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 14:23:24,505 [Worker-7] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of server
+2015-04-21 14:23:24,505 [Worker-7] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for server
+2015-04-21 14:25:35,960 [Worker-2] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 14:25:36,321 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:25:36,321 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:25:36,321 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:25:36,322 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:25:36,322 [Worker-2] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of server
+2015-04-21 14:25:36,322 [Worker-2] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for server
+2015-04-21 14:25:36,368 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:25:45,889 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:25:45,889 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:25:45,890 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:25:45,890 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:29:08,477 [Worker-8] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: se.piedpiper:server:0.0.1-SNAPSHOT @ /Users/Steffe/Documents/Sats/server/pom.xml.
+2015-04-21 14:29:08,716 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:29:08,716 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-04-21 14:29:08,717 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-04-21 14:29:08,717 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Steffe/Documents/Sats/server/src/test/resources
+2015-04-21 14:29:08,718 [Worker-8] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of server
+2015-04-21 14:29:08,718 [Worker-8] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for server
+2015-04-21 14:29:08,722 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
