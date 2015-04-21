@@ -13,22 +13,34 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/minträning"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/boka_box_background"
+        android:background="@color/gray_light"
         android:layout_below="@+id/graph">
 
         <ImageButton
             android:id="@+id/drag_button"
-            android:layout_width="45dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="13dp"
             android:background="@raw/drag_button_normal"
             android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/drag_button"
+            android:background="@color/light_gray"
+            android:text="Vecka: Skit ner dig"
+            android:paddingLeft="15dp"
+            android:textSize="10dp"/>
 
         <TextView
+            android:id="@+id/tidigare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tidigare träning"
@@ -37,16 +49,16 @@
             android:textStyle="bold"
             android:layout_gravity="left"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textSize="10dp"/>
+            android:textSize="12dp"/>
 
         <ListView
             android:layout_below="@+id/drag_button"
             android:layout_width="fill_parent"
-
+            android:id="@+id/listan"
             android:layout_height="wrap_content"
-            android:entries="@array/list"
-            android:layout_marginTop="40dp">
+
+            android:layout_marginTop="20dp">
         </ListView>
 
-    </FrameLayout>
+    </RelativeLayout>
 </RelativeLayout>

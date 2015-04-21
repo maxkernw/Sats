@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <ImageView
+        android:id="@+id/image_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/cykling_icon"
+        android:text="test"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:layout_toRightOf="@+id/image_list"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:layout_below="@+id/type"
+        android:layout_toRightOf="@+id/image_list"
+        />
+    <ImageView
+        android:id="@+id/ic_comment"
+        android:src="@drawable/ic_comment"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_toRightOf="@+id/image_list"
+        android:layout_below="@+id/date"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ic_comment"
+
+        android:text="kommentera"
+        android:layout_below="@id/date"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/avklarat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avklarat?"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/type"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="10dp"
+        />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_selector"
+        android:checked="false"
+        android:id="@+id/checkbox"
+        android:scaleY="0.40"
+        android:scaleX="0.40"
+        android:gravity="top"
+        android:layout_alignBottom="@+id/image_list"
+        android:layout_toStartOf="@+id/avklarat"/>
+</RelativeLayout>
