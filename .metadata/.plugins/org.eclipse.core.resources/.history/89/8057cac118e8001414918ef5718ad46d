@@ -1,0 +1,23 @@
+package se.piedpiper.server.models;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public final class Activity {
+	
+	private final int centerId;
+	private final int centerFilterId;
+	private final int classTypeId;
+	private final int durationInMinutes;
+	private final int id;
+	private final int instructorId;
+	private final String name;
+	private final Date startTime;
+	private final int bookedPersonsCount;
+	private final int maxPersonsCount;
+	private final int regionId;
+	private final int waitingListCount;
+	private final ArrayList<Integer> classCategories;
+	
+	
+}

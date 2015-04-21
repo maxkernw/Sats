@@ -1,0 +1,8 @@
+package se.piedpiper.server.models;
+
+public final class Activity {
+
+	private final Booking booking;
+	
+	
+}
