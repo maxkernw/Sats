@@ -1,0 +1,140 @@
+package se.piedpiper.server.mappers;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.annotation.Annotation;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.TreeSet;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.Provider;
+
+import se.piedpiper.server.models.Activity;
+import se.piedpiper.server.models.Booking;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.stream.JsonWriter;
+
+@Provider
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activity>>
+{
+	private Gson gson;
+
+	public ActivitiesWriter()
+	{
+		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).create();
+	}
+
+	// MessageBodyWriter
+	@Override
+	public boolean isWriteable(Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
+	{
+		return type.isAssignableFrom(TreeSet.class);
+	}
+
+	@Override
+	public long getSize(TreeSet<Activity> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations, MediaType mediaType)
+	{
+		return 0;
+	}
+
+	@Override
+	public void writeTo(TreeSet<Activity> types, Class<?> type, java.lang.reflect.Type genericType, Annotation[] annotations,
+			MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
+			OutputStream entityStream)
+			throws IOException, WebApplicationException
+	{
+		try(final JsonWriter writer = new JsonWriter(new OutputStreamWriter(entityStream)))
+		{
+			gson.toJson(types, TreeSet.class, writer);
+		}
+	}
+
+	private static final class TypesAdapter implements JsonSerializer<TreeSet<Activity>>
+	{
+
+		@Override
+		public JsonElement serialize(TreeSet<Activity> types, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
+		{
+			// The Object which will be returned
+			final JsonObject jsonToReturn = new JsonObject();
+			// An array to hold all Types
+			final JsonArray jsonArrayForTypes = new JsonArray();
+
+			for(Activity type : types)
+			{
+				// An object to hold all information~ about the Types one by
+				// one
+				final JsonObject jsonObjectForType = new JsonObject();
+				
+//				private final int centerId;
+//				private final int centerFilterId;
+//				private final int classTypeId;
+//				private final int durationInMinutes;
+//				private final int id;
+//				private final int instructorId;
+//				private final String name;
+//				private final Date startTime;
+//				private final int bookedPersonsCount;
+//				private final int maxPersonsCount;
+//				private final int regionId;
+//				private final int waitingListCount;
+//				private final ArrayList<Integer> classCategories;
+				
+				final JsonObject theClass = new JsonObject();
+				theClass.add("centerId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("centerFilterId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("classTypeId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("durationInMinutes", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("id", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("instructorId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("name", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("startTime", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("bookedPersonsCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("maxPersonsCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("regionId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("waitingListCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				JsonArray classCategories = new JsonArray();
+				for(Integer integer: type.getBooking().getClassId().getClassCategories()){
+					classCategories.add(new JsonPrimitive(integer));
+				}
+				theClass.add("waitingListCount", classCategories);
+				
+				
+				//jsonObjectForType.add("booking", new JsonPrimitive(type.getBooking()));		
+				jsonObjectForType.add("comment", new JsonPrimitive(type.getComment()));
+				jsonObjectForType.add("date", new JsonPrimitive(type.getDate().toString()));
+				jsonObjectForType.add("distanceInKm", new JsonPrimitive(type.getDistanceInKm()));
+				jsonObjectForType.add("durationInMinutes", new JsonPrimitive(type.getDurationInMinutes()));
+				jsonObjectForType.add("id", new JsonPrimitive(type.getId()));
+				jsonObjectForType.add("source", new JsonPrimitive(type.getSource()));
+				jsonObjectForType.add("status", new JsonPrimitive(type.getStatus()));
+				jsonObjectForType.add("subType", new JsonPrimitive(type.getSubType()));
+				jsonObjectForType.add("type", new JsonPrimitive(type.getType()));
+				// Adding the object to the array
+				jsonArrayForTypes.add(jsonObjectForType);
+			}
+			
+			// Adding the array to the jsonReturn-object
+			jsonToReturn.add("Activities", jsonArrayForTypes);
+
+			return jsonToReturn;
+		}
+	}
+}
