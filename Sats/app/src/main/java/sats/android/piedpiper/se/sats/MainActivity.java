@@ -1,10 +1,9 @@
 package sats.android.piedpiper.se.sats;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 
@@ -16,6 +15,10 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
 
+        ActionBar ac = getActionBar();
+        ac.setDisplayUseLogoEnabled(true);
+        ac.setLogo(R.drawable.sats_logo);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.min_traning);
         listView = (ListView)findViewById(R.id.listan);
@@ -25,7 +28,5 @@ public class MainActivity extends Activity
 
 
     }
-
-
 
 }
