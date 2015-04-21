@@ -2,15 +2,48 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
+    <FrameLayout
+        android:id="@+id/graph"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_below="@id/action_settings">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/minträning"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/boka_box_background"
+        android:layout_below="@+id/graph">
+
+        <ImageButton
+            android:id="@+id/drag_button"
+            android:layout_width="45dp"
+            android:layout_height="20dp"
+            android:background="@raw/drag_button_normal"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidigare träning"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textColor="@color/dark_gray"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
+
+        <ListView
+            android:layout_below="@+id/drag_button"
+            android:layout_width="fill_parent"
+
+            android:layout_height="wrap_content"
+            android:entries="@array/list">
+        </ListView>
+
+    </FrameLayout>
 </RelativeLayout>
