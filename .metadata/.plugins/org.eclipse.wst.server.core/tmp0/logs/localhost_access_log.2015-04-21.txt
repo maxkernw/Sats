@@ -165,3 +165,12 @@
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:45:11 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:46:30 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:46:39 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:46:58 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:46:59 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:47:00 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:49:59 +0200] "GET /sats-server HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:50:03 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:50:04 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:14:50:05 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 3

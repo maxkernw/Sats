@@ -15,13 +15,13 @@ public final class Activity {
 	private final String subType;
 	private final String type;
 	
-	public Activity(Booking booking, String comment, Date date, int distanceInKm,
+	public Activity(Booking booking, String comment, Date date, int distance,
 			int durationInMinutes, int id, String source, String status,
 			String subType, String type) {
 		this.booking = booking;
 		this.comment = comment;
 		this.date = date;
-		this.distanceInKm = distanceInKm;
+		this.distanceInKm = distance;
 		this.durationInMinutes = durationInMinutes;
 		this.id = id;
 		this.source = source;

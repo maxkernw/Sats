@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;distance&apos; in &apos;se.piedpiper.server.models.Activity&apos; to &apos;distanceInKm&apos;&#x0A;- Original project: &apos;sats-server&apos;&#x0A;- Original element: &apos;se.piedpiper.server.models.Activity.distance&apos;&#x0A;- Renamed element: &apos;se.piedpiper.server.models.Activity.distanceInKm&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;distance&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src\/main\/java&lt;se.piedpiper.server.models{Activity.java[Activity^distance" name="distanceInKm" references="true" setter="false" stamp="1429620923838" textual="false" version="1.0"/>
+</session>
