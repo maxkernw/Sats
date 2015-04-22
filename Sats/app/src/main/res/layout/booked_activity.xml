@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/booking_layout_bg"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+
+    <ImageButton
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@drawable/clock_background2"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clock"
+        android:text="30 min"/>
+
+    <ImageButton
+
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/big_orange_button_normal"
+        android:background="@drawable/mytraining_details_round_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/clock"
+        android:layout_alignTop="@+id/clock"/>
+
+
+</RelativeLayout>
