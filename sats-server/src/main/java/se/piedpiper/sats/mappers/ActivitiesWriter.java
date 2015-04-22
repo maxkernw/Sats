@@ -82,6 +82,7 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 				final JsonObject jsonObjectForType = new JsonObject();
 				
 				final JsonObject theClass = new JsonObject();
+				try{
 				theClass.add("centerId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
 				theClass.add("centerFilterId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
 				theClass.add("classTypeId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
@@ -99,6 +100,7 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 					classCategories.add(new JsonPrimitive(integer));
 				}
 				theClass.add("waitingListCount", classCategories);
+				
 				
 				final JsonObject theBooking = new JsonObject();
 				theBooking.add("status", new JsonPrimitive(type.getBooking().getStatus()));
@@ -120,6 +122,10 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 				
 				// Adding the object to the array
 				jsonArrayForTypes.add(jsonObjectForType);
+				
+				}catch(NullPointerException e){
+					System.out.println(type.toString());
+				}
 			}
 			
 			// Adding the array to the jsonReturn-object

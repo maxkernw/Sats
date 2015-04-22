@@ -1,12 +1,16 @@
 package se.piedpiper.sats.repositories;
 
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.TreeSet;
+
+import javax.management.RuntimeErrorException;
 
 import se.piedpiper.sats.models.Activity;
 import se.piedpiper.sats.models.Booking;
@@ -14,24 +18,20 @@ import se.piedpiper.sats.models.Booking;
 public final class ActivityRepo
 {
 
-	static final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
-	static final String USER = "AdminSATS";
-	static final String PASSWORD = "WeAreTheCool";
-
-	public static ArrayList<Activity> getTypes()
+	public static TreeSet<Activity> getActivities()
 	{
-		ArrayList<Activity> activities = new ArrayList<>();
+		TreeSet<Activity> activities = new TreeSet<>();
 		Booking booking = null;
 
 		try (
-				Connection con = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+				Connection con = getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM training_activities;");)
 		{
 
-			String bookingId = null;
+			String bookingId = "";
 			String comment;
-			Date date;
+			java.sql.Date date;
 			int distanceInKm;
 			int durationInMinutes;
 			String id;
@@ -46,7 +46,9 @@ public final class ActivityRepo
 			while (rs.next())
 			{
 				id = rs.getString("id");
-				bookingId = rs.getString("booking");
+				if(rs.getString("booking") != null){
+					bookingId = rs.getString("booking");
+				}
 				comment = rs.getString("comment");
 				date = rs.getDate("date");
 				distanceInKm = rs.getInt("distance_in_km");
@@ -56,9 +58,11 @@ public final class ActivityRepo
 				subType = rs.getString("sub_type");
 				type = rs.getString("type");
 
-				if (bookingId != null)
+				if ("".compareTo(bookingId) != 0)
 				{
 					booking = BookingRepo.getBooking(bookingId);
+				}else{
+					booking = new Booking("", new se.piedpiper.sats.models.Class("", "", "", 0, "", "", "",new Date(), 0, 0, "", 0, new ArrayList<Integer>()), "", "", 0);
 				}
 
 				System.out.println(date + ", " + id + ", " + booking + ", " + comment + ", " + distanceInKm + ", " + durationInMinutes + ", " + source + ", " + status
@@ -85,15 +89,15 @@ public final class ActivityRepo
 		Booking booking = null;
 
 		try (
-				Connection con = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+				Connection con = getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM training_activities WHERE id = '"
 						+ id + "';");)
 		{
 
-			String bookingId = null;
+			String bookingId = "";
 			String comment;
-			Date date;
+			java.sql.Date date;
 			int distanceInKm;
 			int durationInMinutes;
 			String source;
@@ -103,7 +107,9 @@ public final class ActivityRepo
 
 			while (rs.next())
 			{
-				bookingId = rs.getString("booking");
+				if(rs.getString("booking") != null){
+					bookingId = rs.getString("booking");
+				}
 				comment = rs.getString("comment");
 				date = rs.getDate("date");
 				distanceInKm = rs.getInt("distance_in_km");
@@ -113,7 +119,7 @@ public final class ActivityRepo
 				subType = rs.getString("sub_type");
 				type = rs.getString("type");
 
-				if (bookingId != null)
+				if (bookingId != "")
 				{
 					booking = BookingRepo.getBooking(bookingId);
 				}
@@ -130,4 +136,22 @@ public final class ActivityRepo
 		}
 		 return activity;
 	}
+	
+	private static Connection getConnection() throws SQLException
+	{
+		final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
+		final String USER = "AdminSATS";
+		final String PASSWORD = "WeAreTheCool";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection(DB_URL, USER, PASSWORD);
+		}
+		catch(SQLException | ClassNotFoundException e)
+		{
+			throw new RuntimeErrorException(null, e.toString());
+		}
+	}
+	
 }
