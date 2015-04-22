@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity
@@ -28,7 +27,7 @@ public class MainActivity extends Activity
         ac.setLogo(R.drawable.sats_logo);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.min_traning);
+        setContentView(R.layout.my_training_listview);
         listView = (ListView) findViewById(R.id.listan);
 
         listView.setAdapter(new TestAdapter(this, new String[]
