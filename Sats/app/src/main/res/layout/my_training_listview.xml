@@ -20,8 +20,9 @@
         android:layout_height="match_parent"
         android:background="#f7f7f7"
 
-        android:onClick="expand"
-        android:layout_marginTop="150dp">
+
+
+        >
 
         <ImageButton
 
