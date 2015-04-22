@@ -1,4 +1,4 @@
-package se.piedpiper.server.mappers;
+package se.piedpiper.sats.mappers;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import se.piedpiper.server.models.Type;
+import se.piedpiper.sats.models.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -81,7 +81,7 @@ public final class TypesWriter implements MessageBodyWriter<ArrayList<Type>>
 				final JsonObject jsonObjectForType = new JsonObject();
 				jsonObjectForType.add("name", new JsonPrimitive(type.getName()));
 				jsonObjectForType.add("type", new JsonPrimitive(type.getType()));
-				jsonObjectForType.add("subtype", new JsonPrimitive(type.getSubType()));
+				jsonObjectForType.add("subtype", new JsonPrimitive(type.getSubtype()));
 				// Adding the object to the array
 				jsonArrayForTypes.add(jsonObjectForType);
 			}

@@ -1,4 +1,4 @@
-package se.piedpiper.server.mappers;
+package se.piedpiper.sats.mappers;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import se.piedpiper.server.models.Activity;
+import se.piedpiper.sats.models.Activity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -82,20 +82,20 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 				final JsonObject jsonObjectForType = new JsonObject();
 				
 				final JsonObject theClass = new JsonObject();
-				theClass.add("centerId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("centerFilterId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("classTypeId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("durationInMinutes", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("id", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("instructorId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("name", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("startTime", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("bookedPersonsCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("maxPersonsCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("regionId", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
-				theClass.add("waitingListCount", new JsonPrimitive(type.getBooking().getClassId().getCenterId()));
+				theClass.add("centerId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("centerFilterId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("classTypeId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("durationInMinutes", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("id", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("instructorId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("name", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("startTime", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("bookedPersonsCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("maxPersonsCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("regionId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
+				theClass.add("waitingListCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
 				JsonArray classCategories = new JsonArray();
-				for(Integer integer: type.getBooking().getClassId().getClassCategories()){
+				for(Integer integer: type.getBooking().getAClass().getClassCategories()){
 					classCategories.add(new JsonPrimitive(integer));
 				}
 				theClass.add("waitingListCount", classCategories);

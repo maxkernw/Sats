@@ -1,29 +1,31 @@
-package se.piedpiper.server.models;
+package se.piedpiper.sats.models;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public final class Class {
-	
-	private final int centerId;
-	private final int centerFilterId;
-	private final int classTypeId;
+public final class Class implements Comparable<Object>
+{
+
+	private final String centerId;
+	private final String centerFilterId;
+	private final String classTypeId;
 	private final int durationInMinutes;
-	private final int id;
-	private final int instructorId;
+	private final String id;
+	private final String instructorId;
 	private final String name;
 	private final Date startTime;
 	private final int bookedPersonsCount;
 	private final int maxPersonsCount;
-	private final int regionId;
+	private final String regionId;
 	private final int waitingListCount;
 	private final ArrayList<Integer> classCategories;
-	
-	public Class(int centerId, int centerFilterId, int classTypeId,
-			int durationInMinutes, int id, int instructorId, String name,
+
+	public Class(String centerId, String centerFilterId, String classTypeId,
+			int durationInMinutes, String id, String instructorId, String name,
 			Date startTime, int bookedPersonsCount, int maxPersonsCount,
-			int regionId, int waitingListCount,
-			ArrayList<Integer> classCategories) {
+			String regionId, int waitingListCount,
+			ArrayList<Integer> classCategories)
+	{
 		this.centerId = centerId;
 		this.centerFilterId = centerFilterId;
 		this.classTypeId = classTypeId;
@@ -38,45 +40,75 @@ public final class Class {
 		this.waitingListCount = waitingListCount;
 		this.classCategories = classCategories;
 	}
-	
-	public int getCenterId() {
+
+	public String getCenterId()
+	{
 		return centerId;
 	}
-	public int getCenterFilterId() {
+
+	public String getCenterFilterId()
+	{
 		return centerFilterId;
 	}
-	public int getClassTypeId() {
+
+	public String getClassTypeId()
+	{
 		return classTypeId;
 	}
-	public int getDurationInMinutes() {
+
+	public int getDurationInMinutes()
+	{
 		return durationInMinutes;
 	}
-	public int getId() {
+
+	public String getId()
+	{
 		return id;
 	}
-	public int getInstructorId() {
+
+	public String getInstructorId()
+	{
 		return instructorId;
 	}
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-	public Date getStartTime() {
+
+	public Date getStartTime()
+	{
 		return startTime;
 	}
-	public int getBookedPersonsCount() {
+
+	public int getBookedPersonsCount()
+	{
 		return bookedPersonsCount;
 	}
-	public int getMaxPersonsCount() {
+
+	public int getMaxPersonsCount()
+	{
 		return maxPersonsCount;
 	}
-	public int getRegionId() {
+
+	public String getRegionId()
+	{
 		return regionId;
 	}
-	public int getWaitingListCount() {
+
+	public int getWaitingListCount()
+	{
 		return waitingListCount;
 	}
-	public ArrayList<Integer> getClassCategories() {
+
+	public ArrayList<Integer> getClassCategories()
+	{
 		return classCategories;
 	}
-		
+	
+	@Override
+	public int compareTo(Object obj)
+	{
+		return this.id.compareTo( ((Class) obj).getId() );
+	}
 }

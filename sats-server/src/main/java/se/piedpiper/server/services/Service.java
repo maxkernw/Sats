@@ -13,10 +13,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import se.piedpiper.server.models.Activity;
-import se.piedpiper.server.models.Booking;
-import se.piedpiper.server.models.Class;
-import se.piedpiper.server.models.Type;
+import se.piedpiper.sats.models.Activity;
+import se.piedpiper.sats.models.Booking;
+import se.piedpiper.sats.models.Class;
+import se.piedpiper.sats.models.Type;
 
 @Path("se/training/activities")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,20 +26,20 @@ public final class Service {
 	public Response getActivity(@QueryParam("fromDate") final int fromDate,
 								@QueryParam("toDate") final int toDate){
 		
-		ArrayList<Integer> classCategories = new ArrayList<>();
-		classCategories.add(1);
-		classCategories.add(2);
-		classCategories.add(3);
+//		ArrayList<Integer> classCategories = new ArrayList<>();
+//		classCategories.add(1);
+//		classCategories.add(2);
+//		classCategories.add(3);
 		
-		Class theClass = new Class(123, 1234, 123, 122, 121, 123, "steffe", new Date(), 1337, 1500, 2, 8, classCategories);
-		Booking booking = new Booking("Ready", theClass, 10, 13, 8);
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-		String date = format1.format(new Date()); 
-		Activity activity = new Activity(booking, "bra bra", date, 10, 20, 2, "ohaa", "bra bra", "en sån där sub", "typ typ");
+//		Class theClass = new Class("123", "1234", "123", 122, "121", "123", "steffe", new Date(), 1337, 1500, "2", 8, classCategories);
+//		Booking booking = new Booking("Ready", theClass, "10", "13", 8);
+//		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = format1.format(new Date()); 
+//		Activity activity = new Activity(booking, "bra bra", date, 10, 20, 2, "ohaa", "bra bra", "en sån där sub", "typ typ");
 		
-		TreeSet<Activity> activities = new TreeSet<>();
-		activities.add(activity);
-		return Response.ok(activities).build();
+//		TreeSet<Activity> activities = new TreeSet<>();
+//		activities.add(activity);
+		return Response.ok(/*ActivityRepo.getActivities()*/ "hello").build();
 	}
 	
 	@GET

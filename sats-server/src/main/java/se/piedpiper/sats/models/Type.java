@@ -1,34 +1,38 @@
-package se.piedpiper.server.models;
+package se.piedpiper.sats.models;
 
 
-public final class Type implements Comparable<Object> {
-	
+public final class Type implements Comparable<Object>
+{
 	private final String name;
 	private final String type;
 	private final String subType;
-
-	public Type(String name, String type, String subType) {
+	 
+	public Type(String name, String type, String subType)
+	{
 		this.name = name;
 		this.type = type;
 		this.subType = subType;
 	}
-	
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
 
-	public String getType() {
+	public String getType()
+	{
 		return type;
 	}
 
-	public String getSubType() {
+	public String getSubtype()
+	{
 		return subType;
 	}
-
+	
 	@Override
 	public int compareTo(Object obj)
 	{
 		return this.name.compareTo( ((Type) obj).getName() );
 	}
-
+	
 }
