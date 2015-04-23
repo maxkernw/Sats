@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import se.piedpiper.sats.errors.DatabaseException;
-import se.piedpiper.sats.errors.NotFoundException;
 import se.piedpiper.sats.models.Type;
 
 public final class TypeRepo
@@ -63,13 +62,12 @@ public final class TypeRepo
 			String name;
 			String type;
 
-			if(rs.next())
+			while (rs.next())
 			{
 				name = rs.getString("name");
 				type = rs.getString("type");
+
 				thisType = new Type(name, type, subType);
-			}else{
-				throw new NotFoundException("Could not find this type");
 			}
 		}
 		catch (SQLException ex)

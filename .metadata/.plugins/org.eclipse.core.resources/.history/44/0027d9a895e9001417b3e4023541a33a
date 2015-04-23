@@ -60,15 +60,17 @@ public final class TypeRepo
 				ResultSet rs = stmt.executeQuery("SELECT * FROM types WHERE sub_type = '" + subType + "';");)
 		{
 
-			String name;
-			String type;
+			String name = "";
+			String type = "";
 
-			if(rs.next())
+			while (rs.next())
 			{
 				name = rs.getString("name");
 				type = rs.getString("type");
+
 				thisType = new Type(name, type, subType);
-			}else{
+			}
+			if(thisType.getName().isEmpty()){
 				throw new NotFoundException("Could not find this type");
 			}
 		}

@@ -63,12 +63,14 @@ public final class TypeRepo
 			String name;
 			String type;
 
-			if(rs.next())
+			while (rs.next())
 			{
 				name = rs.getString("name");
 				type = rs.getString("type");
+
 				thisType = new Type(name, type, subType);
-			}else{
+			}
+			if(thisType.getName() == null){
 				throw new NotFoundException("Could not find this type");
 			}
 		}

@@ -60,8 +60,8 @@ public final class TypeRepo
 				ResultSet rs = stmt.executeQuery("SELECT * FROM types WHERE sub_type = '" + subType + "';");)
 		{
 
-			String name;
-			String type;
+			String name = "";
+			String type = "";
 
 			if(rs.next())
 			{
