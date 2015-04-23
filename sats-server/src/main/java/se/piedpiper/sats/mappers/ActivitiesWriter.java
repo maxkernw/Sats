@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
@@ -114,7 +115,8 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 					jsonObjectForActivity.add("booking", JsonNull.INSTANCE);
 				}
 					jsonObjectForActivity.add("comment", new JsonPrimitive(activity.getComment()));
-					jsonObjectForActivity.add("date", new JsonPrimitive(activity.getDate().toString()));
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					jsonObjectForActivity.add("date", new JsonPrimitive(sdf.format(activity.getDate())));
 					jsonObjectForActivity.add("distanceInKm", new JsonPrimitive(activity.getDistanceInKm()));
 					jsonObjectForActivity.add("durationInMinutes", new JsonPrimitive(activity.getDurationInMinutes()));
 					jsonObjectForActivity.add("id", new JsonPrimitive(activity.getId()));

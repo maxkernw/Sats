@@ -1,6 +1,6 @@
 package se.piedpiper.sats.models;
 
-import java.sql.Date;
+import java.util.Date;
 
 public final class Activity implements Comparable<Object>
 {
@@ -16,13 +16,13 @@ public final class Activity implements Comparable<Object>
 	private final String subType;
 	private final String type;
 
-	public Activity(Booking booking, String comment, Date date, int distance,
+	public Activity(Booking booking, String comment, java.util.Date date2, int distance,
 			int durationInMinutes, String id, String source, String status,
 			String subType, String type)
 	{
 		this.booking = booking;
 		this.comment = comment;
-		this.date = date;
+		this.date = date2;
 		this.distanceInKm = distance;
 		this.durationInMinutes = durationInMinutes;
 		this.id = id;

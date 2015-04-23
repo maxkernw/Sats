@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
 
+import se.piedpiper.sats.errors.DatabaseException;
+
 public class ClassRepo
 {
 	static final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
@@ -64,7 +66,7 @@ public class ClassRepo
          }
  
       } catch(SQLException ex) {
-         ex.printStackTrace();
+    	  throw new DatabaseException(ex.getMessage());
       }
 	 return classes;
 	}
@@ -86,7 +88,7 @@ public class ClassRepo
                 classCategories.add(relation_id);
              }             
           } catch(SQLException ex) {
-             ex.printStackTrace();
+        	  throw new DatabaseException(ex.getMessage());
           }
 		return classCategories;
 	}
@@ -136,7 +138,7 @@ public class ClassRepo
        }
       } catch(SQLException ex)
       {
-         ex.printStackTrace();
+    	  throw new DatabaseException(ex.getMessage());
       }
       return aClass;
 	}
