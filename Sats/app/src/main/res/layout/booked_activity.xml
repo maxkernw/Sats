@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/booking_layout_bg"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin">
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
 
     <ImageButton
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/clock"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:background="@drawable/clock_background2"/>
@@ -20,17 +22,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/clock"
-        android:text="30 min"/>
+        android:text="30 min"
+        android:id="@+id/textView2" />
 
     <ImageButton
-
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:src="@drawable/big_orange_button_normal"
-        android:background="@drawable/mytraining_details_round_button"
-        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:background="@drawable/progressbar_nmi_primary"
+        android:contentDescription="orange_button"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
         android:layout_alignBottom="@+id/clock"
-        android:layout_alignTop="@+id/clock"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avboka"
+        android:id="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageButton"
+        android:layout_alignStart="@+id/imageButton"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:textColor="@color/white"
+        android:shadowColor="@color/black" />
 
 
 </RelativeLayout>

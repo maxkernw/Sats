@@ -24,8 +24,9 @@ public class MainActivity extends Activity
     {
 
         ActionBar ac = getActionBar();
-        ac.setDisplayUseLogoEnabled(true);
         ac.setLogo(R.drawable.sats_logo);
+        ac.setDisplayUseLogoEnabled(true);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.min_traning);
