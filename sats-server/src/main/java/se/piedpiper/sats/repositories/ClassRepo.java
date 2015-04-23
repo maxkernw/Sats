@@ -40,9 +40,6 @@ public class ClassRepo
 			int classCatIds;
 			String name;
  
-         System.out.println("The records selected are:");
-         int rowCount = 0;
-         
          while(rs.next()) {
             id = rs.getString("id");
             centerId = rs.getString("center_id");
@@ -60,19 +57,14 @@ public class ClassRepo
 
             classCategories = getCategoryIds(classCatIds);
             
-            System.out.println(id + ", " + centerId + ", " + centerFilterId + ", " + classTypeId + ", " + durationInMinutes + ", " + instructorId + ", " + startTime + ", " + bookedPersonsCount + ", " + maxPersonsCount + ", " + regionId + ", " + waitingListCount + ", " + classCategories + ", " + name);
-            ++rowCount;
-            
             se.piedpiper.sats.models.Class aClass = new se.piedpiper.sats.models.Class(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, regionId, waitingListCount, classCategories);
             
             classes.add(aClass);
 
          }
-         System.out.println("Total number of records = " + rowCount);
  
       } catch(SQLException ex) {
          ex.printStackTrace();
-         System.out.println("Could not connect to 'class' table: " + ex);
       }
 	 return classes;
 	}
@@ -95,7 +87,6 @@ public class ClassRepo
              }             
           } catch(SQLException ex) {
              ex.printStackTrace();
-             System.out.println("Could not connect to 'class_category_ids' table: " + ex);
           }
 		return classCategories;
 	}
@@ -146,7 +137,6 @@ public class ClassRepo
       } catch(SQLException ex)
       {
          ex.printStackTrace();
-         System.out.println("Could not connect to 'class' table: " + ex);
       }
       return aClass;
 	}

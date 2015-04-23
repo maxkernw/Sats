@@ -1,3 +1,4 @@
 1429620923838	Rename field 'distance'
 1429621097794	Rename type 'TypesWriter'
 1429720090772	Rename package 'se.piedpiper.server.services'
+1429773257909	Rename local variable 'types'

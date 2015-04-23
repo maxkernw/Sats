@@ -1,13 +1,10 @@
 package se.piedpiper.sats.repositories;
 
 import java.sql.Connection;
-//import java.sql.Date;
-import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 import javax.management.RuntimeErrorException;
@@ -40,15 +37,10 @@ public final class ActivityRepo
 			String subType;
 			String type;
 
-			System.out.println("The records selected are:");
-			int rowCount = 0;
-
 			while (rs.next())
 			{
 				id = rs.getString("id");
-				if(rs.getString("booking") != null){
-					bookingId = rs.getString("booking");
-				}
+				bookingId = rs.getString("booking");
 				comment = rs.getString("comment");
 				date = rs.getDate("date");
 				distanceInKm = rs.getInt("distance_in_km");
@@ -58,27 +50,16 @@ public final class ActivityRepo
 				subType = rs.getString("sub_type");
 				type = rs.getString("type");
 
-				if ("".compareTo(bookingId) != 0)
-				{
-					booking = BookingRepo.getBooking(bookingId);
-				}else{
-					booking = new Booking("", new se.piedpiper.sats.models.Class("", "", "", 0, "", "", "",new Date(), 0, 0, "", 0, new ArrayList<Integer>()), "", "", 0);
-				}
-
-				System.out.println(date + ", " + id + ", " + booking + ", " + comment + ", " + distanceInKm + ", " + durationInMinutes + ", " + source + ", " + status
-						+ ", " + subType + ", " + type);
-				++rowCount;
+				booking = BookingRepo.getBooking(bookingId);
 
 				Activity activity = new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
 				activities.add(activity);
 			}
-			System.out.println("Total number of records = " + rowCount);
 
 		}
 		catch (SQLException ex)
 		{
 			ex.printStackTrace();
-			System.out.println("Could not connect to 'training_activities' table: " + ex);
 		}
 		 return activities;
 	}
@@ -126,13 +107,11 @@ public final class ActivityRepo
 
 				activity = new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
 				
-				System.out.println(booking + ", " + comment + ", " + date + ", " + distanceInKm + ", " + durationInMinutes + ", " + id + ", " + source + ", " + status + ", " + subType + ", " + type);
 			}
 		}
 		catch (SQLException ex)
 		{
 			ex.printStackTrace();
-			System.out.println("Could not connect to 'training_activities' table: " + ex);
 		}
 		 return activity;
 	}

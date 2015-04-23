@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
@@ -36,7 +37,7 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 
 	public ActivitiesWriter()
 	{
-		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).create();
+		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).serializeNulls().create();
 	}
 
 	// MessageBodyWriter
@@ -68,68 +69,66 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 	{
 
 		@Override
-		public JsonElement serialize(TreeSet<Activity> types, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
+		public JsonElement serialize(TreeSet<Activity> activities, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context)
 		{
 			// The Object which will be returned
 			final JsonObject jsonToReturn = new JsonObject();
 			// An array to hold all Types
-			final JsonArray jsonArrayForTypes = new JsonArray();
+			final JsonArray jsonArrayForActivity = new JsonArray();
 
-			for(Activity type : types)
+			for(Activity activity : activities)
 			{
 				// An object to hold all information~ about the Types one by
 				// one
-				final JsonObject jsonObjectForType = new JsonObject();
+				final JsonObject jsonObjectForActivity = new JsonObject();
 				
-				final JsonObject theClass = new JsonObject();
-				try{
-				theClass.add("centerId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("centerFilterId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("classTypeId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("durationInMinutes", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("id", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("instructorId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("name", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("startTime", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("bookedPersonsCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("maxPersonsCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("regionId", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				theClass.add("waitingListCount", new JsonPrimitive(type.getBooking().getAClass().getCenterId()));
-				JsonArray classCategories = new JsonArray();
-				for(Integer integer: type.getBooking().getAClass().getClassCategories()){
-					classCategories.add(new JsonPrimitive(integer));
+				if(activity.getBooking() != null){
+					final JsonObject theClass = new JsonObject();
+					theClass.add("centerId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("centerFilterId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("classTypeId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("durationInMinutes", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("id", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("instructorId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("name", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("startTime", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("bookedPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("maxPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("regionId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("waitingListCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					JsonArray classCategories = new JsonArray();
+					for(Integer integer: activity.getBooking().getAClass().getClassCategories()){
+						classCategories.add(new JsonPrimitive(integer));
+					}
+					theClass.add("waitingListCount", classCategories);
+					
+					
+					final JsonObject theBooking = new JsonObject();
+					theBooking.add("status", new JsonPrimitive(activity.getBooking().getStatus()));
+					theBooking.add("class", theClass);
+					theBooking.add("center", new JsonPrimitive(activity.getBooking().getCenter()));
+					theBooking.add("id", new JsonPrimitive(activity.getBooking().getId()));
+					theBooking.add("positionInQueue", new JsonPrimitive(activity.getBooking().getPositionInQueue()));
+					jsonObjectForActivity.add("booking", theBooking);		
+				}else{
+					jsonObjectForActivity.add("booking", JsonNull.INSTANCE);
 				}
-				theClass.add("waitingListCount", classCategories);
-				
-				
-				final JsonObject theBooking = new JsonObject();
-				theBooking.add("status", new JsonPrimitive(type.getBooking().getStatus()));
-				theBooking.add("class", theClass);
-				theBooking.add("center", new JsonPrimitive(type.getBooking().getCenter()));
-				theBooking.add("id", new JsonPrimitive(type.getBooking().getId()));
-				theBooking.add("positionInQueue", new JsonPrimitive(type.getBooking().getPositionInQueue()));
-				
-				jsonObjectForType.add("booking", theBooking);		
-				jsonObjectForType.add("comment", new JsonPrimitive(type.getComment()));
-				jsonObjectForType.add("date", new JsonPrimitive(type.getDate().toString()));
-				jsonObjectForType.add("distanceInKm", new JsonPrimitive(type.getDistanceInKm()));
-				jsonObjectForType.add("durationInMinutes", new JsonPrimitive(type.getDurationInMinutes()));
-				jsonObjectForType.add("id", new JsonPrimitive(type.getId()));
-				jsonObjectForType.add("source", new JsonPrimitive(type.getSource()));
-				jsonObjectForType.add("status", new JsonPrimitive(type.getStatus()));
-				jsonObjectForType.add("subType", new JsonPrimitive(type.getSubType()));
-				jsonObjectForType.add("type", new JsonPrimitive(type.getType()));
-				
-				// Adding the object to the array
-				jsonArrayForTypes.add(jsonObjectForType);
-				
-				}catch(NullPointerException e){
-					System.out.println(type.toString());
-				}
+					jsonObjectForActivity.add("comment", new JsonPrimitive(activity.getComment()));
+					jsonObjectForActivity.add("date", new JsonPrimitive(activity.getDate().toString()));
+					jsonObjectForActivity.add("distanceInKm", new JsonPrimitive(activity.getDistanceInKm()));
+					jsonObjectForActivity.add("durationInMinutes", new JsonPrimitive(activity.getDurationInMinutes()));
+					jsonObjectForActivity.add("id", new JsonPrimitive(activity.getId()));
+					jsonObjectForActivity.add("source", new JsonPrimitive(activity.getSource()));
+					jsonObjectForActivity.add("status", new JsonPrimitive(activity.getStatus()));
+					jsonObjectForActivity.add("subType", new JsonPrimitive(activity.getSubType()));
+					jsonObjectForActivity.add("type", new JsonPrimitive(activity.getType()));
+					
+					// Adding the object to the array
+					jsonArrayForActivity.add(jsonObjectForActivity);
 			}
 			
 			// Adding the array to the jsonReturn-object
-			jsonToReturn.add("Activities", jsonArrayForTypes);
+			jsonToReturn.add("Activities", jsonArrayForActivity);
 
 			return jsonToReturn;
 		}

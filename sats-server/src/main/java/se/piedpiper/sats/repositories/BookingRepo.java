@@ -33,9 +33,6 @@ public class BookingRepo
     	  String center;
     	  int positionInQueue;
  
-         System.out.println("The records selected are:");
-         int rowCount = 0;
-         
          while(rs.next()) {
             id = rs.getString("id");
             status = rs.getString("status");
@@ -48,19 +45,14 @@ public class BookingRepo
             	aClass = ClassRepo.getClass(classId);
             }
             
-            System.out.println(id + ", " + status + ", " + aClass + ", " + center + ", " + positionInQueue);
-            ++rowCount;
-            
             Booking booking = new Booking(status, aClass, center, id, positionInQueue);
             
             bookings.add(booking);
 
          }
-         System.out.println("Total number of records = " + rowCount);
  
       } catch(SQLException ex) {
          ex.printStackTrace();
-         System.out.println("Could not connect to 'booking' table: " + ex);
       }
 	 return bookings;
 	}
@@ -93,15 +85,12 @@ public class BookingRepo
              	aClass = ClassRepo.getClass(classId);
              }
              
-             System.out.println(bookingId + ", " + status + ", " + aClass + ", " + center + ", " + positionInQueue);
-             
              booking = new Booking(status, aClass, center, bookingId, positionInQueue);
              
          } 
       } catch(SQLException ex)
       {
          ex.printStackTrace();
-         System.out.println("Could not connect to 'booking' table: " + ex);
       }
 	return booking;
 	}
