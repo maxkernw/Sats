@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -7,8 +8,32 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     android:layout_marginBottom="@dimen/activity_horizontal_margin">
+=======
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/booking_layout_bg"
+              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_marginRight="@dimen/activity_horizontal_margin"
+              android:orientation="horizontal"
+              android:weightSum="10"
+    >
+>>>>>>> master
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7.4"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            >
+        <ImageButton
 
+<<<<<<< HEAD
     <ImageButton
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/clock"
@@ -16,11 +41,35 @@
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:background="@drawable/clock_background2"/>
+=======
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
 
-    <TextView
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/clock_background2"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_below="@id/clock"
+            android:text="30 min"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+>>>>>>> master
+
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_below="@id/clock"
         android:text="30 min"
         android:id="@+id/textView2" />
@@ -51,5 +100,17 @@
         android:textColor="@color/white"
         android:shadowColor="@color/black" />
 
+=======
+        android:background="@drawable/progressbar_nmi_primary"
+        android:text="Avboka"
 
-</RelativeLayout>
+        android:textColor="@color/white"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/clock"
+        android:layout_alignTop="@+id/clock"
+        />
+    </LinearLayout>
+>>>>>>> master
+
+</LinearLayout>
