@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeSet;
 
+import se.piedpiper.sats.errors.DatabaseException;
 import se.piedpiper.sats.models.Booking;
 
 public class BookingRepo
@@ -52,7 +53,7 @@ public class BookingRepo
          }
  
       } catch(SQLException ex) {
-         ex.printStackTrace();
+    	  throw new DatabaseException(ex.getMessage());
       }
 	 return bookings;
 	}
@@ -90,7 +91,7 @@ public class BookingRepo
          } 
       } catch(SQLException ex)
       {
-         ex.printStackTrace();
+    	  throw new DatabaseException(ex.getMessage());
       }
 	return booking;
 	}

@@ -14,3 +14,13 @@
 0:0:0:0:0:0:0:1 - - [23/Apr/2015:09:35:31 +0200] "GET /sats-server/se/training/activities/?fromDate=1234&toDate=1234 HTTP/1.1" 200 24029
 127.0.0.1 - - [23/Apr/2015:09:39:25 +0200] "GET / HTTP/1.1" 404 994
 0:0:0:0:0:0:0:1 - - [23/Apr/2015:09:39:47 +0200] "GET /sats-server/se/training/activities/?fromDate=1234&toDate=1234 HTTP/1.1" 200 24029
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:11:39 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 200 12
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:12:25 +0200] "GET /sats-server/se/training/activities/grupptr%C3%A4ning HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:13:34 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:13:36 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:14:49 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:15:01 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 200 1583
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:15:39 +0200] "GET /sats-server/se/training/activities/ohaaa HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:37:26 +0200] "GET /sats-server/se/training/activities/ohaaa HTTP/1.1" 504 73
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:37:50 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 200 1583
+0:0:0:0:0:0:0:1 - - [23/Apr/2015:10:37:55 +0200] "GET /sats-server/se/training/activities/ohaaa HTTP/1.1" 200 -

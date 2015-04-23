@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeSet;
 
-import javax.management.RuntimeErrorException;
-
+import se.piedpiper.sats.errors.DatabaseException;
 import se.piedpiper.sats.models.Activity;
 import se.piedpiper.sats.models.Booking;
 
@@ -59,7 +58,7 @@ public final class ActivityRepo
 		}
 		catch (SQLException ex)
 		{
-			ex.printStackTrace();
+			throw new DatabaseException(ex.getMessage());
 		}
 		 return activities;
 	}
@@ -111,7 +110,7 @@ public final class ActivityRepo
 		}
 		catch (SQLException ex)
 		{
-			ex.printStackTrace();
+			throw new DatabaseException(ex.getMessage());
 		}
 		 return activity;
 	}
@@ -129,7 +128,7 @@ public final class ActivityRepo
 		}
 		catch(SQLException | ClassNotFoundException e)
 		{
-			throw new RuntimeErrorException(null, e.toString());
+			throw new DatabaseException(e.getMessage());
 		}
 	}
 	
