@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class TestAdapter extends BaseAdapter
+public final class TestAdapter extends BaseAdapter
 {
     Context context;
     String[] data;
