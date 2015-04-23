@@ -20,7 +20,11 @@ android {
 }
 
 dependencies {
+    repositories {
+        mavenCentral()
+    }
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:22.0.+"
+    compile 'com.sothree.slidinguppanel:library:3.0.0'
 
 }
