@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener
 {
+    static final String LOG_TAG = "Test:";
     ListView listView;
     GestureDetectorCompat gesture;
     Context context;
@@ -32,8 +34,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        getActionBar().setLogo(R.drawable.sats_logo);
-        getActionBar().setDisplayShowCustomEnabled(true);
 
 
         listView = (ListView) findViewById(R.id.listan);
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             {
                 v.getLayoutParams().height = interpolatedTime == 1
                         ? RelativeLayout.LayoutParams.WRAP_CONTENT
-                        : (int)(1000 * interpolatedTime);
+                        : (int)(5000 * interpolatedTime);
                 r.setLayoutParams(p);
             }
 
@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 v.getLayoutParams().height = interpolatedTime == 2
                         ? RelativeLayout.LayoutParams.WRAP_CONTENT
-                        : (int)(2000 * interpolatedTime);
+                        : (int)(5000 * interpolatedTime);
                 r.setLayoutParams(p);
 
             }
@@ -131,9 +131,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @Override
     public boolean onDown(MotionEvent motionEvent)
     {
+        Log.e(LOG_TAG, "Position: " + motionEvent);
 
-
-        return false;
+        return true;
     }
 
     @Override
@@ -166,6 +166,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         RelativeLayout r = (RelativeLayout) findViewById(R.id.minträning);
 
         float dY = e1.getY() - e2.getY();
+
         if (dY < 0)
         {
 
@@ -175,7 +176,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         } else
         {
             r.getLayoutParams().height = (int)e1.getY();
-           // expand(r);
+
+           expand(r);
         }
         return true;
     }
