@@ -2,61 +2,203 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@drawable/booking_layout_bg"
               android:layout_marginLeft="@dimen/activity_horizontal_margin"
               android:layout_marginRight="@dimen/activity_horizontal_margin"
-              android:orientation="horizontal"
-              android:weightSum="10"
-    >
+              android:orientation="vertical"
+                android:weightSum="10"
+              android:background="@drawable/booking_layout_bg">
+
+    <!-- Whole box-->
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="7.4"
-        android:orientation="vertical"
-        >
+        android:id="@+id/whole_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10"
-            >
-        <ImageButton
-
-            android:id="@+id/clock"
-            android:layout_width="wrap_content"
+            android:id="@+id/left_box"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:weightSum="10">
 
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@drawable/clock_background2"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:weightSum="10"
+                android:layout_weight="5">
 
-        <TextView
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:layout_below="@id/clock"
-            android:text="30 min"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="10">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5">
+
+                        <ImageButton
+                            android:id="@+id/hours_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/clock_background"
+                            android:layout_marginRight="1dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="10"
+                            android:layout_centerInParent="true"
+                            android:id="@+id/hour"
+                            android:textColor="@color/white"
+                            android:textSize="30dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5">
+
+                        <ImageButton
+                            android:id="@+id/minutes_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/clock_background"
+                            android:layout_marginLeft="1dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="25"
+                            android:layout_centerInParent="true"
+                            android:id="@+id/minutes"
+                            android:textColor="@color/white"
+                            android:textSize="30dp"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp">
+
+                    <ImageView
+                        android:id="@+id/booking_time_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:src="@drawable/booking_ic_time"
+                        />
+
+                    <TextView
+                        android:id="@+id/class_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hours_background"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_weight="0.1"
+                        android:text="30 min"
+                        android:textAlignment="inherit"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/middle_box"
+            android:layout_weight="0"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="SATS CORE"
+                android:id="@+id/Class"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:textIsSelectable="false"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Hornstull"
+                android:id="@+id/Center"
+                android:typeface="normal"
+                android:textSize="15dp"
+                android:textColor="@color/secondary_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Sven Svensson"
+                android:id="@+id/Instructor"
+                android:textSize="15dp"
+                android:textColor="@color/secondary_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/right_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/hours_background"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/hours_background"
+                android:background="@drawable/progressbar_nmi_primary"
+                android:text="@string/button_cancel"
+                android:textColor="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+        </LinearLayout>
+
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="3">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="wooow :D"
+            android:id="@+id/textView2"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/progressbar_nmi_primary"
-        android:text="Avboka"
-
-        android:textColor="@color/white"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/clock"
-        android:layout_alignTop="@+id/clock"
-        />
     </LinearLayout>
-
+    <!--Whole box-->
 </LinearLayout>

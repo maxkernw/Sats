@@ -198,3 +198,8 @@
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:12:31 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 200 167
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:12:33 +0200] "GET /sats-server/se/training/activities/ohaa HTTP/1.1" 200 50
 0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:12:36 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 488
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:16:55 +0200] "GET /sats-server/se/training/activities/ohaa HTTP/1.1" 200 50
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:17:15 +0200] "GET /sats-server/se/training/activities/ohaa HTTP/1.1" 200 50
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:17:20 +0200] "GET /sats-server/se/training/activities/fotboll HTTP/1.1" 200 53
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:17:30 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 200 167
+0:0:0:0:0:0:0:1 - - [21/Apr/2015:16:17:46 +0200] "GET /sats-server/se/training/activities?fromDate=1234&toDate=1234 HTTP/1.1" 200 488

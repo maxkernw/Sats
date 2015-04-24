@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class TestAdapter extends BaseAdapter
+public final class TestAdapter extends BaseAdapter
 {
     Context context;
     String[] data;
@@ -42,7 +42,7 @@ public class TestAdapter extends BaseAdapter
     {
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.previous_exercises, null);
+            vi = inflater.inflate(R.layout.booked_activity, null);
 
         return vi;
     }
