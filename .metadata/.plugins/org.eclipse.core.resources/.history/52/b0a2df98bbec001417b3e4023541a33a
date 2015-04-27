@@ -38,7 +38,6 @@ public final class Service {
 		    Date dateFrom;
 		    Date dateTo;
 			try {
-				
 				dateFrom = sdf.parse(fromDate);
 				dateTo = sdf.parse(toDate);
 				TreeSet <Activity> activities = ActivityRepo.getActivities(dateFrom,dateTo);
@@ -50,13 +49,15 @@ public final class Service {
 
 		        // cached resource did change -> serve updated content
 		        if(builder == null){
-		                builder = Response.ok(activities);
+		                builder = Response.ok(myBook);
 		                builder.tag(etag);
 		        }
 
 		        builder.cacheControl(cc);
 		        return builder.build();
 		        
+		        
+				return Response.ok(ActivityRepo.getActivities(dateFrom,dateTo)).build();
 			} catch (ParseException e) {
 				return Response.status(Status.BAD_REQUEST).build();
 			}

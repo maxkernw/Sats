@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:10:44:16 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 404 992
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:10:44:28 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 404 992
+127.0.0.1 - - [27/Apr/2015:10:44:49 +0200] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:10:45:09 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 200 15913
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:10:59:03 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 200 15913
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:11:00:08 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 200 15913
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:11:08:16 +0200] "GET /sats-server/se/training/activities/?fromDate=20110220&toDate=20150526 HTTP/1.1" 200 25233
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:11:10:03 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [27/Apr/2015:11:10:24 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20150226 HTTP/1.1" 304 -
