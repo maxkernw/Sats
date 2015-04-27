@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/image_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cykling_icon"
+        android:text="test"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
 
 
     <TextView
@@ -12,8 +22,8 @@
         android:layout_toRightOf="@+id/image_list"
         android:textStyle="bold"
         android:gravity="center_horizontal"
-        android:textSize="15dp"
-    />
+        android:textSize="15dp"/>
+
 
     <TextView
         android:id="@+id/date"
@@ -21,9 +31,9 @@
         android:layout_height="wrap_content"
         android:text="Torsdag 25/4"
         android:textSize="10dp"
-        android:layout_below="@+id/type"
+        android:layout_below="@+id/activity_type_name"
         android:layout_toRightOf="@+id/image_list"
-    />
+        />
 
     <ImageView
         android:id="@+id/ic_comment"
@@ -35,6 +45,8 @@
         android:layout_marginLeft="35dp"
         android:layout_below="@+id/date"
     />
+
+        />
 
     <TextView
         android:id="@+id/kommentar"
@@ -52,11 +64,13 @@
         android:layout_height="wrap_content"
         android:text="Avklarat?"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/type"
+        android:layout_below="@id/activity_type_name"
         android:layout_marginTop="2dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:textSize="10dp"
-    />
+        />
+
+
 
     <CheckBox
         android:id="@+id/checkbox"
