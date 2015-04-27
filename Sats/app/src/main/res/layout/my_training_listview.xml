@@ -2,24 +2,27 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:gravity="top"
                 tools:context=".MainActivity">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:local="http://schemas.android.com/apk/res-auto"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-        >
+                    android:layout_height="fill_parent">
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/main_content"
             android:layout_below="@id/toolbar">
-        </LinearLayout>
-    </RelativeLayout>
+
+
+
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
@@ -86,8 +89,11 @@
                 android:layout_marginTop="20dp">
             </ListView>
 
+
         </RelativeLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

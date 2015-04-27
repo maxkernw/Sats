@@ -1,0 +1,90 @@
+package se.piedpiper.sats.models;
+
+import java.util.Date;
+
+public final class Activity implements Comparable<Object>
+{
+
+	private final Booking booking;
+	private final String comment;
+	private final Date date;
+	private final int distanceInKm;
+	private final int durationInMinutes;
+	private final String id;
+	private final String source;
+	private final String status;
+	private final String subType;
+	private final String type;
+
+	public Activity(Booking booking, String comment, java.util.Date date2, int distance,
+			int durationInMinutes, String id, String source, String status,
+			String subType, String type)
+	{
+		this.booking = booking;
+		this.comment = comment;
+		this.date = date2;
+		this.distanceInKm = distance;
+		this.durationInMinutes = durationInMinutes;
+		this.id = id;
+		this.source = source;
+		this.status = status;
+		this.subType = subType;
+		this.type = type;
+	}
+
+	public Booking getBooking()
+	{
+		return booking;
+	}
+
+	public String getComment()
+	{
+		return comment;
+	}
+
+	public Date getDate()
+	{
+		return date;
+	}
+
+	public int getDistanceInKm()
+	{
+		return distanceInKm;
+	}
+
+	public int getDurationInMinutes()
+	{
+		return durationInMinutes;
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public String getSource()
+	{
+		return source;
+	}
+
+	public String getStatus()
+	{
+		return status;
+	}
+
+	public String getSubType()
+	{
+		return subType;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+	
+	@Override
+	public int compareTo(Object obj)
+	{
+		return this.id.compareTo( ((Activity) obj).getId() );
+	}
+}

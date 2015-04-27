@@ -13,23 +13,25 @@
         android:textSize="15dp"
         />
 
+
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/activity_type_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type"
+        android:text="Styrketräning"
         android:layout_toRightOf="@+id/image_list"
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:textSize="15dp"/>
 
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="Torsdag 25/4"
         android:textSize="10dp"
-        android:layout_below="@+id/type"
+        android:layout_below="@+id/activity_type_name"
         android:layout_toRightOf="@+id/image_list"
         />
 
@@ -42,18 +44,19 @@
         android:scaleY="0.45"
         android:layout_marginLeft="35dp"
         android:layout_below="@+id/date"
+    />
 
         />
 
     <TextView
+        android:id="@+id/kommentar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lägg till kommentar"
         android:textSize="7dp"
         android:textColor="@color/light_gray"
-        android:id="@+id/textView"
         android:layout_alignBottom="@+id/image_list"
-        android:layout_toEndOf="@+id/ic_comment"/>
+    />
 
     <TextView
         android:id="@+id/avklarat"
@@ -61,22 +64,25 @@
         android:layout_height="wrap_content"
         android:text="Avklarat?"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/type"
+        android:layout_below="@id/activity_type_name"
         android:layout_marginTop="2dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:textSize="10dp"
         />
 
+
+
     <CheckBox
+        android:id="@+id/checkbox"
         android:onClick="ActivityCompleted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/checkbox_selector"
         android:checked="false"
-        android:id="@+id/checkbox"
         android:scaleY="0.40"
         android:scaleX="0.40"
         android:gravity="top"
-        android:layout_alignBottom="@+id/image_list"
-        android:layout_toStartOf="@+id/avklarat"/>
+        android:layout_alignParentRight="true"
+    />
+
 </RelativeLayout>
