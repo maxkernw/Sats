@@ -1,0 +1,16 @@
+package se.piedpiper.sats.errors;
+
+public class NotFoundException extends RuntimeException
+{
+	private static final long serialVersionUID = 4285178260698854882L;
+	
+	public NotFoundException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+
+	public NotFoundException(String message)
+	{
+		super(message);
+	}
+}

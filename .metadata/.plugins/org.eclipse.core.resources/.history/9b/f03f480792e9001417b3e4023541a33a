@@ -1,0 +1,5 @@
+package se.piedpiper.sats.errors;
+
+public class DatabaseException extends RuntimeException {
+	
+}

@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
+import se.piedpiper.sats.errors.DatabaseException;
+import se.piedpiper.sats.errors.NotFoundException;
 import se.piedpiper.sats.models.Type;
 
 public final class TypeRepo
@@ -16,13 +18,12 @@ public final class TypeRepo
 	static final String USER = "AdminSATS";
 	static final String PASSWORD = "WeAreTheCool";
 
-	public static void main(String[] args) // Ska heta "getTypes()" och
-											// returnera "TreeSet<Type>"
+	public static ArrayList<Type> getTypes()
 	{
-		TreeSet<Type> types = new TreeSet<>();
+		ArrayList<Type> types = new ArrayList<>();
 
 		try (
-				Connection con = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+				Connection con = getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM types;");)
 		{
@@ -31,27 +32,22 @@ public final class TypeRepo
 			String subType;
 			String type;
 
-			System.out.println("The records selected are:");
-			int rowCount = 0;
 			while (rs.next())
 			{
 				name = rs.getString("name");
 				subType = rs.getString("sub_type");
 				type = rs.getString("type");
-				System.out.println(name + ", " + subType + ", " + type);
-				++rowCount;
 
 				Type thisType = new Type(name, type, subType);
 				types.add(thisType);
 			}
-			System.out.println("Total number of records = " + rowCount);
 
 		}
 		catch (SQLException ex)
 		{
-			ex.printStackTrace();
+			throw new DatabaseException(ex.getMessage());
 		}
-		// return types;
+		return types;
 	}
 
 	public static Type getType(String subType)
@@ -59,7 +55,7 @@ public final class TypeRepo
 		Type thisType = null;
 
 		try (
-				Connection con = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+				Connection con = getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM types WHERE sub_type = '" + subType + "';");)
 		{
@@ -67,18 +63,36 @@ public final class TypeRepo
 			String name;
 			String type;
 
-			while (rs.next())
+			if(rs.next())
 			{
 				name = rs.getString("name");
 				type = rs.getString("type");
-
 				thisType = new Type(name, type, subType);
+			}else{
+				throw new NotFoundException("Could not find this type");
 			}
 		}
 		catch (SQLException ex)
 		{
-			ex.printStackTrace();
+			throw new DatabaseException(ex.getMessage());
 		}
 		return thisType;
+	}
+	
+	private static Connection getConnection() throws SQLException
+	{
+		final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
+		final String USER = "AdminSATS";
+		final String PASSWORD = "WeAreTheCool";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection(DB_URL, USER, PASSWORD);
+		}
+		catch(SQLException | ClassNotFoundException e)
+		{
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

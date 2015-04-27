@@ -6,7 +6,11 @@ android {
 
     defaultConfig {
         applicationId "sats.android.piedpiper.se.sats"
+<<<<<<< HEAD
         minSdkVersion 14
+=======
+        minSdkVersion 18
+>>>>>>> 55f550dc7d8e9df485211293e3b7a02b847c68f3
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

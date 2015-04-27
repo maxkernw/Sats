@@ -1,0 +1,9 @@
+package se.piedpiper.sats.errors;
+
+public class DatabaseException extends RuntimeException {
+
+	private static final long serialVersionUID = -822216909330066877L;
+	
+	public Exception 
+	
+}

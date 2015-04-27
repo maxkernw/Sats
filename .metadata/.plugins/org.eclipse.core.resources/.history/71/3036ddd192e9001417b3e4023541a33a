@@ -1,0 +1,11 @@
+package se.piedpiper.sats.errors;
+
+@Provider
+public final class DatabaseException implements ExceptionMapper<RepositoryException>
+{
+	@Override
+	public Response toResponse(final RepositoryException exception)
+	{
+		return Response.status(Status.NOT_FOUND).entity(exception.getMessage()).build();
+	}
+}

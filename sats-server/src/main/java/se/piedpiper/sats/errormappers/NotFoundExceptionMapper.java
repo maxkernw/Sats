@@ -1,0 +1,18 @@
+package se.piedpiper.sats.errormappers;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
+
+import se.piedpiper.sats.errors.NotFoundException;
+
+@Provider
+public final class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException>
+{
+	@Override
+	public Response toResponse(final NotFoundException exception)
+	{
+		return Response.status(Status.NOT_FOUND).build();
+	}
+}
