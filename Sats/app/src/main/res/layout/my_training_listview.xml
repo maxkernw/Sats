@@ -5,6 +5,25 @@
                 android:gravity="top"
                 tools:context=".MainActivity">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:local="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+        >
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/main_content"
+            android:layout_below="@id/toolbar"
+            >
+
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -70,6 +89,11 @@
                 android:layout_marginTop="20dp">
             </ListView>
 
+
         </RelativeLayout>
+
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
 </RelativeLayout>
