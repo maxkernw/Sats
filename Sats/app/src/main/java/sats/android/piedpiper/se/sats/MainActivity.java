@@ -1,19 +1,15 @@
 package sats.android.piedpiper.se.sats;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public final class MainActivity extends Activity
+public final class MainActivity extends ActionBarActivity
 
 {
     private static final String TAG = "SATSMainActivity";
@@ -24,6 +20,10 @@ public final class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar will now take on default actionbar characteristics
+        setSupportActionBar(toolbar);
+
 
 
 
@@ -44,6 +44,7 @@ public final class MainActivity extends Activity
             avklarat.setText("Avklarat?");
         }
     }
+
 
 
 }
