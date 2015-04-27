@@ -1,5 +1,4 @@
-package se.sael.listexample.listexample;
-
+package sats.android.piedpiper.se.sats;
 public class Checkbox
 {
     String checkboxText = null; //code

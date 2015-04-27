@@ -1,7 +1,6 @@
-package se.sael.listexample.listexample;
-
+package sats.android.piedpiper.se.sats;
 import android.app.Activity;
-import android.util.SparseArray;
+/*import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -250,4 +249,4 @@ public class WorkoutListAdapter extends BaseAdapter implements StickyListHeaders
         TextView title;
         TextView date;
     }
-}
+}*/

@@ -1,6 +1,5 @@
-package se.sael.listexample.listexample;
-
-import android.content.Context;
+package sats.android.piedpiper.se.sats;
+/*import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 /**
  * Created by Sandra on 2015-04-27.
  */
+/*
 public class AnotherAdapter extends BaseAdapter{
 
     private Context mContext;
@@ -65,4 +65,4 @@ public class AnotherAdapter extends BaseAdapter{
         return position;
     }
 
-}
+}*/

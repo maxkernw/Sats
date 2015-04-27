@@ -1,5 +1,4 @@
-package se.sael.listexample.listexample;
-
+package sats.android.piedpiper.se.sats;
 
 import android.content.Context;
 import android.util.Log;
