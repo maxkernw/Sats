@@ -88,11 +88,15 @@
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
 <<<<<<< HEAD
+    <orderEntry type="library" exported="" name="android-async-http-1.4.5" level="project" />
+=======
+<<<<<<< HEAD
 =======
     <orderEntry type="library" exported="" name="androidasync-2.1.3" level="project" />
     <orderEntry type="library" exported="" name="ion-2.1.3" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
 >>>>>>> 276e49c36eecc777a889162fbd5886154b7f3993
+>>>>>>> c3dc5960fa6d60de60a94f11f0be47559f59d393
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="library-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
