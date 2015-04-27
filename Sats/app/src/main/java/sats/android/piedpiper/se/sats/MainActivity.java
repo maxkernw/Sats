@@ -23,8 +23,7 @@ public final class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
         listView = (ListView) findViewById(R.id.listan);
@@ -38,13 +37,14 @@ public final class MainActivity extends ActionBarActivity
         TextView avklarat = (TextView) findViewById(R.id.avklarat);
         CheckBox box = (CheckBox) v;
 
-        if (box.isChecked()) {
+        if (box.isChecked())
+        {
             avklarat.setText("Avklarat!");
-        } else {
+        } else
+        {
             avklarat.setText("Avklarat?");
         }
     }
-
 
 
 }
