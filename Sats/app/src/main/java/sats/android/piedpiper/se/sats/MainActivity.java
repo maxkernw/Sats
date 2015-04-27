@@ -16,44 +16,33 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
+import com.koushikdutta.ion.Ion;
 
 public class MainActivity extends Activity
 {
     private static final String TAG = "SATSMainActivity";
 
     ListView listView;
-    GestureDetectorCompat gesture;
-    Context context;
     static final String LOG = "Location";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-<<<<<<< HEAD
-
-        ActionBar ac = getActionBar();
-        ac.setLogo(R.drawable.sats_logo);
-        ac.setDisplayUseLogoEnabled(true);
-
-
-=======
->>>>>>> master
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_training_listview);
+        setContentView(R.layout.booked_activity);
         getActionBar().setLogo(R.drawable.sats_logo);
         getActionBar().setDisplayShowCustomEnabled(true);
 
-        listView = (ListView) findViewById(R.id.listan);
+        listView = (ListView) findViewById(R.id.list_item1);
 
-        listView.setAdapter(new TestAdapter(this, new String[]
+        listView.setAdapter(new AnotherAdapter(this, new String[]
                 {"data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"}));
 
     }
 
-    public void ActivityCompleted(View v)
+    /*public void ActivityCompleted(View v)
     {
-        TextView avklarat = (TextView) findViewById(R.id.avklarat);
+       /* TextView avklarat = (TextView) findViewById(R.id.avklarat);
         CheckBox box = (CheckBox) v;
         if (box.isChecked())
         {
@@ -62,5 +51,5 @@ public class MainActivity extends Activity
         {
             avklarat.setText("Avklarat?");
         }
-    }
+    }*/
 }
