@@ -42,7 +42,7 @@ public final class TestAdapter extends BaseAdapter
     {
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.previous_training_fragment, null);
+            vi = inflater.inflate(R.layout.booked_activity, null);
 
         return vi;
     }
