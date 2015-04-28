@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import sats.android.piedpiper.se.sats.models.Booking;
-import sats.android.piedpiper.se.sats.models.Class;
+import sats.android.piedpiper.se.sats.models.TrainingActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,10 +42,10 @@ public final class MainActivity extends ActionBarActivity
         Date now = new Date();
         ArrayList<Booking> user_activities = new ArrayList<>();
         ArrayList<Integer> classCat = new ArrayList<>();
-        Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+        TrainingActivity aTrainingActivity = new TrainingActivity("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
         classCat.add(10);
 
-        user_activities.add(new Booking("CONFIRMED", aClass,"Ullholmen", "2", 22));
+        user_activities.add(new Booking("CONFIRMED", aTrainingActivity,"Ullholmen", "2", 22));
         listView.setAdapter(new BookedClassAdapter(this, user_activities));
     }
 
