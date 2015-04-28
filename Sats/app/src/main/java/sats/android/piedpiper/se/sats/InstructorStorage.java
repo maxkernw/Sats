@@ -15,20 +15,27 @@ import java.util.ArrayList;
 /**
  * Created by Osama on 2015-04-24.
  */
-public class InstructorStorage {
 
+public class InstructorStorage
+{
     private static final String ERROR = "Error" ;
     private static ArrayList<Instructor> instructorList = new ArrayList<>();
     private static JSONArray jsonInstructors;
 
-    public static ArrayList<Instructor> getInstructors() throws JSONException {
-        SatsRestClient.get("instructors", null, new JsonHttpResponseHandler() {
+    public static ArrayList<Instructor> getInstructors() throws JSONException
+    {
+
+        SatsRestClient.get("instructors", null, new JsonHttpResponseHandler()
+        {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
 
-                try {
+                try
+                {
                     jsonInstructors = response.getJSONArray("instructors");
+
                     for(int i = 0; i < jsonInstructors.length(); i++)
                     {
                         String id, name;
@@ -38,7 +45,6 @@ public class InstructorStorage {
 
                         instructorList.add(instructor);
                     }
-
                 } catch (JSONException e) {
                     Log.e(ERROR, "JSON Error in InstructorStorage: " + e.getStackTrace());
                 }

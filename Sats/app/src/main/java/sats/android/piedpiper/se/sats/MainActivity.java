@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 public final class MainActivity extends ActionBarActivity
 
 {
@@ -25,6 +27,11 @@ public final class MainActivity extends ActionBarActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
+        try {
+            CenterStorage.getCenters();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         listView = (ListView) findViewById(R.id.listan);
 
