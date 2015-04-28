@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CenterStorage
 {
     private static final String ERROR = "Error";
-    private static final String INFO = "Information";
+    private static final String INFO = "Mitt egna -=>";
     private static ArrayList<Center> centerList = new ArrayList<>();
     private static ArrayList<Center> allCenters = new ArrayList<>();
     private static ArrayList<Region> regionList = new ArrayList<>();

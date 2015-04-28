@@ -39,14 +39,14 @@ public final class MainActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-        Date now = new Date();
+/*        Date now = new Date();
         ArrayList<Booking> user_activities = new ArrayList<>();
         ArrayList<Integer> classCat = new ArrayList<>();
         Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
         classCat.add(10);
 
         user_activities.add(new Booking("CONFIRMED", aClass,"Ullholmen", "2", 22));
-        listView.setAdapter(new BookedClassAdapter(this, user_activities));
+        listView.setAdapter(new BookedClassAdapter(this, user_activities));*/
     }
 
     public void ActivityCompleted(View v)

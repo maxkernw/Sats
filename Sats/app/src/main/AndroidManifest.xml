@@ -15,7 +15,6 @@
         >
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light"
             android:label="Min Träning">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
