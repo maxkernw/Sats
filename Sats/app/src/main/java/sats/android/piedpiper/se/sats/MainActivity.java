@@ -1,7 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
-import android.app.Activity;
 import android.os.Bundle;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,6 +14,8 @@ import sats.android.piedpiper.se.sats.models.Class;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+import org.json.JSONException;
 
 public final class MainActivity extends ActionBarActivity
 
@@ -29,14 +31,15 @@ public final class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        listView = (ListView) findViewById(R.id.listan);
-
-       // listView.setAdapter(new TestAdapter(this, new String[]
-       //        {"data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"}));
+        try {
+            CenterStorage.getCenters();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Date now = new Date();
-
         ArrayList<Booking> user_activities = new ArrayList<>();
         ArrayList<Integer> classCat = new ArrayList<>();
         Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
@@ -51,9 +54,11 @@ public final class MainActivity extends ActionBarActivity
         TextView avklarat = (TextView) findViewById(R.id.avklarat);
         CheckBox box = (CheckBox) v;
 
-        if (box.isChecked()) {
+        if (box.isChecked())
+        {
             avklarat.setText("Avklarat!");
-        } else {
+        } else
+        {
             avklarat.setText("Avklarat?");
         }
     }
