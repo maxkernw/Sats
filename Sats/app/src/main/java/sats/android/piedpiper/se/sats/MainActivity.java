@@ -22,6 +22,11 @@ public final class MainActivity extends ActionBarActivity
 {
     private static final String TAG = "SATSMainActivity";
     private ListView listView;
+    CenterStorage center = new CenterStorage();
+    public static ArrayList<Booking> user_activities = new ArrayList<>();
+    public static ArrayList<Integer> classCat = new ArrayList<>();
+    Class aClass;
+    Date now = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,19 +36,12 @@ public final class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        try {
-            CenterStorage.getCenters();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Date now = new Date();
-        ArrayList<Booking> user_activities = new ArrayList<>();
-        ArrayList<Integer> classCat = new ArrayList<>();
-        TrainingActivity aTrainingActivity = new TrainingActivity("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        listView = (ListView) findViewById(R.id.listan);
         classCat.add(10);
+        aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+
 
         user_activities.add(new Booking("CONFIRMED", aTrainingActivity,"Ullholmen", "2", 22));
         listView.setAdapter(new BookedClassAdapter(this, user_activities));
