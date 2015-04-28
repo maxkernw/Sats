@@ -1,5 +1,5 @@
 package sats.android.piedpiper.se.sats;
-
+/*
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +53,7 @@ public class ListAdapter extends ArrayAdapter<Checkbox>
             convertView = inflater.inflate(R.layout.previous_training_fragment, null);
 
             holder = new ViewHolder();
-            holder.checkboxText = (TextView) convertView.findViewById(R.id.checkbox_text);
+           // holder.checkboxText = (TextView) convertView.findViewById(R.id.checkbox_text);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
             convertView.setTag(holder);
 
@@ -97,3 +97,4 @@ public class ListAdapter extends ArrayAdapter<Checkbox>
     }
 
 }
+*/

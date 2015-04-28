@@ -16,7 +16,6 @@
         <activity
             android:name=".MainActivity"
             android:label="Sats" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
