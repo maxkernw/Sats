@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="SATS CORE"
-                    android:id="@+id/Class"
+                    android:id="@+id/pass"
                     android:textStyle="bold"
                     android:textSize="15dp"
                     android:textIsSelectable="false"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Hornstull"
-                    android:id="@+id/Center"
+                    android:id="@+id/center"
                     android:typeface="normal"
                     android:textSize="12dp"
                     android:textColor="@color/secondary_color"/>
@@ -175,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Sven Svensson"
-                    android:id="@+id/Instructor"
+                    android:id="@+id/instructor"
                     android:textSize="12dp"
                     android:textColor="@color/secondary_color"/>
             </LinearLayout>

@@ -85,12 +85,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
-            android:layout_toLeftOf="@+id/checkbox_text"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:button="@drawable/checkbox"
-            android:onClick="onCheckboxClicked"
-            />
-        <TextView
+            android:checked="false"
+            android:text="Avklarat?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#868686" />
+
+       <!-- <TextView
             android:id="@id/checkbox_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +101,7 @@
             android:layout_centerVertical="true"
             android:text="Avklarat?"
             />
-
+-->
     </RelativeLayout>
 
 </LinearLayout>
