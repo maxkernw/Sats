@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/classes-68d545b6cce9ae48ce64b75b20cf72bd166bff36.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/library-2.4.0-48b7904037790af611e6a1d64f76aa58efaffab5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-332f81ce0d184f090b90bfe35be88e2a106737fe.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.5-cee2c18aa63fd9d56acf987a788b9024f4d217a0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/classes-aaa963ab4763f2229457945011c73d83e71692ac.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/classes-166e6a6534e1d0c86f3e5e0b90cd4b5377d33ebe.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Sats/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-278b3345b12a80edab6a1219477a320a75138053.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

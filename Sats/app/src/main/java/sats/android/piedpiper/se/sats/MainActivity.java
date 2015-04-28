@@ -27,13 +27,7 @@ public final class MainActivity extends ActionBarActivity
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        try
-        {
-            center.getCenters();
-        } catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
+
 
         listView = (ListView) findViewById(R.id.listan);
 

@@ -14,10 +14,11 @@ import java.util.ArrayList;
 /**
  * Created by Osama on 2015-04-24.
  */
+
 public class CenterStorage
 {
-
     private static final String ERROR = "Error";
+    private static final String INFO = "Information";
     private static ArrayList<Center> centerList = new ArrayList<>();
     private static ArrayList<Center> allCenters = new ArrayList<>();
     private static ArrayList<Region> regionList = new ArrayList<>();
@@ -27,14 +28,17 @@ public class CenterStorage
 
     public static ArrayList<Center> getCenters() throws JSONException
     {
+
         SatsRestClient.get("centers", null, new JsonHttpResponseHandler()
         {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
                 try
                 {
                     jsonRegions = response.getJSONArray("regions");
+
                     for (int i = 0; i < jsonRegions.length(); i++)
                     {
                         jsonCenter = jsonRegions.getJSONObject(i);
@@ -42,7 +46,7 @@ public class CenterStorage
 
                         for (int j = 0; j < centersOfRegion.length(); j++)
                         {
-
+//                            centerList.clear();
                             boolean availableForOnlineBooking, isElixia;
                             String description, name, url;
                             int filterId, id, lati, longi, regionId;
@@ -63,18 +67,17 @@ public class CenterStorage
                             Center center = new Center(availableForOnlineBooking, isElixia, description, name, url, filterId, id, lati, longi, regionId);
                             centerList.add(center);
                         }
-                        region = new Region(centerList);
-                        regionList.add(region);
+//                        region = new Region(centerList);
+//                        regionList.add(region);
 
-                        for(int x = 0; x < regionList.size(); x++)
+                        /*for(int x = 0; x < regionList.size(); x++)
                         {
                             for(int y = 0; y < regionList.get(x).getCenterList().size(); y++)
                             {
                                 allCenters.add(regionList.get(x).getCenterList().get(y));
                             }
-                        }
+                        }*/
                     }
-
                 } catch (JSONException e)
                 {
                     Log.e(ERROR, "JSON Error in InstructorStorage: " + e.getStackTrace());
@@ -87,10 +90,9 @@ public class CenterStorage
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.e(ERROR, "Failed to fetch JSON-data from SATS API");
             }
-
         });
-        Log.e(ERROR, String.valueOf(allCenters.size()));
+        Log.i(INFO, String.valueOf(centerList.size()));
 
-        return null;
+        return centerList;
     }
 }

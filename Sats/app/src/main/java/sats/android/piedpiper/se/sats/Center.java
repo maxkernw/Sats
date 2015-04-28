@@ -3,6 +3,7 @@ package sats.android.piedpiper.se.sats;
 /**
  * Created by Osama on 2015-04-24.
  */
+
 public final class Center {
     private boolean availableForOnlineBooking, isElixia;
     private String description, name, url;

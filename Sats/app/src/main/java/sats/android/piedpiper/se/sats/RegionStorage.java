@@ -14,10 +14,11 @@ import java.util.ArrayList;
 /**
  * Created by Osama on 2015-04-24.
  */
+
 public class RegionStorage
 {
-
     private static final String ERROR = "Error";
+    private static final String INFO = "Information";
     private static ArrayList<Center> centerList = new ArrayList<>();
     private static ArrayList<Center> allCenters = new ArrayList<>();
     private static ArrayList<Region> regionList = new ArrayList<>();
@@ -27,14 +28,18 @@ public class RegionStorage
 
     public static ArrayList<Region> getRegions() throws JSONException
     {
+
         SatsRestClient.get("centers", null, new JsonHttpResponseHandler()
         {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
+
                 try
                 {
                     jsonRegions = response.getJSONArray("regions");
+
                     for (int i = 0; i < jsonRegions.length(); i++)
                     {
                         jsonCenter = jsonRegions.getJSONObject(i);
@@ -64,9 +69,8 @@ public class RegionStorage
                         }
                         region = new Region(centerList);
                         regionList.add(region);
-                        Log.e(ERROR, "regionList: " + regionList.size());
+                        Log.i(INFO, "regionList: " + regionList.size());
                     }
-
                 } catch (JSONException e)
                 {
                     Log.e(ERROR, "JSON Error in InstructorStorage: " + e.getStackTrace());
@@ -81,8 +85,8 @@ public class RegionStorage
             }
         });
 
-        Log.e(ERROR, "Träder in i forloopen: " + regionList.size());
-        Log.e(ERROR, "Träder inte in i forloopen: " + centerList.size());
+        Log.i(INFO, "Träder in i forloopen: " + regionList.size());
+        Log.i(INFO, "Träder inte in i forloopen: " + centerList.size());
         /*for (int i = 0; i < regionList.size(); i++)
         {
             Log.e(ERROR, regionList.get(i).getCenterList().toString());
