@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import sats.android.piedpiper.se.sats.models.Booking;
+import sats.android.piedpiper.se.sats.models.Class;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public final class MainActivity extends ActionBarActivity
 
@@ -24,13 +30,20 @@ public final class MainActivity extends ActionBarActivity
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
 
-
-
-
         listView = (ListView) findViewById(R.id.listan);
 
-        listView.setAdapter(new TestAdapter(this, new String[]
-                {"data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"}));
+       // listView.setAdapter(new TestAdapter(this, new String[]
+       //        {"data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"}));
+
+        Date now = new Date();
+
+        ArrayList<Booking> user_activities = new ArrayList<>();
+        ArrayList<Integer> classCat = new ArrayList<>();
+        Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+        classCat.add(10);
+
+        user_activities.add(new Booking("CONFIRMED", aClass,"Ullholmen", "2", 22));
+        listView.setAdapter(new BookedClassAdapter(this, user_activities));
     }
 
     public void ActivityCompleted(View v)
@@ -44,7 +57,4 @@ public final class MainActivity extends ActionBarActivity
             avklarat.setText("Avklarat?");
         }
     }
-
-
-
 }

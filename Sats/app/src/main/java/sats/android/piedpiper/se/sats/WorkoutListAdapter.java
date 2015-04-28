@@ -22,7 +22,6 @@ public class WorkoutListAdapter extends BaseAdapter implements StickyListHeaders
     private static final int VIEW_TYPE_BOOKED_CLASS = 0;
     private static final int VIEW_TYPE_BOOKED_PRIVATE = 1;
     private static final int VIEW_TYPE_COMPLETED = 2;
-
     private static final int NUMBER_OF_VIEWS_SERVED_BY_ADAPTER = 4;
 
     private final SparseArray<ListGroup> groups;
