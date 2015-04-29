@@ -1,13 +1,13 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.models;
 
 /**
- * Created by Osama on 2015-04-24.
+ * Created by Osama on 2015-04-24.®
  */
 public final class Instructor {
     private String id;
     private String name;
 
-    protected Instructor(String id, String name) {
+    public Instructor(String id, String name) {
         this.id = id;
         this.name = name;
     }

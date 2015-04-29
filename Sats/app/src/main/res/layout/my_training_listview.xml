@@ -21,6 +21,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/main_content"
             android:layout_below="@id/toolbar">
+
             <com.sothree.slidinguppanel.SlidingUpPanelLayout
                 android:id="@+id/sliding_layout"
                 xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -47,35 +48,25 @@
                     android:id="@+id/tidigare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Tidigare träning"
+                    android:text="TIDIGARE TRÄNING"
+                    android:gravity="center_vertical"
                     android:textColor="@color/dark_gray"
                     android:textSize="12dp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
+                    android:layout_marginTop="10dp"
                     />
-                <ImageButton
-                    android:id="@+id/drag_button"
-                    android:layout_width="30dp"
-                    android:layout_height="13dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/activity_vertical_margin"
-                    android:background="@raw/drag_button_normal"
-                    />
+
 
                 <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/listan"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tidigare"
-
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="15dp"
                     />
 
-
-
-            </RelativeLayout>
+                </RelativeLayout>
 
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

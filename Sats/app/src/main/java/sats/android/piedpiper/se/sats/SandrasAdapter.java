@@ -89,7 +89,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         OwnActivityHolder holder;
         holder = new OwnActivityHolder();
 
-        newView = inflater.inflate(R.layout.own_activity, parent, false);
+        newView = inflater.inflate(R.layout.own_activity_item, parent, false);
 
         //get
         holder.title = (TextView) newView.findViewById(R.id.own_activity_title);
@@ -107,7 +107,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         BookedActivityHolder holder;
         holder = new BookedActivityHolder();
 
-        newView = inflater.inflate(R.layout.booked_activity_row, parent,
+        newView = inflater.inflate(R.layout.booked_activity_item, parent,
                 false);
 
         //get
@@ -131,7 +131,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         PreviousActivityHolder previousActivityHolder;
         previousActivityHolder = new PreviousActivityHolder();
 
-        newView = inflater.inflate(R.layout.previous_training_fragment, parent,
+        newView = inflater.inflate(R.layout.previous_training_item, parent,
                 false);
         //get
         previousActivityHolder.title = (TextView) newView.findViewById(R.id.title);

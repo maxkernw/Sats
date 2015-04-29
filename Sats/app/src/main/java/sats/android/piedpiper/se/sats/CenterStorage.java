@@ -11,6 +11,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.Region;
+
 /**
  * Created by Osama on 2015-04-24.
  */
