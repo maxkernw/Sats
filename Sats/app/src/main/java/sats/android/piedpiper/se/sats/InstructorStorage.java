@@ -2,7 +2,6 @@ package sats.android.piedpiper.se.sats;
 
 import android.util.Log;
 
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -11,6 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import sats.android.piedpiper.se.sats.models.Instructor;
 
 /**
  * Created by Osama on 2015-04-24.

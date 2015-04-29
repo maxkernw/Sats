@@ -88,7 +88,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         OwnActivityHolder holder;
         holder = new OwnActivityHolder();
 
-        newView = inflater.inflate(R.layout.own_activity, parent, false);
+        newView = inflater.inflate(R.layout.own_activity_item, parent, false);
 
         //get
         holder.title = (TextView) newView.findViewById(R.id.own_activity_title);
@@ -106,7 +106,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         BookedActivityHolder holder;
         holder = new BookedActivityHolder();
 
-        newView = inflater.inflate(R.layout.booked_activity_row, parent,
+        newView = inflater.inflate(R.layout.booked_activity_item, parent,
                 false);
 
         //get
@@ -130,7 +130,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         PreviousActivityHolder previousActivityHolder;
         previousActivityHolder = new PreviousActivityHolder();
 
-        newView = inflater.inflate(R.layout.previous_training_fragment, parent,
+        newView = inflater.inflate(R.layout.previous_training_item, parent,
                 false);
         //get
         previousActivityHolder.title = (TextView) newView.findViewById(R.id.title);
@@ -263,7 +263,8 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
             holder = (HeaderViewHolder) convertView.getTag();
         }
         //set date_header text as first char in name
-        String headerText = trainingList.get(position).startTime.toString();
+
+        String headerText = trainingList.get(position).startTime.getDate() +  "/" + (trainingList.get(position).startTime.getDay() + 1);
         holder.text.setText(headerText);
         return convertView;
     }
