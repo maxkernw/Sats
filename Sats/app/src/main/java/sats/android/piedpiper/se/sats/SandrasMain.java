@@ -20,12 +20,12 @@ public class SandrasMain extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.my_training_listview);
         Log.v("wat", "wat");
         populateArray();
 
         //List to populate
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = (ListView) findViewById(R.id.listan);
 
         //Populate list with data
         listView.setAdapter(new SandrasAdapter(this, trainingActivityList));

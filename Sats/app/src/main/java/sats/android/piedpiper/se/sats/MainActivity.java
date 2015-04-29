@@ -39,12 +39,12 @@ public final class MainActivity extends ActionBarActivity
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         listView = (ListView) findViewById(R.id.listan);
-        classCat.add(10);
+/*        classCat.add(10);
         aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
 
 
         user_activities.add(new Booking("CONFIRMED", aTrainingActivity,"Ullholmen", "2", 22));
-        listView.setAdapter(new BookedClassAdapter(this, user_activities));
+        listView.setAdapter(new BookedClassAdapter(this, user_activities));*/
     }
 
     public void ActivityCompleted(View v)

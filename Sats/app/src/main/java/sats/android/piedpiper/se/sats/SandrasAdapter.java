@@ -65,7 +65,6 @@ public class SandrasAdapter extends BaseAdapter{
                 convertView = inflateBookedActivities(parent);
                 setupBookedActivity(convertView, position);
             }
-
         }
 
         return convertView;
@@ -91,7 +90,6 @@ public class SandrasAdapter extends BaseAdapter{
         newView.setTag(holder);
 
         return newView;
-
     }
 
     public View inflatePreviousTraining(ViewGroup parent){
