@@ -36,10 +36,10 @@ public class SandrasMain extends ActionBarActivity
     {
         trainingActivityList = new ArrayList<>();
 
-        TrainingActivity activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Yoga", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "COMPLETED", "GROUP", "GROUP");
+        TrainingActivity activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Yoga", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "GROUP");
         trainingActivityList.add(0, activity);
 
-        activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Styrketräning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "gym");
+        activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Styrketräning", new Date(), 7, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "gym");
         trainingActivityList.add(1, activity);
 
         activity = new TrainingActivity("", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "running");
@@ -51,7 +51,7 @@ public class SandrasMain extends ActionBarActivity
         activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "OTHER", "other");
         trainingActivityList.add(4, activity);
 
-        activity = new TrainingActivity("", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
+        activity = new TrainingActivity("", "", "", 0, "", "", "Löpträningg", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
         trainingActivityList.add(5, activity);
 
         activity = new TrainingActivity("", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");

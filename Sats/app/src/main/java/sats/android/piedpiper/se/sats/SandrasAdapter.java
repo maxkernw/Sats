@@ -81,7 +81,6 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         return convertView;
     }
 
-
     private View inflateOwnActivity(ViewGroup parent)
     {
         View newView;
@@ -155,7 +154,6 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
 
     private void setupBookedActivity(View view, int position)
     {
-
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
         TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
 
@@ -250,7 +248,6 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         }
     }
 
-
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent)
     {
@@ -277,45 +274,36 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         return i;
     }
 
-    class PreviousTrainingHolder
+    private class OwnActivityHolder
+    {
+
+        TextView title;
+        TextView totalTime;
+    }
+
+    private class BookedActivityHolder
+    {
+        TextView bigClockHours;
+        TextView bigClockMinutes;
+        TextView classTotalTime;
+        TextView pass;
+        TextView center;
+        TextView instructor;
+        TextView participants;
+    }
+
+    private class HeaderViewHolder
+    {
+        TextView text;
+    }
+
+    private class PreviousActivityHolder
     {
         CheckBox checkbox;
-
+        TextView title;
+        TextView date;
+        ImageView img;
     }
-        private class OwnActivityHolder
-        {
-
-            TextView title;
-            TextView totalTime;
-        }
-
-
-        private class BookedActivityHolder
-
-        {
-            TextView bigClockHours;
-            TextView bigClockMinutes;
-            TextView classTotalTime;
-            TextView pass;
-            TextView center;
-            TextView instructor;
-            TextView participants;
-        }
-
-        private class HeaderViewHolder
-        {
-            TextView text;
-        }
-
-
-        private class PreviousActivityHolder
-        {
-            CheckBox checkbox;
-            TextView title;
-            TextView date;
-            ImageView img;
-        }
-
-    }
+}
 
 
