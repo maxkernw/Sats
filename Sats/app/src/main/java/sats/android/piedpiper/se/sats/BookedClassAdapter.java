@@ -60,7 +60,7 @@ public class BookedClassAdapter extends BaseAdapter
         if (convertView == null)
         {
             convertView = LayoutInflater.from(mContext)
-                    .inflate(R.layout.booked_activity, parent, false);
+                    .inflate(R.layout.booked_activity_row, parent, false);
             holder = new ViewHolder();
 
             holder.bigClockHours = (TextView) convertView.findViewById(R.id.hour);
@@ -81,9 +81,9 @@ public class BookedClassAdapter extends BaseAdapter
         holder.bigClockMinutes.setText("30");
         holder.classTotalTime.setText("30 min");
         holder.pass.setText("SATS Core");
-        holder.center.setText(booking.aClass.centerId);
-        holder.instructor.setText(booking.aClass.instructorId);
-        holder.participants.setText(String.valueOf(booking.aClass.waitingListCount));
+        holder.center.setText(booking.aTrainingActivity.centerId);
+        holder.instructor.setText(booking.aTrainingActivity.instructorId);
+        holder.participants.setText(String.valueOf(booking.aTrainingActivity.waitingListCount));
 
         return convertView;
     }
