@@ -9,8 +9,7 @@
                     xmlns:local="http://schemas.android.com/apk/res-auto"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentLeft="true"
-        >
+                    android:layout_alignParentLeft="true">
 
         <include
             android:id="@+id/toolbar"
@@ -21,37 +20,28 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/main_content"
-            android:layout_below="@id/toolbar"
-            >
-
-
+            android:layout_below="@id/toolbar">
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout
+                android:id="@+id/sliding_layout"
+                xmlns:sothree="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                sothree:umanoDragView="@+id/tidigare"
+                sothree:umanoOverlay="true"
+                sothree:umanoPanelHeight="300dp"
+                sothree:umanoParalaxOffset="100dp"
+                sothree:umanoShadowHeight="4dp">
             <FrameLayout
                 android:id="@+id/graph"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                />
+                android:layout_height="250dp"/>
 
             <RelativeLayout
                 android:id="@+id/my_training"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                >
-                <!--<com.sothree.slidinguppanel.SlidingUpPanelLayout-->
-                <!--android:id="@+id/sliding_layout"-->
-                <!--xmlns:sothree="http://schemas.android.com/apk/res-auto"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="bottom"-->
-                <!--sothree:umanoDragView="@+id/dragView"-->
-                <!--sothree:umanoOverlay="true"-->
-                <!--sothree:umanoPanelHeight="300dp"-->
-                <!--sothree:umanoParalaxOffset="100dp"-->
-                <!--sothree:umanoShadowHeight="4dp">-->
-
-
-
-
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/tidigare"
@@ -64,7 +54,15 @@
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     />
-                <!--</com.sothree.slidinguppanel.SlidingUpPanelLayout>-->
+                <ImageButton
+                    android:id="@+id/drag_button"
+                    android:layout_width="30dp"
+                    android:layout_height="13dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/activity_vertical_margin"
+                    android:background="@raw/drag_button_normal"
+                    />
 
                 <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/listan"
@@ -72,14 +70,17 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tidigare"
 
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="4dp"
                     />
+
 
 
             </RelativeLayout>
 
+            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
