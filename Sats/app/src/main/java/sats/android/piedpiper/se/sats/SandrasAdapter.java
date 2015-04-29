@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -165,6 +166,11 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         holder.center.setText(bookedActivityObj.centerId);
         holder.instructor.setText(bookedActivityObj.instructorId);
         holder.participants.setText(String.valueOf(bookedActivityObj.bookedPersonsCount));
+
+        if(bookedActivityObj.bookedPersonsCount == 0){
+            LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
+            bookedPersons.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setupPreviousActivity(View view, int position)
