@@ -13,13 +13,11 @@ import java.util.ArrayList;
 
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 
-public class SandrasAdapter extends BaseAdapter{
+public final class SandrasAdapter extends BaseAdapter{
 
-    ArrayList<TrainingActivity> trainingList;
+    private ArrayList<TrainingActivity> trainingList;
     private final Activity activity;
     private final LayoutInflater inflater;
-    private static final int NUMBER_OF_VIEWS_SERVED_BY_ADAPTER = 2;
-
     private final int numberOfPositions;
 
     public SandrasAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
@@ -32,17 +30,20 @@ public class SandrasAdapter extends BaseAdapter{
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return numberOfPositions;
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return trainingList.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
 
@@ -52,32 +53,52 @@ public class SandrasAdapter extends BaseAdapter{
         TrainingActivity myTrainingActivityObj = (TrainingActivity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED"));
-
-        //PreviousTraining myPreviousTrainingObj = (PreviousTraining) getItem(position);
+        isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED")); //TODO och/eller kolla om datum är innan dagens datum
 
         if(convertView == null){
-            if(isPreviousActivity){
-                convertView = inflatePreviousTraining(parent);
-                setupPreviousTraining(convertView, position);
+            if(isPreviousActivity){                             //tidigare träning
+                convertView = inflatePreviousActivity(parent);
+                setupPreviousActivity(convertView, position);
             }else{
-                //fix. kolla om egenTräning eller SATSPass
-                convertView = inflateBookedActivities(parent);
-                setupBookedActivity(convertView, position);
+                if(myTrainingActivityObj.type.equals("GROUP")){ //SATSPass
+                    convertView = inflateBookedActivity(parent);
+                    setupBookedActivity(convertView, position);
+                }else{                                          //egen träning
+                    convertView = inflateOwnActivity(parent);
+                    setupOwnActivity(convertView, position);
+                }
             }
         }
 
         return convertView;
     }
 
-    private View inflateBookedActivities(ViewGroup parent){
+
+    private View inflateOwnActivity(ViewGroup parent){
         View newView;
 
-        BookedActivitiesHolder holder;
-        holder = new BookedActivitiesHolder();
+        OwnActivityHolder holder;
+        holder = new OwnActivityHolder();
 
-        newView = inflater.inflate(R.layout.booked_activity, parent,
-                false);
+        newView = inflater.inflate(R.layout.own_activity, parent, false);
+
+        //get
+        holder.title = (TextView) newView.findViewById(R.id.own_activity_title);
+        holder.totalTime = (TextView) newView.findViewById(R.id.own_activity_time);
+
+        newView.setTag(holder);
+
+        return newView;
+    }
+
+    private View inflateBookedActivity(ViewGroup parent){
+        View newView;
+
+        BookedActivityHolder holder;
+        holder = new BookedActivityHolder();
+
+        newView = inflater.inflate(R.layout.booked_activity, parent,false);
+
         //get
         holder.bigClockHours = (TextView) newView.findViewById(R.id.hour);
         holder.bigClockMinutes = (TextView) newView.findViewById(R.id.minutes);
@@ -92,35 +113,42 @@ public class SandrasAdapter extends BaseAdapter{
         return newView;
     }
 
-    public View inflatePreviousTraining(ViewGroup parent){
+    private View inflatePreviousActivity(ViewGroup parent){
         View newView;
 
-        PreviousTrainingHolder previousTrainingHolder;
-        previousTrainingHolder = new PreviousTrainingHolder();
+        PreviousActivityHolder previousActivityHolder;
+        previousActivityHolder = new PreviousActivityHolder();
 
         newView = inflater.inflate(R.layout.previous_training_fragment, parent,
                 false);
         //get
-        previousTrainingHolder.title = (TextView) newView.findViewById(R.id.title);
-        previousTrainingHolder.date = (TextView) newView.findViewById(R.id.date);
-        previousTrainingHolder.img = (ImageView) newView.findViewById(R.id.img);
+        previousActivityHolder.title = (TextView) newView.findViewById(R.id.title);
+        previousActivityHolder.date = (TextView) newView.findViewById(R.id.date);
+        previousActivityHolder.img = (ImageView) newView.findViewById(R.id.img);
 
-
-        newView.setTag(previousTrainingHolder);
+        newView.setTag(previousActivityHolder);
 
         return newView;
     }
 
-    public void setupBookedActivity(View view, int position)
+    private void setupOwnActivity(View view, int position)
     {
-        BookedActivitiesHolder holder = (BookedActivitiesHolder) view.getTag();
-        TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
-
-        String duration = String.valueOf(bookedActivityObj.durationInMinutes);
+        OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
+        TrainingActivity ownActivityObj = (TrainingActivity) getItem(position);
 
         //set
-        holder.bigClockHours.setText("12"); //fix (formatera startTime)
-        holder.bigClockMinutes.setText("30");  //fix
+        holder.title.setText(ownActivityObj.name);
+        holder.totalTime.setText(String.valueOf(ownActivityObj.durationInMinutes));
+    }
+
+    private void setupBookedActivity(View view, int position)
+    {
+        BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
+        TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
+
+        //set
+        holder.bigClockHours.setText("12"); //TODO (formatera startTime)
+        holder.bigClockMinutes.setText("30");  //TODO
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes));
         holder.pass.setText(bookedActivityObj.name);
         holder.center.setText(bookedActivityObj.centerId);
@@ -128,22 +156,42 @@ public class SandrasAdapter extends BaseAdapter{
         holder.participants.setText(String.valueOf(bookedActivityObj.bookedPersonsCount));
     }
 
-    public void setupPreviousTraining(View view, int position){
-
-        PreviousTrainingHolder previousTrainingHolder = (PreviousTrainingHolder) view.getTag();
+    private void setupPreviousActivity(View view, int position)
+    {
+        PreviousActivityHolder previousActivityHolder = (PreviousActivityHolder) view.getTag();
         TrainingActivity previousActivity = (TrainingActivity) getItem(position);
 
         //set
-        previousTrainingHolder.title.setText(previousActivity.name);
-        previousTrainingHolder.date.setText("Fredag 12/7"); //fix (formatera startTime)
+        previousActivityHolder.title.setText(previousActivity.name);
+        previousActivityHolder.date.setText("Fredag 12/7"); //TODO (formatera startTime)
+        setActivityImage(previousActivityHolder, previousActivity);
 
-        //set img (flytta till separat metod)
-        /*
-        0 - all_training = type(OTHER) & not subType(cycle, running, strength osv)
-        1 - cycling = subtype(cycle)
-        2 - running = subtype(walking/running)
-        3 - strength = (GYM, gym)
-        4 - group_training = type(GROUP but not if subType is cycling
+        //checkbox
+        CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
+        //sätt till checked/unchecked i början TODO funkar ej
+        box.setSelected(previousActivity.satus.equals("COMPLETED"));
+
+        //Lyssnar på click fr. varje item i listan
+        box.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v ;
+                if(cb.isChecked()){
+                    cb.setText("Avklarat!");
+                }else {
+                    cb.setText("Avklarat?");
+                }
+            }
+        });
+    }
+
+    private void setActivityImage(PreviousActivityHolder previousActivityHolder, TrainingActivity previousActivity)
+    {
+        /*  imageNumber
+            0 - all_training = type(OTHER) & not subType(cycle, running, strength osv)
+            1 - cycling = subtype(cycle)
+            2 - running = subtype(walking/running)
+            3 - strength = (GYM, gym)
+            4 - group_training = type(GROUP but not if subType is cycling
          */
 
         int imageNo = 0;
@@ -162,48 +210,30 @@ public class SandrasAdapter extends BaseAdapter{
 
         switch (imageNo){
             case 0:
-                previousTrainingHolder.img.setImageResource(R.drawable.all_training_icons);
+                previousActivityHolder.img.setImageResource(R.drawable.all_training_icons);
                 break;
             case 1:
-                previousTrainingHolder.img.setImageResource(R.drawable.cykling_icon);
+                previousActivityHolder.img.setImageResource(R.drawable.cykling_icon);
                 break;
             case 2:
-                previousTrainingHolder.img.setImageResource(R.drawable.running_icon);
+                previousActivityHolder.img.setImageResource(R.drawable.running_icon);
                 break;
             case 3:
-                previousTrainingHolder.img.setImageResource(R.drawable.strength_trainging_icon);
+                previousActivityHolder.img.setImageResource(R.drawable.strength_trainging_icon);
                 break;
             case 4:
-                previousTrainingHolder.img.setImageResource(R.drawable.group_training_icon);
+                previousActivityHolder.img.setImageResource(R.drawable.group_training_icon);
                 break;
         }
-
-        //checkbox
-        CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        //sätt till checked/unchecked i början
-        box.setSelected(previousActivity.satus.equals("COMPLETED"));
-
-        //Lyssnar på click fr. varje item i listan
-        box.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v ;
-                if(cb.isChecked()){
-                    cb.setText("Avklarat!");
-                }else {
-                    cb.setText("Avklarat?");
-                }
-            }
-        });
     }
 
-    class PreviousTrainingHolder{
-        CheckBox checkbox;
+    private static class OwnActivityHolder
+    {
         TextView title;
-        TextView date;
-        ImageView img;
+        TextView totalTime;
     }
 
-    private static class BookedActivitiesHolder
+    private static class BookedActivityHolder
     {
         TextView bigClockHours;
         TextView bigClockMinutes;
@@ -213,5 +243,14 @@ public class SandrasAdapter extends BaseAdapter{
         TextView instructor;
         TextView participants;
     }
+
+    private static class PreviousActivityHolder
+    {
+        CheckBox checkbox;
+        TextView title;
+        TextView date;
+        ImageView img;
+    }
+
 }
 

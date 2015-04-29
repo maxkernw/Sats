@@ -66,6 +66,7 @@
                             android:layout_height="20dp"
                             >
                             <TextView
+                                android:id="@+id/own_activity_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Styrketräning"
@@ -94,7 +95,7 @@
                             android:scaleY="0.45"/>
 
                         <TextView
-                            android:id="@+id/class_time"
+                            android:id="@+id/own_activity_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
@@ -127,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="Kommentar"
+                            android:text="1 kommentar"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="2dp"

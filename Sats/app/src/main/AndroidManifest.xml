@@ -14,7 +14,7 @@
         android:theme="@style/MyTheme"
         >
         <activity
-            android:name=".MainActivity"
+            android:name=".SandrasMain"
             android:label="Sats" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
