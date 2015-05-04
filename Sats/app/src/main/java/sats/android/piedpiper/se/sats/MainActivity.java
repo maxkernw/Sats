@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -21,12 +22,15 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class MainActivity extends ActionBarActivity
 {
     private ArrayList<TrainingActivity> trainingActivityList;
+    private Date date = new Date();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
+        final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
 
         populateArray();
 
@@ -53,15 +57,12 @@ public class MainActivity extends ActionBarActivity
             public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
-                TextView txtStatus = (TextView) findViewById(R.id.tidigare);
 
-                Log.e("TAG", txt.getText().toString());
-
-                if(txt.getText().equals("4/5")){
-                    txtStatus.setText("Fucking fuck");
+                if(date.after(CustomAdapter.trainingList.get(i).startTime)){
+                    txtStatus.setText("TIDIGARE TRÄNING");
                 }
                 else{
-                    txtStatus.setText("HEHEFUCK");
+                    txtStatus.setText("KOMMANDE TRÄNING");
                 }
 
             }
@@ -74,6 +75,8 @@ public class MainActivity extends ActionBarActivity
         Date fuck = new Date();
         fuck.setMonth(1);
         fuck.setDate(2);
+        fuck.setHours(13);
+        fuck.setMinutes(37);
 
         trainingActivityList = new ArrayList<>();
 
@@ -99,4 +102,5 @@ public class MainActivity extends ActionBarActivity
         activity = new TrainingActivity("Hornstull", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
         trainingActivityList.add(6, activity);
     }
+
 }

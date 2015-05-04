@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
@@ -20,12 +21,11 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
-    private ArrayList<TrainingActivity> trainingList;
+    public static ArrayList<TrainingActivity> trainingList;
     private final Activity activity;
     private final LayoutInflater inflater;
     private final int numberOfPositions;
     private Calendar mCalendar = Calendar.getInstance();
-
     private final String[] swedish_days = {"Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"};
     private final String[] swedish_months = {"Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"};
 
@@ -293,6 +293,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
+        mCalendar.setTime(trainingList.get(position).startTime);
         String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
         holder.text.setText(headerText);
