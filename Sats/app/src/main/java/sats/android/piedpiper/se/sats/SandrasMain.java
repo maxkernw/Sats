@@ -1,10 +1,12 @@
 package sats.android.piedpiper.se.sats;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,18 @@ public class SandrasMain extends ActionBarActivity
 
         //Populate list with data
         listView.setAdapter(new SandrasAdapter(this, trainingActivityList));
+
+        final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
+        final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
+
+        im.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                im.startAnimation(animRot);
+            }
+        });
 
     }
 
