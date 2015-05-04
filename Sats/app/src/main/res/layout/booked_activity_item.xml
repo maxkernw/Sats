@@ -269,7 +269,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/ic_calender"
                         android:layout_marginRight="5dp"
-                        android:layout_toRightOf="@id/text_add_calender"
+                        android:layout_toRightOf="@+id/text_add_calender"
                         />
 
                     <TextView
