@@ -2,11 +2,6 @@ package sats.android.piedpiper.se.sats.models;
 
 import java.util.ArrayList;
 
-import sats.android.piedpiper.se.sats.models.Center;
-
-/**
- * Created by Osama on 2015-04-27.
- */
 public final class Region {
     private final ArrayList<Center> centerList;
 

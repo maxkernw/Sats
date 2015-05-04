@@ -2,14 +2,9 @@ package sats.android.piedpiper.se.sats;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class SandrasMain extends ActionBarActivity
