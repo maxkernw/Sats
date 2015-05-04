@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/activity_horizontal_margin"
-              android:layout_marginRight="@dimen/activity_horizontal_margin"
-              android:orientation="vertical"
-              android:padding="3dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:padding="3dp">
 
     <!-- Whole box-->
-
-
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
@@ -22,342 +20,314 @@
         android:layout_marginBottom="10dp"
         android:gravity="top"
         android:layout_gravity="top"
-        android:background="@drawable/booking_layout_bg"
-        >
+        android:background="@drawable/booking_layout_bg">
 
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <RelativeLayout
             android:id="@+id/top_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:layout_gravity="top"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
             android:weightSum="10">
 
             <LinearLayout
                 android:id="@+id/top_left_box"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.14"
                 android:orientation="vertical"
                 android:weightSum="10">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:weightSum="10"
-                    android:layout_weight="5"
-                    android:id="@+id/time_box">
+                    android:id="@+id/large_clock_info"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:weightSum="10"
-                        android:id="@+id/large_clock_info">
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_height="45dp">
 
-                        <RelativeLayout
-                            android:layout_width="45dp"
-                            android:layout_height="50dp"
-                            >
-
-                            <ImageButton
-                                android:id="@+id/hours_background"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/clock_background"
-                                android:layout_marginRight="1dp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="10"
-                                android:layout_centerInParent="true"
-                                android:id="@+id/hour"
-                                android:textColor="@color/white"
-                                android:textSize="30dp"/>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="45dp"
-                            android:layout_height="50dp"
-                            >
-
-                            <ImageButton
-                                android:id="@+id/minutes_background"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/clock_background"
-                                android:layout_marginLeft="1dp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="25"
-                                android:layout_centerInParent="true"
-                                android:id="@+id/minutes"
-                                android:textColor="@color/white"
-                                android:textSize="30dp"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginLeft="2dp"
-                        android:id="@+id/small_clock_info">
-
-                        <ImageView
-                            android:id="@+id/booking_time_icon"
+                        <ImageButton
+                            android:id="@+id/hours_background"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:src="@drawable/booking_ic_time"
-                            android:layout_marginLeft="3dp"/>
+                            android:background="@drawable/clock_background"
+                            android:layout_marginRight="1dp" />
 
                         <TextView
-                            android:id="@+id/class_time"
+                            android:id="@+id/hour"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/hours_background"
-                            android:layout_weight="0.1"
-                            android:text="30 min"
-                            android:textAlignment="inherit"
-                            android:textColor="@color/secondary_color"
-                            android:layout_marginLeft="5dp"/>
-                    </LinearLayout>
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="10"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/white"
+                            android:textSize="30dp" />
+                    </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_height="45dp">
+
+                        <ImageButton
+                            android:id="@+id/minutes_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/clock_background"
+                            android:layout_marginLeft="1dp" />
+
+                        <TextView
+                            android:id="@+id/minutes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="25"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/white"
+                            android:textSize="30dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/small_clock_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp">
+
+                    <ImageView
+                        android:id="@+id/booking_time_icon"
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/booking_ic_time"
+                        android:layout_marginLeft="3dp" />
+
+                    <TextView
+                        android:id="@+id/class_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 min"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/secondary_color"
+                        android:layout_marginLeft="5dp" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:id="@+id/top_middle_box"
-                android:layout_weight="3.8"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="0dp"
-                >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/top_left_box"
+                android:orientation="vertical"
+                android:paddingLeft="5dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="SATS CORE"
                     android:id="@+id/pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="SATS CORE"
                     android:textStyle="bold"
-                    android:textSize="15dp"
                     android:textIsSelectable="false"
-                    />
+                    android:textColor="#ff000000" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Hornstull"
                     android:id="@+id/center"
-                    android:typeface="normal"
-                    android:textSize="12dp"
-                    android:textColor="@color/secondary_color"/>
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Sven Svensson"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Hornstull"
+                    android:typeface="normal"
+                    android:textColor="@color/secondary_color" />
+
+                <TextView
                     android:id="@+id/instructor"
-                    android:textSize="12dp"
-                    android:textColor="@color/secondary_color"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Sven Svensson"
+                    android:textColor="@color/secondary_color" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/top_right_box"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
                 android:layout_weight="3">
 
-
                 <LinearLayout
+                    android:id="@+id/booking_participants_box"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/booking_participants_box">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
+                        android:id="@+id/cancel_button"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:layout_gravity="right"
-                        android:id="@+id/cancel_button">
+                        android:layout_gravity="right">
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/hours_background"
-                            android:layout_alignParentRight="true"
                             android:layout_alignTop="@+id/hours_background"
+                            android:layout_alignParentRight="true"
                             android:background="@drawable/progressbar_nmi_primary"
                             android:text="@string/button_cancel"
                             android:textColor="@color/white"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/participants"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="right"
                         android:layout_marginRight="10dp"
-                        android:layout_marginTop="8dp"
-                        android:id="@+id/participants">
+                        android:layout_marginTop="8dp">
 
                         <ImageView
+                            android:id="@+id/img_participants"
                             android:layout_width="14dp"
                             android:layout_height="14dp"
-                            android:id="@+id/img_participants"
                             android:src="@drawable/people_icon"
                             android:layout_marginRight="7dp"
-                            android:layout_marginTop="3.14dp"/>
+                            android:layout_marginTop="1.5dp" />
 
                         <TextView
+                            android:id="@+id/number_participants"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="20"
-                            android:id="@+id/number_participants"
                             android:textColor="@color/pink"
                             android:textStyle="bold"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp" />
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
+            android:id="@+id/top_divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/top_divider"
             android:background="@drawable/top_divider"
-            android:layout_gravity="top"
             android:alpha="0.5"
+            android:layout_gravity="top"
             android:layout_marginLeft="3.5dp"
             android:layout_marginRight="3.5dp">
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="34dp"
+        <RelativeLayout
             android:id="@+id/bottom_box"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:weightSum="10"
-            android:background="@drawable/pressed_state_button_cp"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="2.5dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:layout_marginBottom="3dp">
+            android:background="@drawable/pressed_state_button_cp">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
                 android:id="@+id/bottom_left_box"
-                android:layout_weight="4.5"
-                >
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@id/divider"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:id="@+id/left_inner_box"
-                    android:gravity="center_horizontal"
-                    android:layout_marginLeft="10dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
                         android:id="@+id/ic_calender"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@drawable/ic_calender"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="5dp"
+                        android:layout_toRightOf="@id/text_add_calender"
+                        />
 
                     <TextView
+                        android:id="@+id/text_add_calender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Lägg till i kalender"
-                        android:id="@+id/text_add_calender"
-                        android:textSize="11dp"/>
+                        android:layout_marginTop="4dp"
+                        android:textSize="11dp" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/divider"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/divider"
                 android:background="@drawable/mid_divider"
-                android:layout_gravity="center"
-                >
-            </LinearLayout>
+                android:layout_centerHorizontal="true"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
                 android:id="@+id/bottom_right_box"
-                android:gravity="center_vertical|right"
-                android:layout_weight="4.5">
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/divider"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:id="@+id/right_inner_box"
-                    android:gravity="center_horizontal">
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
 
                     <ImageView
+                        android:id="@+id/ic_more"
                         android:layout_width="16dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ic_more"
                         android:src="@drawable/ic_more"
-                        android:layout_marginRight="8dp"
-                        android:cropToPadding="false"
-                        />
+                        android:layout_marginRight="8dp" />
 
                     <TextView
+                        android:id="@+id/text_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Mer om passet"
-                        android:id="@+id/text_more"
-                        android:textSize="11dp"
-                        android:layout_gravity="right"
-                        android:gravity="right"/>
+                        android:layout_marginTop="3dp"
+                        android:textSize="11dp" />
                 </LinearLayout>
 
-            </LinearLayout>
-        </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
 
     </LinearLayout>
-
     <!--Whole box-->
+
 </LinearLayout>

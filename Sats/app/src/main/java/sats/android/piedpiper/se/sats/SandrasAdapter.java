@@ -159,6 +159,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
 
         //set
+
         holder.bigClockHours.setText("12"); //TODO (formatera startTime)
         holder.bigClockMinutes.setText("30");  //TODO
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes));
@@ -179,14 +180,15 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         TrainingActivity previousActivity = (TrainingActivity) getItem(position);
 
         //set
+
         previousActivityHolder.title.setText(previousActivity.name);
         previousActivityHolder.date.setText("Fredag 12/7"); //TODO (formatera startTime)
         setActivityImage(previousActivityHolder, previousActivity);
 
         //checkbox
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        //sätt till checked/unchecked i början TODO funkar ej
-        box.setSelected(previousActivity.satus.equals("COMPLETED"));
+        //sätt till checked/unchecked i början
+        box.setChecked(previousActivity.satus.equals("COMPLETED"));
 
         //Lyssnar på click fr. varje item i listan
         box.setOnClickListener(new View.OnClickListener()
