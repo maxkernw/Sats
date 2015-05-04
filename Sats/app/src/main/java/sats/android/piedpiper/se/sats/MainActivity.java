@@ -1,11 +1,18 @@
 package sats.android.piedpiper.se.sats;
 
+import android.media.Image;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Date;
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
@@ -40,14 +47,37 @@ public class MainActivity extends ActionBarActivity
                 im.startAnimation(animRot);
             }
         });
+        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
+        {
+            @Override
+            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
+            {
+                TextView txt = (TextView) findViewById(R.id.date_header);
+                TextView txtStatus = (TextView) findViewById(R.id.tidigare);
+
+                Log.e("TAG", txt.getText().toString());
+
+                if(txt.getText().equals("4/5")){
+                    txtStatus.setText("Fucking fuck");
+                }
+                else{
+                    txtStatus.setText("HEHEFUCK");
+                }
+
+            }
+        });
 
     }
 
     public void populateArray()
     {
+        Date fuck = new Date();
+        fuck.setMonth(1);
+        fuck.setDate(2);
+
         trainingActivityList = new ArrayList<>();
 
-        TrainingActivity activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Yoga", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "GROUP");
+        TrainingActivity activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Yoga", fuck, 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "GROUP");
         trainingActivityList.add(0, activity);
 
         activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Styrketräning", new Date(), 7, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "gym");

@@ -22,6 +22,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private final LayoutInflater inflater;
     private final int numberOfPositions;
     private Calendar mCalendar = Calendar.getInstance();
+    
 
 
     public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
@@ -309,6 +310,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         TextView date;
         ImageView img;
     }
+
 }
 
 
