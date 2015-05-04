@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.storage;
 
 import android.util.Log;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -7,10 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+
+import sats.android.piedpiper.se.sats.SatsRestClient;
 import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.Region;
 
-public final class RegionStorage
+public final class CenterStorage
 {
     private static final String ERROR = "Error";
     private static final String INFO = "Information";
@@ -21,7 +23,7 @@ public final class RegionStorage
     private static JSONObject jsonCenter;
     private static Region region;
 
-    public static ArrayList<Region> getRegions() throws JSONException
+    public static ArrayList<Center> getCenters() throws JSONException
     {
 
         SatsRestClient.get("centers", null, new JsonHttpResponseHandler()
@@ -30,7 +32,6 @@ public final class RegionStorage
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-
                 try
                 {
                     jsonRegions = response.getJSONArray("regions");
@@ -42,6 +43,7 @@ public final class RegionStorage
 
                         for (int j = 0; j < centersOfRegion.length(); j++)
                         {
+//                            centerList.clear();
                             boolean availableForOnlineBooking, isElixia;
                             String description, name, url;
                             int filterId, id, lati, longi, regionId;
@@ -62,9 +64,16 @@ public final class RegionStorage
                             Center center = new Center(availableForOnlineBooking, isElixia, description, name, url, filterId, id, lati, longi, regionId);
                             centerList.add(center);
                         }
-                        region = new Region(centerList);
-                        regionList.add(region);
-                        Log.i(INFO, "regionList: " + regionList.size());
+//                        region = new Region(centerList);
+//                        regionList.add(region);
+
+                        /*for(int x = 0; x < regionList.size(); x++)
+                        {
+                            for(int y = 0; y < regionList.get(x).getCenterList().size(); y++)
+                            {
+                                allCenters.add(regionList.get(x).getCenterList().get(y));
+                            }
+                        }*/
                     }
                 } catch (JSONException e)
                 {
@@ -79,18 +88,8 @@ public final class RegionStorage
                 Log.e(ERROR, "Failed to fetch JSON-data from SATS API");
             }
         });
+        Log.i(INFO, String.valueOf(centerList.size()));
 
-        Log.i(INFO, "Träder in i forloopen: " + regionList.size());
-        Log.i(INFO, "Träder inte in i forloopen: " + centerList.size());
-        /*for (int i = 0; i < regionList.size(); i++)
-        {
-            Log.e(ERROR, regionList.get(i).getCenterList().toString());
-            for (int j = 0; j < regionList.get(i).getCenterList().size(); j++)
-            {
-                Log.e(ERROR, regionList.get(i).getCenterList().get(j).toString());
-                allCenters.add(regionList.get(i).getCenterList().get(j));
-            }
-        }*/
-        return null;
+        return centerList;
     }
 }

@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.storage;
 
 import android.util.Log;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+
+import sats.android.piedpiper.se.sats.SatsRestClient;
 import sats.android.piedpiper.se.sats.models.Instructor;
 
 public final class InstructorStorage
@@ -29,7 +31,7 @@ public final class InstructorStorage
                 {
                     jsonInstructors = response.getJSONArray("instructors");
 
-                    for(int i = 0; i < jsonInstructors.length(); i++)
+                    for (int i = 0; i < jsonInstructors.length(); i++)
                     {
                         String id, name;
                         id = jsonInstructors.getJSONObject(i).getString("id");
@@ -38,13 +40,15 @@ public final class InstructorStorage
 
                         instructorList.add(instructor);
                     }
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
                     Log.e(ERROR, "JSON Error in InstructorStorage: " + e.getStackTrace());
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.e(ERROR, "Failed to fetch JSON-data from SATS API");
             }
