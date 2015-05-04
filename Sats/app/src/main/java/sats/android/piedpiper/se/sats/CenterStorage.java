@@ -18,7 +18,7 @@ import sats.android.piedpiper.se.sats.models.Region;
  * Created by Osama on 2015-04-24.
  */
 
-public class CenterStorage
+public final class CenterStorage
 {
     private static final String ERROR = "Error";
     private static final String INFO = "Information";

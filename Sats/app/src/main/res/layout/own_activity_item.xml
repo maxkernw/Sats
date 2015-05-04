@@ -7,10 +7,7 @@
               android:layout_marginRight="@dimen/activity_horizontal_margin"
               android:orientation="vertical"
               android:padding="3dp">
-
     <!-- Whole box-->
-
-
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
@@ -22,9 +19,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="top"
         android:layout_gravity="top"
-        android:background="@drawable/booking_layout_bg"
-        >
-
+        android:background="@drawable/booking_layout_bg">
 
         <LinearLayout
             android:id="@+id/top_box"
@@ -42,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.14"
                 android:orientation="vertical"
-                android:weightSum="10"
-                >
+                android:weightSum="10">
 
                 <LinearLayout
                     android:id="@+id/class_box"
@@ -58,13 +52,12 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            >
+                            android:layout_height="20dp">
+
                             <TextView
                                 android:id="@+id/own_activity_title"
                                 android:layout_width="wrap_content"
@@ -105,7 +98,9 @@
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="5dp"
                             android:textSize="10dp"/>
+
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,7 +152,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3">
 
-
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -189,6 +183,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -216,15 +211,12 @@
             android:layout_marginRight="3dp"
             android:layout_marginBottom="3dp">
 
-
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/bottom_left_box"
-                android:layout_weight="4.5"
-                >
+                android:layout_weight="4.5">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -258,8 +250,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/divider"
                 android:background="@drawable/mid_divider"
-                android:layout_gravity="center"
-                >
+                android:layout_gravity="center">
+
             </LinearLayout>
 
             <LinearLayout
@@ -283,8 +275,7 @@
                         android:id="@+id/ic_more"
                         android:src="@drawable/ic_more"
                         android:layout_marginRight="8dp"
-                        android:cropToPadding="false"
-                        />
+                        android:cropToPadding="false"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -298,11 +289,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
-
-
     </LinearLayout>
-
     <!--Whole box-->
 </LinearLayout>

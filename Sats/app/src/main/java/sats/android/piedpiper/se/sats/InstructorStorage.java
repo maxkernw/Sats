@@ -17,7 +17,7 @@ import sats.android.piedpiper.se.sats.models.Instructor;
  * Created by Osama on 2015-04-24.
  */
 
-public class InstructorStorage
+public final class InstructorStorage
 {
     private static final String ERROR = "Error" ;
     private static ArrayList<Instructor> instructorList = new ArrayList<>();
