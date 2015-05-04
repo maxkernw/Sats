@@ -2,14 +2,13 @@ package sats.android.piedpiper.se.sats;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class SandrasMain extends ActionBarActivity
@@ -27,9 +26,9 @@ public class SandrasMain extends ActionBarActivity
         //List to populate
         StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-
         //Populate list with data
         listView.setAdapter(new SandrasAdapter(this, trainingActivityList));
+
     }
 
     public void populateArray()

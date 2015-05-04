@@ -33,6 +33,7 @@
                 sothree:umanoPanelHeight="300dp"
                 sothree:umanoParalaxOffset="100dp"
                 sothree:umanoShadowHeight="4dp">
+
             <FrameLayout
                 android:id="@+id/graph"
                 android:layout_width="wrap_content"
@@ -54,17 +55,14 @@
                     android:textSize="12dp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
-                    android:layout_marginTop="9dp"
-                    />
-
+                    android:layout_marginTop="9dp"/>
 
                 <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/listan"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tidigare"
-                    android:layout_marginTop="10dp"
-                    />
+                    android:layout_marginTop="10dp"/>
 
                 </RelativeLayout>
 

@@ -9,8 +9,6 @@
               android:padding="3dp">
 
     <!-- Whole box-->
-
-
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
@@ -22,9 +20,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="top"
         android:layout_gravity="top"
-        android:background="@drawable/booking_layout_bg"
-        >
-
+        android:background="@drawable/booking_layout_bg">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -61,8 +57,7 @@
 
                         <RelativeLayout
                             android:layout_width="45dp"
-                            android:layout_height="50dp"
-                            >
+                            android:layout_height="50dp">
 
                             <ImageButton
                                 android:id="@+id/hours_background"
@@ -85,8 +80,7 @@
 
                         <RelativeLayout
                             android:layout_width="45dp"
-                            android:layout_height="50dp"
-                            >
+                            android:layout_height="50dp">
 
                             <ImageButton
                                 android:id="@+id/minutes_background"
@@ -147,8 +141,7 @@
                 android:id="@+id/top_middle_box"
                 android:layout_weight="3.8"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="0dp"
-                >
+                android:layout_marginTop="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -158,8 +151,7 @@
                     android:id="@+id/pass"
                     android:textStyle="bold"
                     android:textSize="15dp"
-                    android:textIsSelectable="false"
-                    />
+                    android:textIsSelectable="false"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,6 +171,7 @@
                     android:id="@+id/instructor"
                     android:textSize="12dp"
                     android:textColor="@color/secondary_color"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -186,7 +179,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3">
-
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -212,8 +204,8 @@
                             android:textColor="@color/white"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold"/>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -244,9 +236,11 @@
                             android:textSize="15dp"/>
 
                     </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -280,8 +274,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/bottom_left_box"
-                android:layout_weight="4.5"
-                >
+                android:layout_weight="4.5">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -315,8 +308,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/divider"
                 android:background="@drawable/mid_divider"
-                android:layout_gravity="center"
-                >
+                android:layout_gravity="center">
             </LinearLayout>
 
             <LinearLayout
@@ -340,8 +332,7 @@
                         android:id="@+id/ic_more"
                         android:src="@drawable/ic_more"
                         android:layout_marginRight="8dp"
-                        android:cropToPadding="false"
-                        />
+                        android:cropToPadding="false"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -355,9 +346,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-
     <!--Whole box-->
 </LinearLayout>
