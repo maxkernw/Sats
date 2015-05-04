@@ -252,7 +252,7 @@
                 android:id="@+id/bottom_left_box"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_toLeftOf="@id/divider"
+                android:layout_toLeftOf="@+id/divider"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true">
