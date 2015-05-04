@@ -8,8 +8,7 @@
                                    android:minHeight="?attr/actionBarSize"
                                    android:background="@color/white"
                                    local:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                                   local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    >
+                                   local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -32,17 +31,15 @@
             android:src="@drawable/sats_logo"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_toRightOf="@+id/logo_settings"
-          />
+            android:layout_toRightOf="@+id/logo_settings"/>
+
         <ImageView
             android:id="@+id/logo_settings"
             android:src="@drawable/meny_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-
             android:layout_centerVertical="true"
             android:scaleType="centerInside"
-
             android:layout_alignParentStart="false"
             android:layout_marginLeft="-5dp"
             android:layout_alignParentLeft="true"
@@ -59,5 +56,6 @@
             android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
+
 </android.support.v7.widget.Toolbar>
 

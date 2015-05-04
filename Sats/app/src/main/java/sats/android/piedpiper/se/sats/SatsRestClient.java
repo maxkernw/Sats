@@ -6,10 +6,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-/**
- * Created by Osama on 2015-04-24.
- */
-
 public class SatsRestClient
 {
     private static final String BASE_URL = "https://api2.sats.com/v1.0/se/";

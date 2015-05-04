@@ -1,4 +1,5 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.models;
+
 public final class PreviousTraining
 {
     private String title;

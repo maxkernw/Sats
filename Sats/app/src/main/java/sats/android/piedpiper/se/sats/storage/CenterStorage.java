@@ -1,27 +1,29 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.Log;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-public class CenterStorage {
+import sats.android.piedpiper.se.sats.SatsRestClient;
+import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.Region;
+
+public class CenterStorage
+{
     private static ArrayList<Center> centerList = new ArrayList<>();
     private static ArrayList<Center> allCenters = new ArrayList<>();
     private static ArrayList<Region> regionList = new ArrayList<>();
     private static JSONArray jsonRegions, centersOfRegion;
     private static JSONObject jsonCenter;
 
-    public static void populateCenters(Context context) throws JSONException
+    public static void populateCenters() throws JSONException
     {
         SatsRestClient.get("centers", null, new JsonHttpResponseHandler()
         {
@@ -78,13 +80,16 @@ public class CenterStorage {
 
     }
 
-    public static ArrayList<Center> getCenters() {
+    public static ArrayList<Center> getCenters()
+    {
         Log.i("Info", String.valueOf(centerList.size()));
         return centerList;
     }
 
-    public final Center getCenter(int centerId) {
-        for (Center center : centerList) {
+    public final Center getCenter(int centerId)
+    {
+        for (Center center : centerList)
+        {
             if(center.getId() == centerId)
                 return center;
         }

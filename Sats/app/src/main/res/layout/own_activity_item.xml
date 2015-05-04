@@ -7,30 +7,25 @@
               android:layout_marginRight="@dimen/activity_horizontal_margin"
               android:orientation="vertical"
               android:padding="3dp">
-
     <!-- Whole box-->
-
-
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:orientation="vertical"
         android:layout_marginBottom="10dp"
         android:gravity="top"
         android:layout_gravity="top"
-        android:background="@drawable/booking_layout_bg"
-        >
-
+        android:background="@drawable/booking_layout_bg">
 
         <LinearLayout
+            android:id="@+id/top_box"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/top_box"
             android:gravity="top"
             android:layout_gravity="top"
             android:padding="10dp"
@@ -42,30 +37,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.14"
                 android:orientation="vertical"
-                android:weightSum="10"
-                >
+                android:weightSum="10">
 
                 <LinearLayout
+                    android:id="@+id/class_box"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:orientation="vertical"
                     android:weightSum="10"
-                    android:layout_weight="5"
-                    android:id="@+id/class_box">
+                    android:layout_weight="5">
 
                     <LinearLayout
+                        android:id="@+id/class_type_own"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:weightSum="10"
-                        android:id="@+id/class_type_own"
-                        >
+                        android:weightSum="10">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            >
+                            android:layout_height="20dp">
+
                             <TextView
+                                android:id="@+id/own_activity_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Styrketräning"
@@ -94,7 +88,7 @@
                             android:scaleY="0.45"/>
 
                         <TextView
-                            android:id="@+id/class_time"
+                            android:id="@+id/own_activity_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
@@ -104,7 +98,9 @@
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="5dp"
                             android:textSize="10dp"/>
+
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -127,7 +123,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="Kommentar"
+                            android:text="1 kommentar"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="2dp"
@@ -155,7 +151,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3">
-
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -188,6 +183,19 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/top_divider"
+            android:background="@drawable/top_divider"
+            android:layout_gravity="top"
+            android:alpha="0.5"
+            android:layout_marginLeft="3.5dp"
+            android:layout_marginRight="3.5dp">
         </LinearLayout>
 
         <LinearLayout
@@ -198,7 +206,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:weightSum="10"
-            android:background="@drawable/booking_pressed_state_button"
+            android:background="@drawable/pressed_state_button_cp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginBottom="3dp">
@@ -208,8 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/bottom_left_box"
-                android:layout_weight="4.5"
-                >
+                android:layout_weight="4.5">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -243,8 +250,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/divider"
                 android:background="@drawable/mid_divider"
-                android:layout_gravity="center"
-                >
+                android:layout_gravity="center">
+
             </LinearLayout>
 
             <LinearLayout
@@ -268,8 +275,7 @@
                         android:id="@+id/ic_more"
                         android:src="@drawable/ic_more"
                         android:layout_marginRight="8dp"
-                        android:cropToPadding="false"
-                        />
+                        android:cropToPadding="false"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -283,9 +289,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-
     <!--Whole box-->
 </LinearLayout>

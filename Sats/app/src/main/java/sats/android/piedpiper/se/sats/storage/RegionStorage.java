@@ -1,21 +1,18 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.storage;
 
 import android.util.Log;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-/**
- * Created by Osama on 2015-04-24.
- */
+import sats.android.piedpiper.se.sats.SatsRestClient;
+import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.Region;
 
-public class RegionStorage
+public final class RegionStorage
 {
     private static final String ERROR = "Error";
     private static final String INFO = "Information";

@@ -31,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title"
@@ -40,20 +40,20 @@
                     android:text="Styrketräning"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#000000"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fredag 25/4"
-                    android:textColor="#868686" />
+                    android:textColor="#868686"/>
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_height="14dp"
                     android:layout_marginTop="3dp"
                     android:alpha="0.5"
-                    android:src="@drawable/ic_comment" />
+                    android:src="@drawable/ic_comment"/>
 
                 <TextView
                     android:id="@+id/comment"
@@ -76,8 +76,9 @@
                     android:paddingLeft="6dp"
                     android:text="Lägg till kommentar"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#a8a8a8" />
+                    android:textColor="#a8a8a8"/>
             </LinearLayout>
+
         </LinearLayout>
 
         <CheckBox
@@ -91,17 +92,8 @@
             android:checked="false"
             android:text="Avklarat?"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#868686" />
+            android:textColor="#868686"/>
 
-       <!-- <TextView
-            android:id="@id/checkbox_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="Avklarat?"
-            />
--->
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,87 +1,56 @@
 package sats.android.piedpiper.se.sats;
 
-import android.content.Context;
 import android.os.Bundle;
-
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.TextView;
-import sats.android.piedpiper.se.sats.models.Booking;
-import sats.android.piedpiper.se.sats.models.Class;
 
 import java.util.ArrayList;
 import java.util.Date;
+import sats.android.piedpiper.se.sats.models.TrainingActivity;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-
-import org.json.JSONException;
-
-public final class MainActivity extends ActionBarActivity
-
+public class MainActivity extends ActionBarActivity
 {
-    private static final String TAG = "SATSMainActivity";
-    private ListView listView;
-    CenterStorage center = new CenterStorage();
-    public static ArrayList<Booking> user_activities = new ArrayList<>();
-    public static ArrayList<Integer> classCat = new ArrayList<>();
-    Class aClass;
-    Date now = new Date();
-    Context context = getApplicationContext();
+    private ArrayList<TrainingActivity> trainingActivityList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //Toolbar will now take on default actionbar characteristics
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        CenterStorage centerS = new CenterStorage();
 
+        populateArray();
 
-        try {
-            centerS.populateCenters(context);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        //List to populate
+        StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-/*        Date now = new Date();
-        ArrayList<Booking> user_activities = new ArrayList<>();
-        ArrayList<Integer> classCat = new ArrayList<>();
-        Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        listView = (ListView) findViewById(R.id.listan);
-        classCat.add(10);
-        aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+        //Populate list with data
+        listView.setAdapter(new CustomAdapter(this, trainingActivityList));
 
-
-        user_activities.add(new Booking("CONFIRMED", aClass,"Ullholmen", "2", 22));
-        listView.setAdapter(new BookedClassAdapter(this, user_activities));*/
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        centerS.getCenters();
     }
 
-    public void ActivityCompleted(View v)
+    public void populateArray()
     {
-        TextView avklarat = (TextView) findViewById(R.id.avklarat);
-        CheckBox box = (CheckBox) v;
+        trainingActivityList = new ArrayList<>();
 
-        if (box.isChecked())
-        {
-            avklarat.setText("Avklarat!");
-        } else
-        {
-            avklarat.setText("Avklarat?");
-        }
+        TrainingActivity activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Yoga", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "GROUP");
+        trainingActivityList.add(0, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Styrketräning", new Date(), 7, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "GROUP", "gym");
+        trainingActivityList.add(1, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "running");
+        trainingActivityList.add(2, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "", "Cykling", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "COMPLETED", "OTHER", "cycle");
+        trainingActivityList.add(3, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "Brittmarie Ek", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "SATS", "PLANNED", "OTHER", "other");
+        trainingActivityList.add(4, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "", "Löpträningg", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
+        trainingActivityList.add(5, activity);
+
+        activity = new TrainingActivity("", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
+        trainingActivityList.add(6, activity);
     }
 }
