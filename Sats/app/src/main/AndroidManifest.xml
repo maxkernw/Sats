@@ -27,6 +27,12 @@
 
         </activity>
 
+        <activity
+            android:name=".MoreInfoActivity"
+            android:label="Sats2">
+
+        </activity>
+
     </application>
 
 </manifest>
