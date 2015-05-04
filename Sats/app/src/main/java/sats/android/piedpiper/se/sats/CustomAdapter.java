@@ -15,7 +15,7 @@ import java.util.Calendar;
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
-public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdapter
+public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
     private ArrayList<TrainingActivity> trainingList;
     private final Activity activity;
@@ -26,7 +26,7 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
     private final String[] swedish_months = {"Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"};
 
 
-    public SandrasAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
+    public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
     {
 
         this.activity = activity;
