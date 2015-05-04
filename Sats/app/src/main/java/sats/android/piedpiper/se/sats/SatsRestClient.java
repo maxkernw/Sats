@@ -1,12 +1,10 @@
 package sats.android.piedpiper.se.sats;
 
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-/**
- * Created by Osama on 2015-04-24.
- */
 
 public class SatsRestClient
 {
