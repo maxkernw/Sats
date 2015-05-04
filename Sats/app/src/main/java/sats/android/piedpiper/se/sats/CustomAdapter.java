@@ -1,6 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -173,6 +175,20 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
             bookedPersons.setVisibility(View.INVISIBLE);
         }
+
+        LinearLayout lay = (LinearLayout) view.findViewById(R.id.bottom_right_box);
+
+        lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
+                CustomAdapter.this.activity.startActivity(moreInfo);
+
+            }
+        });
+
+
+
     }
 
     private void setupPreviousActivity(View view, int position)
