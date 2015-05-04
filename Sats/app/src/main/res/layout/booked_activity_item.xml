@@ -49,8 +49,8 @@
                     >
 
                     <RelativeLayout
-                        android:layout_width="40dp"
-                        android:layout_height="45dp">
+                        android:layout_width="45dp"
+                        android:layout_height="50dp">
 
                         <ImageButton
                             android:id="@+id/hours_background"
@@ -71,8 +71,8 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="40dp"
-                        android:layout_height="45dp">
+                        android:layout_width="45dp"
+                        android:layout_height="50dp">
 
                         <ImageButton
                             android:id="@+id/minutes_background"
@@ -134,7 +134,7 @@
                     android:id="@+id/pass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="SATS CORE"
                     android:textStyle="bold"
                     android:textIsSelectable="false"
@@ -208,7 +208,7 @@
                             android:layout_height="14dp"
                             android:src="@drawable/people_icon"
                             android:layout_marginRight="7dp"
-                            android:layout_marginTop="1.5dp" />
+                            android:layout_marginTop="3.5dp" />
 
                         <TextView
                             android:id="@+id/number_participants"
@@ -242,7 +242,7 @@
         <RelativeLayout
             android:id="@+id/bottom_box"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2.5dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
