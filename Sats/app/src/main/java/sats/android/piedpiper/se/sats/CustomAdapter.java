@@ -199,6 +199,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         String previousDateFormat= swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
 
         //set
+
         previousActivityHolder.title.setText(previousActivity.name);
         previousActivityHolder.date.setText(previousDateFormat);
         setActivityImage(previousActivityHolder, previousActivity);
@@ -206,8 +207,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         //checkbox
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        //sätt till checked/unchecked i början TODO funkar ej
-        box.setSelected(previousActivity.satus.equals("COMPLETED"));
+        //sätt till checked/unchecked i början
+        box.setChecked(previousActivity.satus.equals("COMPLETED"));
 
         //Lyssnar på click fr. varje item i listan
         box.setOnClickListener(new View.OnClickListener()
