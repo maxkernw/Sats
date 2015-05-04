@@ -1,5 +1,6 @@
 package sats.android.piedpiper.se.sats;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +23,12 @@ public final class MainActivity extends ActionBarActivity
 {
     private static final String TAG = "SATSMainActivity";
     private ListView listView;
+    CenterStorage center = new CenterStorage();
+    public static ArrayList<Booking> user_activities = new ArrayList<>();
+    public static ArrayList<Integer> classCat = new ArrayList<>();
+    Class aClass;
+    Date now = new Date();
+    Context context = getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,9 +39,11 @@ public final class MainActivity extends ActionBarActivity
         //Toolbar will now take on default actionbar characteristics
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        CenterStorage centerS = new CenterStorage();
+
 
         try {
-            CenterStorage.getCenters();
+            centerS.populateCenters(context);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -43,10 +52,23 @@ public final class MainActivity extends ActionBarActivity
         ArrayList<Booking> user_activities = new ArrayList<>();
         ArrayList<Integer> classCat = new ArrayList<>();
         Class aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        listView = (ListView) findViewById(R.id.listan);
         classCat.add(10);
+        aClass = new Class("1","2","3",4,"5","6","7",now,8,9,"10",11,classCat);
+
 
         user_activities.add(new Booking("CONFIRMED", aClass,"Ullholmen", "2", 22));
         listView.setAdapter(new BookedClassAdapter(this, user_activities));*/
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        centerS.getCenters();
     }
 
     public void ActivityCompleted(View v)
