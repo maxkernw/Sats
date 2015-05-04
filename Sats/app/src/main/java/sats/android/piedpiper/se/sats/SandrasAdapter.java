@@ -11,25 +11,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
-
-
     private ArrayList<TrainingActivity> trainingList;
     private final Activity activity;
     private final LayoutInflater inflater;
     private final int numberOfPositions;
+    private Calendar mCalendar = Calendar.getInstance();
+
 
     public SandrasAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
     {
         this.activity = activity;
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
-
         numberOfPositions = trainingList.size();
     }
 
@@ -268,9 +268,8 @@ public class SandrasAdapter extends BaseAdapter implements StickyListHeadersAdap
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-        //set date_header text as first char in name
-
-        String headerText = trainingList.get(position).startTime.getDate() +  "/" + (trainingList.get(position).startTime.getDay() + 1);
+        mCalendar.setTime(trainingList.get(position).startTime);
+        String headerText = mCalendar.get(Calendar.DAY_OF_MONTH) +"/"+ (mCalendar.get(Calendar.MONTH)+1);
         holder.text.setText(headerText);
         return convertView;
     }
