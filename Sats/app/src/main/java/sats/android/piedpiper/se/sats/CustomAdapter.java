@@ -1,6 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -22,11 +25,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private final LayoutInflater inflater;
     private final int numberOfPositions;
     private Calendar mCalendar = Calendar.getInstance();
-    
+
+    private final String[] swedish_days = {"Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"};
+    private final String[] swedish_months = {"Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"};
+
 
 
     public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
     {
+
         this.activity = activity;
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
@@ -159,8 +166,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
 
         //set
-        holder.bigClockHours.setText("12"); //TODO (formatera startTime)
-        holder.bigClockMinutes.setText("30");  //TODO
+        holder.bigClockHours.setText(String.valueOf(bookedActivityObj.startTime.getHours()));
+        holder.bigClockMinutes.setText(String.valueOf(bookedActivityObj.startTime.getMinutes()));
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes));
         holder.pass.setText(bookedActivityObj.name);
         holder.center.setText(bookedActivityObj.centerId);
@@ -171,6 +178,20 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
             bookedPersons.setVisibility(View.INVISIBLE);
         }
+
+        RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
+
+        lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
+                CustomAdapter.this.activity.startActivity(moreInfo);
+
+            }
+        });
+
+
+
     }
 
     private void setupPreviousActivity(View view, int position)
@@ -178,15 +199,19 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         PreviousActivityHolder previousActivityHolder = (PreviousActivityHolder) view.getTag();
         TrainingActivity previousActivity = (TrainingActivity) getItem(position);
 
+        String previousDateFormat= swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
+
         //set
+
         previousActivityHolder.title.setText(previousActivity.name);
-        previousActivityHolder.date.setText("Fredag 12/7"); //TODO (formatera startTime)
+        previousActivityHolder.date.setText(previousDateFormat);
         setActivityImage(previousActivityHolder, previousActivity);
+
 
         //checkbox
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        //sätt till checked/unchecked i början TODO funkar ej
-        box.setSelected(previousActivity.satus.equals("COMPLETED"));
+        //sätt till checked/unchecked i början
+        box.setChecked(previousActivity.satus.equals("COMPLETED"));
 
         //Lyssnar på click fr. varje item i listan
         box.setOnClickListener(new View.OnClickListener()
@@ -268,8 +293,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-        mCalendar.setTime(trainingList.get(position).startTime);
-        String headerText = mCalendar.get(Calendar.DAY_OF_MONTH) +"/"+ (mCalendar.get(Calendar.MONTH)+1);
+        String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+
         holder.text.setText(headerText);
         return convertView;
     }
