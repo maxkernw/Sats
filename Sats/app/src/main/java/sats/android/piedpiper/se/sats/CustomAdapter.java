@@ -28,8 +28,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private Calendar mCalendar = Calendar.getInstance();
     private final String[] swedish_days = {"Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"};
     private final String[] swedish_months = {"Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"};
-
-
+    private Date date = new Date();
+    private int NUMBER_OF_VIEWS_SERVED_BY_ADAPTER = 3;
+    private int previous = 0;
+    private int booked = 1;
+    private int own = 2;
 
     public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
     {
@@ -38,6 +41,37 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
+    }
+
+    @Override
+    public int getViewTypeCount()
+    {
+        return NUMBER_OF_VIEWS_SERVED_BY_ADAPTER;
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        TrainingActivity myTrainingActivityObj = (TrainingActivity) getItem(position);
+
+        boolean isPreviousActivity;
+        isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED")) ||
+                myTrainingActivityObj.startTime.before(date);
+
+        if (isPreviousActivity)
+        {                             //tidigare träning
+            return previous;
+        } else
+        {
+            if (myTrainingActivityObj.type.equals("GROUP"))
+            { //SATSPass
+                return booked;
+            } else
+            {                                          //egen träning
+                return own;
+            }
+        }
+
     }
 
     @Override
@@ -64,25 +98,37 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         TrainingActivity myTrainingActivityObj = (TrainingActivity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED")); //TODO och/eller kolla om datum är innan dagens datum
+        isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED")) ||
+                                myTrainingActivityObj.startTime.before(date); //TODO och/eller kolla om datum är innan dagens datum
 
         if (convertView == null)
         {
             if (isPreviousActivity)
             {                             //tidigare träning
                 convertView = inflatePreviousActivity(parent);
-                setupPreviousActivity(convertView, position);
             } else
             {
                 if (myTrainingActivityObj.type.equals("GROUP"))
                 { //SATSPass
                     convertView = inflateBookedActivity(parent);
-                    setupBookedActivity(convertView, position);
                 } else
                 {                                          //egen träning
                     convertView = inflateOwnActivity(parent);
-                    setupOwnActivity(convertView, position);
                 }
+            }
+        }
+
+        if(isPreviousActivity)
+        {
+            setupPreviousActivity(convertView, position);
+        } else
+        {
+            if (myTrainingActivityObj.type.equals("GROUP"))
+            {
+                setupBookedActivity(convertView, position);
+            } else
+            {
+                setupOwnActivity(convertView, position);
             }
         }
 
