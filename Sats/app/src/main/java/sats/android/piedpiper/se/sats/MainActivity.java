@@ -16,12 +16,17 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import sats.android.piedpiper.se.sats.models.TrainingActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
-    private ArrayList<TrainingActivity> trainingActivityList;
+    public ArrayList<TrainingActivity> trainingActivityList;
     private Date date = new Date();
 
 
@@ -33,6 +38,7 @@ public class MainActivity extends ActionBarActivity
         final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
 
         populateArray();
+
 
         //List to populate
         StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
@@ -49,6 +55,7 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View view)
             {
                 im.startAnimation(animRot);
+
             }
         });
         listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
@@ -67,6 +74,7 @@ public class MainActivity extends ActionBarActivity
 
             }
         });
+
 
     }
 

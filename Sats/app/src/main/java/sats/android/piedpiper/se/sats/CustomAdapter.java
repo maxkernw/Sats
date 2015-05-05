@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,9 +27,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private final LayoutInflater inflater;
     private final int numberOfPositions;
     private Calendar mCalendar = Calendar.getInstance();
-    private final String[] swedish_days = {"Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"};
-    private final String[] swedish_months = {"Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"};
-
+    private final String[] swedish_days = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"};
+    private final String[] swedish_months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"};
 
 
     public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
@@ -62,7 +62,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         TrainingActivity myTrainingActivityObj = (TrainingActivity) getItem(position);
-
         boolean isPreviousActivity;
         isPreviousActivity = (myTrainingActivityObj.satus.equals("COMPLETED")); //TODO och/eller kolla om datum är innan dagens datum
 
@@ -72,18 +71,18 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             {                             //tidigare träning
                 convertView = inflatePreviousActivity(parent);
                 setupPreviousActivity(convertView, position);
-            } else
-            {
-                if (myTrainingActivityObj.type.equals("GROUP"))
-                { //SATSPass
-                    convertView = inflateBookedActivity(parent);
-                    setupBookedActivity(convertView, position);
-                } else
-                {                                          //egen träning
-                    convertView = inflateOwnActivity(parent);
-                    setupOwnActivity(convertView, position);
-                }
             }
+            else if (myTrainingActivityObj.type.equals("GROUP"))
+            { //SATSPass
+                convertView = inflateBookedActivity(parent);
+                setupBookedActivity(convertView, position);
+            }
+            else
+            {                                          //egen träning
+                convertView = inflateOwnActivity(parent);
+                setupOwnActivity(convertView, position);
+            }
+
         }
 
         return convertView;
@@ -166,30 +165,37 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
 
         //set
-        holder.bigClockHours.setText(String.valueOf(bookedActivityObj.startTime.getHours()));
-        holder.bigClockMinutes.setText(String.valueOf(bookedActivityObj.startTime.getMinutes()));
+        Integer hrs = Integer.parseInt(String.valueOf(bookedActivityObj.startTime.getHours()));
+        Integer min = Integer.parseInt(String.valueOf(bookedActivityObj.startTime.getMinutes()));
+        String curHrs = String.format("%02d", hrs);
+        String curMin = String.format("%02d", min);
+
+        holder.bigClockHours.setText(curHrs);
+        holder.bigClockMinutes.setText(curMin);
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes));
         holder.pass.setText(bookedActivityObj.name);
         holder.center.setText(bookedActivityObj.centerId);
         holder.instructor.setText(bookedActivityObj.instructorId);
         holder.participants.setText(String.valueOf(bookedActivityObj.bookedPersonsCount));
 
-        if(bookedActivityObj.bookedPersonsCount == 0){
+        if (bookedActivityObj.bookedPersonsCount == 0)
+        {
             LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
             bookedPersons.setVisibility(View.INVISIBLE);
         }
 
         RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
 
-        lay.setOnClickListener(new View.OnClickListener() {
+        lay.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
                 CustomAdapter.this.activity.startActivity(moreInfo);
 
             }
         });
-
 
 
     }
@@ -199,7 +205,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         PreviousActivityHolder previousActivityHolder = (PreviousActivityHolder) view.getTag();
         TrainingActivity previousActivity = (TrainingActivity) getItem(position);
 
-        String previousDateFormat= swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
+        String previousDateFormat = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH) - 1] + " " + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
 
         //set
 
@@ -294,7 +300,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             holder = (HeaderViewHolder) convertView.getTag();
         }
         mCalendar.setTime(trainingList.get(position).startTime);
-        String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+        String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
         holder.text.setText(headerText);
         return convertView;
