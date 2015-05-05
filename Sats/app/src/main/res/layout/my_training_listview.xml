@@ -49,7 +49,7 @@
                     android:id="@+id/tidigare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TIDIGARE TRÄNING"
+                    android:text=""
                     android:gravity="center_vertical"
                     android:textColor="@color/dark_gray"
                     android:textSize="12dp"
