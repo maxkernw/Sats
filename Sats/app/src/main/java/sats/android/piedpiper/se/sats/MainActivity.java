@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,8 +17,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
-    public ArrayList<Activity> trainingActivityList;
     private Date date = new Date();
+    private static android.app.Activity activity;
 
 
     @Override
@@ -26,11 +27,12 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
         final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
-
+        date.setYear(113);
         //populateArray();
+        activity = this;
 
         //List to populate
-        StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
         IonRequester.getBooking(this, listView);
 
         //Populate list with data
@@ -45,6 +47,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
+
+                IonRequester.clear(activity, listView);
+                //IonRequester.getBooking(activity,listView);
                 im.startAnimation(animRot);
 
             }
@@ -55,7 +60,7 @@ public class MainActivity extends ActionBarActivity
             public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
-
+                Log.e("Date", "Date year: " + date);
                 if(date.after(CustomAdapter.trainingList.get(i).date)){
                     txtStatus.setText("TIDIGARE TRÄNING");
                 }

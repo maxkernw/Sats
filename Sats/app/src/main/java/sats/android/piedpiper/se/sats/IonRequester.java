@@ -25,7 +25,8 @@ public class IonRequester {
 
     private static JsonArray jsonActivities;
     private static ArrayList<Activity> ActivitiesList = new ArrayList<>();
-    public static final String sURL = "http://192.168.57.1:8080/sats-server/se/training/activities/?fromDate=20130220&toDate=20160521";
+    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20121210&toDate=20160521";
+    private static CustomAdapter adapter;
 
     public static void getBooking (final android.app.Activity activity, final StickyListHeadersListView listView){
         Ion.with(activity.getApplicationContext()).load(sURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
@@ -153,14 +154,20 @@ public class IonRequester {
                     //
                     //Osamas kod för centers och instructors
                     //
-
-                    listView.setAdapter(new CustomAdapter(activity, ActivitiesList));
+                    adapter = new CustomAdapter(activity, ActivitiesList);
+                    listView.setAdapter(adapter);
                     Log.e("Testa", "completed");
+
                 }
 
 
             }
         });
+    }
+
+    public static void clear(android.app.Activity activity, final StickyListHeadersListView listView){
+        ActivitiesList.clear();
+        getBooking(activity, listView);
     }
 }
 
