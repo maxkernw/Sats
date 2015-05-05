@@ -1,6 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -12,9 +13,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
+import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.Klass;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -122,6 +126,7 @@ public class IonRequester {
                         String status = jsonActivities.get(i).getAsJsonObject().get("status").getAsString();
                         //getJSONObject(i).getString("status");
                         String subType = jsonActivities.get(i).getAsJsonObject().get("subType").getAsString();
+                        Log.e("Subtype", "Subtype: " + subType);
                         //getJSONObject(i).getString("subType");
                         String daten = jsonActivities.get(i).getAsJsonObject().get("date").getAsString();
                         //getJSONObject(i).getString("date");
@@ -154,6 +159,10 @@ public class IonRequester {
                     //
                     //Osamas kod för centers och instructors
                     //
+                    Set<Activity> hs = new HashSet<>();
+                    hs.addAll(ActivitiesList);
+                    ActivitiesList.clear();
+                    ActivitiesList.addAll(hs);
                     adapter = new CustomAdapter(activity, ActivitiesList);
                     listView.setAdapter(adapter);
                     Log.e("Testa", "completed");
@@ -169,5 +178,83 @@ public class IonRequester {
         ActivitiesList.clear();
         getBooking(activity, listView);
     }
+
+    private static JsonObject jsonCenter;
+    public static void getClass (android.app.Activity activity,final BookedActivityHolder holder, String id)
+    {
+        Ion.with(activity.getApplicationContext()).load("https://api2.sats.com/v1.0/se/centers/" + id).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        {
+            @Override
+            public void onCompleted(Exception e, JsonObject result)
+            {
+                if (result == null)
+                {
+                    Log.e("Testa", "could not get json");
+                }
+                else
+                {
+                    Log.e("Testa", "got all json without problem");
+                    jsonCenter = result.getAsJsonObject("center");
+
+                    boolean availableForOnlineBooking, isElixia;
+                    String description, name, url;
+                    int filterId, id, lati, longi, regionId;
+
+                    availableForOnlineBooking = jsonCenter.get("availableForOnlineBooking").getAsBoolean();
+                    description = jsonCenter.get("description").getAsString();
+                    filterId = jsonCenter.get("filterId").getAsInt();
+                    id = jsonCenter.get("id").getAsInt();
+                    isElixia = jsonCenter.get("isElixia").getAsBoolean();
+                    lati = jsonCenter.get("lat").getAsInt();
+                    longi = jsonCenter.get("long").getAsInt();
+                    name = jsonCenter.get("name").getAsString();
+                    regionId = jsonCenter.get("regionId").getAsInt();
+                    url = jsonCenter.get("url").getAsString();
+                    Center center = new Center(availableForOnlineBooking, isElixia, description, name, url, filterId, id, lati, longi, regionId);
+                    holder.center.setText(center.name);
+                }
+            }
+        });
+    }
+
+    public static void getName(android.app.Activity activity,final ActivityHolder holder, String subType)
+    {
+        Ion.with(activity.getApplicationContext()).load("http://192.168.68.226:8080/sats-server/se/training/activities/" + subType).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        {
+            @Override
+            public void onCompleted(Exception e, JsonObject result)
+            {
+                if (result == null)
+                {
+                    Log.e("Testa", "could not get json");
+                }
+                else
+                {
+                    Log.e("Testa", "got all json without problem");
+                    holder.title.setText(result.get("name").getAsString());
+                }
+            }
+        });
+    }
+
+    /*public static void getInstructor(android.app.Activity activity,final BookedActivityHolder holder, String subType)
+    {
+        Ion.with(activity.getApplicationContext()).load("http://192.168.68.226:8080/sats-server/se/training/activities/" + subType).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        {
+            @Override
+            public void onCompleted(Exception e, JsonObject result)
+            {
+                if (result == null)
+                {
+                    Log.e("Testa", "could not get json");
+                }
+                else
+                {
+                    Log.e("Testa", "got all json without problem");
+                    holder.title.setText(result.get("name").getAsString());
+                }
+            }
+        });
+    } */
 }
 

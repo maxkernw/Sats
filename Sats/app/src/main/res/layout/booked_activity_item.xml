@@ -64,7 +64,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="10"
                             android:layout_centerInParent="true"
                             android:textColor="@color/white"
                             android:textSize="30dp" />
@@ -87,7 +86,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="25"
                             android:layout_centerInParent="true"
                             android:textColor="@color/white"
                             android:textSize="30dp" />
@@ -114,7 +112,6 @@
                         android:id="@+id/class_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="30 min"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/secondary_color"
                         android:layout_marginLeft="5dp" />
@@ -135,7 +132,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="SATS CORE"
                     android:textStyle="bold"
                     android:textIsSelectable="false"
                     android:textColor="#ff000000" />
@@ -145,7 +141,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Hornstull"
                     android:typeface="normal"
                     android:textColor="@color/secondary_color" />
 
@@ -154,7 +149,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Sven Svensson"
                     android:textColor="@color/secondary_color" />
             </LinearLayout>
 
@@ -215,7 +209,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="20"
                             android:textColor="@color/pink"
                             android:textStyle="bold"
                             android:textSize="15dp" />

@@ -43,6 +43,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
+        date.setYear(113);
         for(Activity bom:trainingList){
             Log.e("vilken_typ", bom.subType + ", datum: " + bom.getDate());
         }
@@ -80,7 +81,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         Activity myTrainingActivityObj = (Activity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (myTrainingActivityObj.status.equals("COMPLETED")) ||
+        isPreviousActivity = (myTrainingActivityObj.status.equals("COMPLETED")) &&
                 myTrainingActivityObj.date.before(date);
 
         if (isPreviousActivity)
@@ -105,22 +106,25 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         Activity myTrainingActivityObj = (Activity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (myTrainingActivityObj.status.equals("COMPLETED")) ||
-                myTrainingActivityObj.date.before(date); //TODO och/eller kolla om datum är innan dagens datum
+        isPreviousActivity = (//myTrainingActivityObj.status.equals("COMPLETED")) ||
+                myTrainingActivityObj.date.before(date)); //TODO och/eller kolla om datum är innan dagens datum
 
         if (convertView == null)
         {
             if (isPreviousActivity)
             {                             //tidigare träning
                 convertView = inflatePreviousActivity(parent);
+                setupPreviousActivity(convertView, position);
             } else
             {
                 if (myTrainingActivityObj.type.equals("GROUP"))
                 { //SATSPass
                     convertView = inflateBookedActivity(parent);
+                    setupBookedActivity(convertView, position);
                 } else
                 {                                          //egen träning
                     convertView = inflateOwnActivity(parent);
+                    setupOwnActivity(convertView, position);
                 }
             }
         }
@@ -174,7 +178,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.bigClockHours = (TextView) newView.findViewById(R.id.hour);
         holder.bigClockMinutes = (TextView) newView.findViewById(R.id.minutes);
         holder.classTotalTime = (TextView) newView.findViewById(R.id.class_time);
-        holder.pass = (TextView) newView.findViewById(R.id.pass);
+        holder.title = (TextView) newView.findViewById(R.id.pass);
         holder.center = (TextView) newView.findViewById(R.id.center);
         holder.instructor = (TextView) newView.findViewById(R.id.instructor);
         holder.participants = (TextView) newView.findViewById(R.id.number_participants);
@@ -208,9 +212,13 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
         Activity ownActivityObj = (Activity) getItem(position);
 
+
         //set
-        holder.title.setText(ownActivityObj.subType);
-        holder.totalTime.setText(String.valueOf(ownActivityObj.durationInMinutes));
+        IonRequester.getName(activity, holder, ownActivityObj.subType);
+        //holder.title.setText(ownActivityObj.subType);
+
+
+        holder.totalTime.setText(String.valueOf(ownActivityObj.durationInMinutes) + " min");
     }
 
     private void setupBookedActivity(View view, int position)
@@ -220,8 +228,10 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         //set
 
-        Integer hrs = Integer.parseInt(String.valueOf(bookedActivityObj.date.getHours()));
-        Integer min = Integer.parseInt(String.valueOf(bookedActivityObj.date.getMinutes()));
+        //Integer hrs = Integer.parseInt(bookedActivityObj.date.getHours());
+        Integer hrs = bookedActivityObj.date.getHours();
+        //Integer min = Integer.parseInt(bookedActivityObj.date.getMinutes());
+        Integer min = bookedActivityObj.date.getMinutes();
         String curHrs = String.format("%02d", hrs);
         String curMin = String.format("%02d", min);
 
@@ -229,10 +239,19 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.bigClockMinutes.setText(curMin);
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes) + " min");
 
-        holder.pass.setText(bookedActivityObj.subType);
+        //
+        holder.title.setText(bookedActivityObj.subType);
+        IonRequester.getName(activity, holder, bookedActivityObj.subType);
+
+        //
+
+        Log.e("Subtype", "Subtype: " + bookedActivityObj.subType + " id: " + bookedActivityObj.id);
         if(bookedActivityObj.booking != null)
         {
-            holder.center.setText(bookedActivityObj.booking.center);
+            //holder.center.setText(bookedActivityObj.booking.center);
+            IonRequester.getClass(activity, holder, bookedActivityObj.booking.center);
+
+            //bookedActivityObj.booking.center
             holder.instructor.setText(bookedActivityObj.booking.aClass.instructorId);
             holder.participants.setText(String.valueOf(bookedActivityObj.booking.aClass.bookedPersonsCount));
 
@@ -267,9 +286,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         int month = mCalendar.get(Calendar.MONTH);
         String previousDateFormat = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + "/" + (month+1);
 
-        //set
+        IonRequester.getName(activity, previousActivityHolder, previousActivity.subType);
 
-        previousActivityHolder.title.setText(previousActivity.subType);
+        //previousActivityHolder.title.setText(previousActivity.subType);
         previousActivityHolder.date.setText(previousDateFormat);
         setActivityImage(previousActivityHolder, previousActivity);
 
@@ -372,35 +391,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         return i;
     }
 
-    private class OwnActivityHolder
-    {
-
-        TextView title;
-        TextView totalTime;
-    }
-
-    private class BookedActivityHolder
-    {
-        TextView bigClockHours;
-        TextView bigClockMinutes;
-        TextView classTotalTime;
-        TextView pass;
-        TextView center;
-        TextView instructor;
-        TextView participants;
-    }
-
     private class HeaderViewHolder
     {
         TextView text;
-    }
-
-    private class PreviousActivityHolder
-    {
-        CheckBox checkbox;
-        TextView title;
-        TextView date;
-        ImageView img;
     }
 
 }

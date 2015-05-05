@@ -62,9 +62,9 @@
                                 android:id="@+id/own_activity_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Styrketräning"
                                 android:textStyle="bold"
-                                android:layout_marginLeft="8dp"/>
+                                android:layout_marginLeft="8dp"
+                                android:textSize="12dp"/>
 
                         </RelativeLayout>
 
@@ -93,7 +93,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="30 min"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="5dp"
@@ -123,11 +122,11 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="1 kommentar"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="2dp"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp"
+                            android:text="0 kommentar"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -177,7 +176,8 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textStyle="bold"
-                            android:textSize="12dp"/>
+                            android:textSize="12dp"
+                            android:id="@+id/"/>
                     </LinearLayout>
 
                 </LinearLayout>

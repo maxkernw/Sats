@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -30,6 +33,7 @@ public class MainActivity extends ActionBarActivity
         date.setYear(113);
         //populateArray();
         activity = this;
+
 
         //List to populate
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);

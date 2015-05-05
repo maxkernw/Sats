@@ -37,7 +37,6 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Styrketräning"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#000000"
                     android:textStyle="bold"/>
@@ -52,7 +51,6 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fredag 25/4"
                     android:textColor="#868686"/>
             </LinearLayout>
 
@@ -90,7 +88,7 @@
             android:layout_centerVertical="true"
             android:button="@drawable/checkbox"
             android:checked="false"
-            android:text="Avklarat?"
+            android:text="Avklarat!"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#868686"/>
 
