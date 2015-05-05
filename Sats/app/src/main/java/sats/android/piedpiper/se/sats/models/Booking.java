@@ -4,16 +4,16 @@ public final class Booking
 {
 
     public final String status;
-    public final TrainingActivity aTrainingActivity;
+    public final Klass aClass;
     public final String center;
     public final String id;
     public final int positionInQueue;
 
-    public Booking(String status, TrainingActivity aTrainingActivity, String center, String id,
+    public Booking(String status, Klass aClass, String center, String id,
                    int positionInQueue)
     {
         this.status = status;
-        this.aTrainingActivity = aTrainingActivity;
+        this.aClass = aClass;
         this.center = center;
         this.id = id;
         this.positionInQueue = positionInQueue;
