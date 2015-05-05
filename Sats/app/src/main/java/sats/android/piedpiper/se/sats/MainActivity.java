@@ -38,13 +38,12 @@ public class MainActivity extends ActionBarActivity
         final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
 
         populateArray();
-
-
         //List to populate
         StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
         //Populate list with data
         listView.setAdapter(new CustomAdapter(this, trainingActivityList));
+
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
@@ -109,6 +108,7 @@ public class MainActivity extends ActionBarActivity
 
         activity = new TrainingActivity("Hornstull", "", "", 0, "", "", "Löpträning", new Date(), 0, 0, "", 0, new ArrayList<Integer>(), "OTHER", "COMPLETED", "OTHER", "other");
         trainingActivityList.add(6, activity);
+        Log.e("Test" , "size" + trainingActivityList.size());
     }
 
 }

@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private Calendar mCalendar = Calendar.getInstance();
     private final String[] swedish_days = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"};
     private final String[] swedish_months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"};
-
 
     public CustomAdapter(Activity activity, ArrayList<TrainingActivity> trainingList)
     {
@@ -74,6 +74,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             }
             else if (myTrainingActivityObj.type.equals("GROUP"))
             { //SATSPass
+
                 convertView = inflateBookedActivity(parent);
                 setupBookedActivity(convertView, position);
             }
