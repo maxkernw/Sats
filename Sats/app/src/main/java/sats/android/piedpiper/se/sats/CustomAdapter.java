@@ -165,6 +165,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         TrainingActivity bookedActivityObj = (TrainingActivity) getItem(position);
 
         //set
+
         Integer hrs = Integer.parseInt(String.valueOf(bookedActivityObj.startTime.getHours()));
         Integer min = Integer.parseInt(String.valueOf(bookedActivityObj.startTime.getMinutes()));
         String curHrs = String.format("%02d", hrs);
@@ -172,7 +173,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         holder.bigClockHours.setText(curHrs);
         holder.bigClockMinutes.setText(curMin);
-        holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes));
+        holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes) + " min");
+
         holder.pass.setText(bookedActivityObj.name);
         holder.center.setText(bookedActivityObj.centerId);
         holder.instructor.setText(bookedActivityObj.instructorId);
