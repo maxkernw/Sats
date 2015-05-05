@@ -1,0 +1,9 @@
+127.0.0.1 - - [05/May/2015:11:23:44 +0200] "GET / HTTP/1.1" 404 994
+192.168.57.1 - - [05/May/2015:11:24:27 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 404 992
+192.168.57.1 - - [05/May/2015:11:24:27 +0200] "GET /favicon.ico HTTP/1.1" 404 1016
+192.168.57.1 - - [05/May/2015:11:24:28 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 404 992
+192.168.57.1 - - [05/May/2015:11:24:28 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 404 992
+192.168.57.1 - - [05/May/2015:11:24:29 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 404 992
+192.168.57.1 - - [05/May/2015:11:24:29 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 404 992
+192.168.57.1 - - [05/May/2015:11:25:35 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 200 18492
+192.168.57.1 - - [05/May/2015:11:26:11 +0200] "GET /sats-server/se/training/activities/?fromDate=20130220&toDate=20160521 HTTP/1.1" 200 18492
