@@ -64,7 +64,7 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:layout_marginLeft="8dp"
-                                android:textSize="12dp"/>
+                                android:textSize="14dp"/>
 
                         </RelativeLayout>
 
@@ -84,8 +84,8 @@
                             android:layout_weight="0"
                             android:src="@drawable/booking_ic_time"
                             android:layout_marginLeft="3dp"
-                            android:scaleX="0.45"
-                            android:scaleY="0.45"/>
+                            android:scaleX="0.50"
+                            android:scaleY="0.50"/>
 
                         <TextView
                             android:id="@+id/own_activity_time"
@@ -113,8 +113,8 @@
                             android:layout_weight="0"
                             android:src="@drawable/ic_comment"
                             android:layout_marginLeft="2dp"
-                            android:scaleX="0.40"
-                            android:scaleY="0.40"/>
+                            android:scaleX="0.45"
+                            android:scaleY="0.45"/>
 
                         <TextView
                             android:id="@+id/class_comment"
@@ -176,8 +176,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textStyle="bold"
-                            android:textSize="12dp"
-                            android:id="@+id/"/>
+                            android:textSize="12dp"/>
                     </LinearLayout>
 
                 </LinearLayout>

@@ -84,11 +84,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
+            android:scaleX="0.70"
+            android:scaleY="0.70"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:button="@drawable/checkbox"
-            android:checked="false"
+            android:paddingLeft="14dp"
+            android:checked="true"
             android:text="Avklarat!"
+            android:textSize="20dp"
+            android:textAlignment="@integer/abc_max_action_buttons"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#868686"/>
 

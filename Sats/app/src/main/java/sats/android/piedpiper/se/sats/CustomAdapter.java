@@ -45,7 +45,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         numberOfPositions = trainingList.size();
         date.setYear(113);
         for(Activity bom:trainingList){
-            Log.e("vilken_typ", bom.subType + ", datum: " + bom.getDate());
+            //Log.e("vilken_typ", bom.subType + ", datum: " + bom.getDate());
         }
 
         Collections.sort(trainingList);
@@ -106,7 +106,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         Activity myTrainingActivityObj = (Activity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (//myTrainingActivityObj.status.equals("COMPLETED")) ||
+        isPreviousActivity = (/*myTrainingActivityObj.status.equals("COMPLETED") &&*/
                 myTrainingActivityObj.date.before(date)); //TODO och/eller kolla om datum är innan dagens datum
 
         if (convertView == null)
@@ -298,6 +298,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         //sätt till checked/unchecked i början
         box.setChecked(previousActivity.status.equals("COMPLETED"));
 
+
         //Lyssnar på click fr. varje item i listan
         box.setOnClickListener(new View.OnClickListener()
         {
@@ -306,10 +307,10 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 CheckBox cb = (CheckBox) v;
                 if (cb.isChecked())
                 {
-                    cb.setText("Avklarat?");
+                    cb.setText("Avklarat!");
                 } else
                 {
-                    cb.setText("Avklarat!");
+                    cb.setText("Avklarat?");
                 }
             }
         });

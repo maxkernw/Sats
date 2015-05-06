@@ -1,104 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-
-    <LinearLayout
-        android:id="@+id/class_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/class_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zumba"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/class_duration_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/class_name"
-            android:text="45min" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/workout" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/main_content"
+        android:layout_below="@id/toolbar">
 
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/class_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Center: "
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/center_name"
+            <TextView
+                android:id="@+id/class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zumba"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                android:id="@+id/class_duration_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/class_name"
+                android:text="45min"/>
+
+        </LinearLayout>
+
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SATS Bromma" />
+            android:background="@drawable/workout"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Center: "
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/center_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SATS Bromma"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datum: "
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Torsdag 12 November"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instruktör: "
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Annika Bottne"/>
+        </LinearLayout>
+
+        <TextView
+            android:paddingTop="10dp"
+            android:id="@+id/class_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latinamerikanska rytmer och rörelseglädje karaktärer denna heta dansklass. Join the Party!"/>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Datum: "
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Torsdag 12 November" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Instruktör: "
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/instructor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Annika Bottne" />
-    </LinearLayout>
-
-    <TextView
-        android:paddingTop="10dp"
-        android:id="@+id/class_information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Latinamerikanska rytmer och rörelseglädje karaktärer denna heta dansklass. Join the Party!" />
-
-
 </LinearLayout>

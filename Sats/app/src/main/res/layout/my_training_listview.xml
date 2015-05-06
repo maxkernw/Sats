@@ -56,6 +56,16 @@
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:layout_marginTop="9dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/drag_button_normal"
+                    android:layout_centerHorizontal="true"
+                    android:scaleX="0.50"
+                    android:scaleY="0.50"/>
+
+
+
 
                 <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/listan"

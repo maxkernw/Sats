@@ -140,15 +140,15 @@
                     android:id="@+id/center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:typeface="normal"
+                    android:textSize="10dp"
                     android:textColor="@color/secondary_color" />
 
                 <TextView
                     android:id="@+id/instructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="10dp"
                     android:textColor="@color/secondary_color" />
             </LinearLayout>
 

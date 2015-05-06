@@ -39,7 +39,6 @@ public class IonRequester {
                 if(result == null){
                     Log.e("Testa", "could not get json");
                 }else{
-                    Log.e("Testa", "got all json without problem");
                     jsonActivities = result.getAsJsonArray("Activities");
 
                     for(int i = 0; i < jsonActivities.size(); i++)
@@ -193,7 +192,7 @@ public class IonRequester {
                 }
                 else
                 {
-                    Log.e("Testa", "got all json without problem");
+                    //Log.e("Testa", "got all json without problem");
                     jsonCenter = result.getAsJsonObject("center");
 
                     boolean availableForOnlineBooking, isElixia;
@@ -230,7 +229,7 @@ public class IonRequester {
                 }
                 else
                 {
-                    Log.e("Testa", "got all json without problem");
+                    //Log.e("Testa", "got all json without problem");
                     holder.title.setText(result.get("name").getAsString());
                 }
             }
