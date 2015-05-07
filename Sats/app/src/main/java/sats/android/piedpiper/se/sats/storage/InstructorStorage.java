@@ -19,14 +19,11 @@ public final class InstructorStorage
 
     public static ArrayList<Instructor> getInstructors() throws JSONException
     {
-
         SatsRestClient.get("instructors", null, new JsonHttpResponseHandler()
         {
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-
                 try
                 {
                     jsonInstructors = response.getJSONArray("instructors");

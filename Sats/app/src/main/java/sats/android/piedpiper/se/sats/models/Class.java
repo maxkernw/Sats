@@ -3,7 +3,7 @@ package sats.android.piedpiper.se.sats.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public final class Klass
+public final class Class
 {
     public final String centerId;
     public final String centerFilterId;
@@ -17,7 +17,7 @@ public final class Klass
     public final int maxPersonsCount;
     public final ArrayList<Integer> waitingListCount;
 
-    public Klass(String centerId, String centerFilterId, String classTypeId,
+    public Class(String centerId, String centerFilterId, String classTypeId,
                  int durationInMinutes, String id, String instructorId, String name,
                  Date startTime, int bookedPersonsCount, int maxPersonsCount,
                  ArrayList<Integer> waitingListCount)

@@ -4,7 +4,6 @@ import java.util.Date;
 
 public final class Activity implements Comparable<Object>
 {
-
     public final Booking booking;
     public final String comment;
     public final Date date;
@@ -32,60 +31,10 @@ public final class Activity implements Comparable<Object>
         this.type = type;
     }
 
-    public Booking getBooking()
-    {
-        return booking;
-    }
-
-    public String getComment()
-    {
-        return comment;
-    }
-
-    public Date getDate()
-    {
-        return date;
-    }
-
-    public int getDistanceInKm()
-    {
-        return distanceInKm;
-    }
-
-    public int getDurationInMinutes()
-    {
-        return durationInMinutes;
-    }
-
-    public String getId()
-    {
-        return id;
-    }
-
-    public String getSource()
-    {
-        return source;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public String getSubType()
-    {
-        return subType;
-    }
-
-    public String getType()
-    {
-        return type;
-    }
-
     @Override
     public int compareTo(Object obj)
     {
-        return this.date.compareTo( ((Activity) obj).getDate() );
+        return this.date.compareTo( ((Activity) obj).date );
     }
 
     @Override
