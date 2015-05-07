@@ -1,9 +1,9 @@
 package sats.android.piedpiper.se.sats.models;
 
 public final class Center {
-    private boolean availableForOnlineBooking, isElixia;
-    private String description, name, url;
-    private int filterId, id, lati, longi, regionId;
+    public boolean availableForOnlineBooking, isElixia;
+    public String description, name, url;
+    public int filterId, id, lati, longi, regionId;
 
     public Center(boolean availableForOnlineBooking, boolean isElixia, String description, String name, String url, int filterId, int id, int lati, int longi, int regionId) {
         this.availableForOnlineBooking = availableForOnlineBooking;

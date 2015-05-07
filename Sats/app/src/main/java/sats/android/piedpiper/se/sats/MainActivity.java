@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -27,9 +30,10 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
         final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
-        date.setYear(113);
         //populateArray();
         activity = this;
+        date.setYear(113);
+
 
         //List to populate
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
@@ -59,7 +63,7 @@ public class MainActivity extends ActionBarActivity
             public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
-                Log.e("Date", "Date year: " + date);
+                Log.e("Date", "Date month: " + date.getMonth());
                 if(date.after(CustomAdapter.trainingList.get(i).date)){
                     txtStatus.setText("TIDIGARE TRÄNING");
                 }

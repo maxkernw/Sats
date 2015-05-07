@@ -62,9 +62,9 @@
                                 android:id="@+id/own_activity_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Styrketräning"
                                 android:textStyle="bold"
-                                android:layout_marginLeft="8dp"/>
+                                android:layout_marginLeft="8dp"
+                                android:textSize="14dp"/>
 
                         </RelativeLayout>
 
@@ -84,8 +84,8 @@
                             android:layout_weight="0"
                             android:src="@drawable/booking_ic_time"
                             android:layout_marginLeft="3dp"
-                            android:scaleX="0.45"
-                            android:scaleY="0.45"/>
+                            android:scaleX="0.50"
+                            android:scaleY="0.50"/>
 
                         <TextView
                             android:id="@+id/own_activity_time"
@@ -93,7 +93,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="30 min"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="5dp"
@@ -114,8 +113,8 @@
                             android:layout_weight="0"
                             android:src="@drawable/ic_comment"
                             android:layout_marginLeft="2dp"
-                            android:scaleX="0.40"
-                            android:scaleY="0.40"/>
+                            android:scaleX="0.45"
+                            android:scaleY="0.45"/>
 
                         <TextView
                             android:id="@+id/class_comment"
@@ -123,11 +122,11 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/hours_background"
                             android:layout_weight="0.1"
-                            android:text="1 kommentar"
                             android:textAlignment="inherit"
                             android:textColor="@color/secondary_color"
                             android:layout_marginLeft="2dp"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp"
+                            android:text="0 kommentar"/>
                     </LinearLayout>
 
                 </LinearLayout>
