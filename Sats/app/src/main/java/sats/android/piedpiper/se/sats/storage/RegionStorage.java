@@ -25,14 +25,11 @@ public final class RegionStorage
 
     public static ArrayList<Region> getRegions() throws JSONException
     {
-
         SatsRestClient.get("centers", null, new JsonHttpResponseHandler()
         {
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-
                 try
                 {
                     jsonRegions = response.getJSONArray("regions");
@@ -66,7 +63,6 @@ public final class RegionStorage
                         }
                         region = new Region(centerList);
                         regionList.add(region);
-                        Log.i(INFO, "regionList: " + regionList.size());
                     }
                 } catch (JSONException e)
                 {
@@ -78,21 +74,8 @@ public final class RegionStorage
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e(ERROR, "Failed to fetch JSON-data from SATS API");
             }
         });
-
-        Log.i(INFO, "Träder in i forloopen: " + regionList.size());
-        Log.i(INFO, "Träder inte in i forloopen: " + centerList.size());
-        /*for (int i = 0; i < regionList.size(); i++)
-        {
-            Log.e(ERROR, regionList.get(i).getCenterList().toString());
-            for (int j = 0; j < regionList.get(i).getCenterList().size(); j++)
-            {
-                Log.e(ERROR, regionList.get(i).getCenterList().get(j).toString());
-                allCenters.add(regionList.get(i).getCenterList().get(j));
-            }
-        }*/
         return null;
     }
 }
