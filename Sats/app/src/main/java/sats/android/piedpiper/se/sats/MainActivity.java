@@ -41,8 +41,7 @@ public class MainActivity extends ActionBarActivity
         date.withYear(2013);
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-        final Hori graph = (HorizontalScrollView) findViewById(R.id.graph);
-        graph.setAdapter
+        
         IonRequester.getBooking(this, listView);
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
