@@ -7,6 +7,10 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +39,8 @@ public class IonRequester {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if(result == null){
-                    Log.e("Info", "could not get json");
+                    DateTime date = DateTime.now();
+                    Log.e("Info", "could not get json" + date.toString());
                 }else{
                     jsonActivities = result.getAsJsonArray("Activities");
 
@@ -66,17 +71,17 @@ public class IonRequester {
                             name = theClass.get("name").getAsString();
                             bookedPersonsCount = theClass.get("bookedPersonsCount").getAsInt();
                             maxPersonsCount = theClass.get("maxPersonsCount").getAsInt();
-                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                            Date date = null;
+                            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                            DateTime date = new DateTime();
+                            date.withYear(2013);
 
                             if(theClass.has("startTime")) {
                                 startTime = theClass.get("startTime").getAsString();
 
-                                try {
-                                    date = format.parse(startTime);
-                                } catch (ParseException e1) {
-                                    e1.printStackTrace();
-                                }
+
+                                    date = format.parseDateTime(startTime);
+
+
                             }
 
                             Class trainingClass = new Class( centerId,  centerFilterId,  classTypeId,
@@ -104,16 +109,13 @@ public class IonRequester {
                         int distance = 0;
                         int durationInMinutes = jsonActivities.get(i).getAsJsonObject().get("durationInMinutes").getAsInt();
 
-                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
-                        Date date = null;
-                        try {
-                            date = format.parse(daten);
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
+                        Log.e("Log", "Date"+ daten);
+                        DateTime date = format.parseDateTime(daten);
 
-                        Activity active = new Activity(theBooking, comment, date, distance,
+
+                        Activity active = new Activity(theBooking, comment, date.toDateTime(), distance,
                                 durationInMinutes,  id,  source,  status,
                                 subType,  type);
 
