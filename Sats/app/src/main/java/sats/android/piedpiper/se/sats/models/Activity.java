@@ -1,12 +1,14 @@
 package sats.android.piedpiper.se.sats.models;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 public final class Activity implements Comparable<Object>
 {
     public final Booking booking;
     public final String comment;
-    public final Date date;
+    public final DateTime date;
     public final int distanceInKm;
     public final int durationInMinutes;
     public final String id;
@@ -15,7 +17,7 @@ public final class Activity implements Comparable<Object>
     public final String subType;
     public final String type;
 
-    public Activity(Booking booking, String comment, java.util.Date date2, int distance,
+    public Activity(Booking booking, String comment, DateTime date2, int distance,
                     int durationInMinutes, String id, String source, String status,
                     String subType, String type)
     {
