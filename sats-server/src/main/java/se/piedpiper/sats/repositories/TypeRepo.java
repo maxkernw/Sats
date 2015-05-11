@@ -14,9 +14,9 @@ import se.piedpiper.sats.models.Type;
 public final class TypeRepo
 {
 
-	static final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
-	static final String USER = "AdminSATS";
-	static final String PASSWORD = "WeAreTheCool";
+	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/sats";
+	static final String USER = "root";
+	static final String PASSWORD = "";
 
 	public static ArrayList<Type> getTypes()
 	{

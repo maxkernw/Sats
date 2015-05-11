@@ -5,17 +5,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import se.piedpiper.sats.errors.DatabaseException;
 
 public class ClassRepo
 {
-	static final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
-	static final String USER = "AdminSATS";
-	static final String PASSWORD = "WeAreTheCool";
+
+	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/sats";
+	static final String USER = "root";
+	static final String PASSWORD = "";
 	
 	public static TreeSet<se.piedpiper.sats.models.Class> getClasses()
 	{
@@ -33,7 +35,7 @@ public class ClassRepo
 			String classTypeId;
 			int durationInMinutes;
 			String instructorId;
-			Date startTime;
+			Date startTime = null;
 			int bookedPersonsCount;
 			int maxPersonsCount;
 			String regionId;
@@ -49,7 +51,10 @@ public class ClassRepo
             classTypeId = rs.getString("class_type_id");
             durationInMinutes = rs.getInt("duration_in_minutes");
             instructorId = rs.getString("instructor_id");
-            startTime = rs.getDate("start_time");
+            Timestamp timestamp = rs.getTimestamp("start_time");
+            if(timestamp != null){            	
+            	startTime = new Date(timestamp.getTime());
+            }
             bookedPersonsCount = rs.getInt("booked_persons_count");
             maxPersonsCount = rs.getInt("max_persons_count");
             regionId = rs.getString("region_id");
@@ -108,7 +113,7 @@ public class ClassRepo
 		String classTypeId;
 		int durationInMinutes;
 		String instructorId;
-		Date startTime;
+		Date startTime = null;
 		int bookedPersonsCount;
 		int maxPersonsCount;
 		String regionId;
@@ -123,7 +128,11 @@ public class ClassRepo
           classTypeId = rs.getString("class_type_id");
           durationInMinutes = rs.getInt("duration_in_minutes");
           instructorId = rs.getString("instructor_id");
-          startTime = rs.getDate("start_time");
+          Timestamp timestamp = rs.getTimestamp("start_time");
+          if(timestamp != null){        	  
+        	  startTime = new Date(timestamp.getTime());
+          }
+          
           bookedPersonsCount = rs.getInt("booked_persons_count");
           maxPersonsCount = rs.getInt("max_persons_count");
           regionId = rs.getString("region_id");

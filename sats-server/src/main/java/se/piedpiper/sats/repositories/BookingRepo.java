@@ -13,9 +13,9 @@ import se.piedpiper.sats.models.Booking;
 public class BookingRepo
 {
 	
-	static final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
-	static final String USER = "AdminSATS";
-	static final String PASSWORD = "WeAreTheCool";
+	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/sats";
+	static final String USER = "root";
+	static final String PASSWORD = "";
 	
 	public static TreeSet<Booking> getBookings()
 	{
@@ -78,6 +78,7 @@ public class BookingRepo
          {
              status = rs.getString("status");
              classId = rs.getString("class");
+             //System.out.println(classId);
              center = rs.getString("center");
              positionInQueue = rs.getInt("position_in_queue");
             

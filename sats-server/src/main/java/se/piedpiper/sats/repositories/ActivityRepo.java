@@ -54,7 +54,6 @@ public final class ActivityRepo
 				bookingId = rs.getString("booking");
 				comment = rs.getString("comment");
 				Timestamp timestamp = rs.getTimestamp("date");
-								
 			    date = new Date(timestamp.getTime());
 			    
 				distanceInKm = rs.getInt("distance_in_km");
@@ -64,7 +63,9 @@ public final class ActivityRepo
 				subType = rs.getString("sub_type");
 				type = rs.getString("type");
 
-				booking = BookingRepo.getBooking(bookingId);
+				if(bookingId != null){					
+					booking = BookingRepo.getBooking(id);
+				}
 
 				Activity activity = new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
 				activities.add(activity);
@@ -92,7 +93,7 @@ public final class ActivityRepo
 
 			String bookingId = "";
 			String comment;
-			java.sql.Date date;
+			Date date;
 			int distanceInKm;
 			int durationInMinutes;
 			String source;
@@ -104,9 +105,11 @@ public final class ActivityRepo
 			{
 				if(rs.getString("booking") != null){
 					bookingId = rs.getString("booking");
+					//System.out.println(bookingId);
 				}
 				comment = rs.getString("comment");
-				date = rs.getDate("date");
+				Timestamp timestamp = rs.getTimestamp("date");
+			    date = new Date(timestamp.getTime());
 				distanceInKm = rs.getInt("distance_in_km");
 				durationInMinutes = rs.getInt("duration_in_minutes");
 				source = rs.getString("source");
@@ -132,9 +135,13 @@ public final class ActivityRepo
 	
 	private static Connection getConnection() throws SQLException
 	{
-		final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
-		final String USER = "AdminSATS";
-		final String PASSWORD = "WeAreTheCool";
+//		final String DB_URL = "jdbc:mysql://80.217.172.201:3306/SATS";
+//		final String USER = "AdminSATS";
+//		final String PASSWORD = "WeAreTheCool";
+		
+		final String DB_URL = "jdbc:mysql://127.0.0.1:3306/sats";
+		final String USER = "root";
+		final String PASSWORD = "";
 		
 		try
 		{
