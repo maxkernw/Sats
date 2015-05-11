@@ -1,5 +1,10 @@
 package sats.android.piedpiper.se.sats;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -20,6 +25,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
+    ImageView drawingImageView;
     private Date date = new Date();
     private static android.app.Activity activity;
 
