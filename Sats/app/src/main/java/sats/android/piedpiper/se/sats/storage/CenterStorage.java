@@ -1,14 +1,14 @@
 package sats.android.piedpiper.se.sats.storage;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.SystemClock;
 import android.util.Log;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import sats.android.piedpiper.se.sats.SatsRestClient;
@@ -74,15 +74,11 @@ public class CenterStorage
             {
                 Log.e("ERROR", "Could not get HTTPresponse");
             }
-
         });
-
-
     }
 
     public static ArrayList<Center> getCenters()
     {
-        Log.i("Info", String.valueOf(centerList.size()));
         return centerList;
     }
 

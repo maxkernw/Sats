@@ -15,12 +15,17 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar"/>
 
-        <LinearLayout
+        <FrameLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/main_content"
             android:layout_below="@id/toolbar">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DrawingImageView" />
 
             <com.sothree.slidinguppanel.SlidingUpPanelLayout
                 android:id="@+id/sliding_layout"
@@ -34,10 +39,11 @@
                 sothree:umanoParalaxOffset="100dp"
                 sothree:umanoShadowHeight="4dp">
 
-            <FrameLayout
+            <HorizontalScrollView
                 android:id="@+id/graph"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"/>
+                android:layout_height="250dp"
+                />
 
             <RelativeLayout
                 android:id="@+id/my_training"
@@ -78,7 +84,7 @@
 
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
     </RelativeLayout>
 

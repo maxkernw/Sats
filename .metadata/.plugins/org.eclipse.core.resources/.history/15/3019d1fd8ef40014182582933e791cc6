@@ -32,8 +32,7 @@ public final class Service
 	public Response getActivities(
 			@DefaultValue("") @QueryParam("fromDate") final String fromDate,
 			@DefaultValue("") @QueryParam("toDate") final String toDate,
-			@Context Request request) 
-	{
+			@Context Request request) {
 		if (fromDate.length() == 8 && toDate.length() == 8) 
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -63,7 +62,7 @@ public final class Service
 	@GET
 	@Path("{type}")
 	public Response getType(@PathParam("type") final String subType,
-							@Context final Request request) 
+			@Context final Request request) 
 	{
 		Type type = TypeRepo.getType(subType);
 		

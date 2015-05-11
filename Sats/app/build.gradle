@@ -29,5 +29,6 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.6.0'
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'net.danlew:android.joda:2.7.2'
 
 }
