@@ -101,24 +101,21 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         Activity myTrainingActivityObj = (Activity) getItem(position);
 
         boolean isPreviousActivity;
-        isPreviousActivity = (myTrainingActivityObj.date.isBefore(date));
+        isPreviousActivity = (myTrainingActivityObj.date.isBefore(date)) || (myTrainingActivityObj.status.equals("COMPLETED"));
 
         if (convertView == null)
         {
             if (isPreviousActivity)
             {
                 convertView = inflatePreviousActivity(parent);
-                //setupPreviousActivity(convertView, position);
             } else
             {
                 if (myTrainingActivityObj.type.equals("GROUP"))
                 {
                     convertView = inflateBookedActivity(parent);
-                    //setupBookedActivity(convertView, position);
                 } else
                 {
                     convertView = inflateOwnActivity(parent);
-                    //setupOwnActivity(convertView, position);
                 }
             }
         }
