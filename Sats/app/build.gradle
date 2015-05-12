@@ -30,5 +30,6 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'net.danlew:android.joda:2.7.2'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 
 }
