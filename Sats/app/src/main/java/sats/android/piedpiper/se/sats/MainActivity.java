@@ -1,8 +1,6 @@
 package sats.android.piedpiper.se.sats;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -11,10 +9,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.astuetz.PagerSlidingTabStrip;
-
 import org.joda.time.DateTime;
+import org.json.JSONException;
+
+import sats.android.piedpiper.se.sats.storage.CenterStorage;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -33,8 +31,13 @@ public class MainActivity extends ActionBarActivity
         graph = (ViewPager) findViewById(R.id.graph);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
-
-
+        try
+        {
+            CenterStorage.populateCenters();
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
 
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
@@ -48,16 +51,14 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position)
             {
-                Log.e("Page", "Page selected: " + position);
-                Log.e("Date", "Current date" + date.getYear());
+
 
             }
 
             @Override
             public void onPageScrollStateChanged(int state)
             {
-                //Adjustment
-                Log.e("Page" , "State selected: " + state);
+
 
             }
         });

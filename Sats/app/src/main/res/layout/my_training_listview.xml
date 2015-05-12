@@ -35,9 +35,9 @@
                 sothree:umanoShadowHeight="4dp">
 
             <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
 
                 <android.support.v4.view.ViewPager
                     android:layout_width="match_parent"
@@ -45,12 +45,13 @@
                     android:id="@+id/graph"
                     android:divider="@drawable/vertical_divider"
                     />
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/calendet_mark_right"
                     android:scaleType="fitXY"
-                    android:layout_marginLeft="133dp"
+                    android:layout_marginLeft="125dp"
 
                     />
                 <ImageView
@@ -59,8 +60,17 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/calendet_mark_left"
                     android:scaleType="fitXY"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginLeft="215dp"
                     />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:src="@color/white"
+                    android:layout_marginTop="150dp"
+                    />
+
+
 
 
             </RelativeLayout>
