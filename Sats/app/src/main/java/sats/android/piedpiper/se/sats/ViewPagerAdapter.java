@@ -55,13 +55,13 @@ public class ViewPagerAdapter extends PagerAdapter
         TextView text7 = new TextView(container.getContext());
 
 
-        text.setText("");
-        text2.setText("");
-        text3.setText("");
-        text4.setText("");
-        text5.setText("");
-        text6.setText("");
-        text7.setText("27/11-1/12");
+        text.setText("7");
+        text2.setText("6");
+        text3.setText("5");
+        text4.setText("4");
+        text5.setText("3");
+        text6.setText("2");
+        text7.setText("23");
         text7.setTextSize(10);
         GradientDrawable drawable = (GradientDrawable) container.getResources().getDrawable(R.drawable.shape);
 

@@ -30,18 +30,40 @@
                 android:gravity="bottom"
                 sothree:umanoDragView="@+id/tidigare"
                 sothree:umanoOverlay="true"
-                sothree:umanoPanelHeight="340dp"
+                sothree:umanoPanelHeight="345dp"
                 sothree:umanoParalaxOffset="100dp"
                 sothree:umanoShadowHeight="4dp">
 
-
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
 
                 <android.support.v4.view.ViewPager
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:id="@+id/graph"
+                    android:divider="@drawable/vertical_divider"
                     />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/calendet_mark_right"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="133dp"
+
+                    />
+                <ImageView
+                    android:id="@+id/shadow"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/calendet_mark_left"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="230dp"
+                    />
+
+
+            </RelativeLayout>
 
 
 

@@ -21,7 +21,7 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    private DateTime date = new DateTime();
+    private DateTime date = new DateTime(2012,12,25,0,0,0);
     private static android.app.Activity activity;
 
     @Override
@@ -33,7 +33,8 @@ public class MainActivity extends ActionBarActivity
         graph = (ViewPager) findViewById(R.id.graph);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
-        graph.setPageMargin(1);
+
+
 
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
@@ -48,7 +49,7 @@ public class MainActivity extends ActionBarActivity
             public void onPageSelected(int position)
             {
                 Log.e("Page", "Page selected: " + position);
-
+                Log.e("Date", "Current date" + date.getYear());
 
             }
 
@@ -62,7 +63,7 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-        date.withYear(2013);
+
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
