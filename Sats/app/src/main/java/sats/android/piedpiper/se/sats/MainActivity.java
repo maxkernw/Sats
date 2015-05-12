@@ -23,8 +23,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final TextView txtStatus = (TextView) findViewById(R.id.tidigare);
-
+        final TextView statusText = (TextView) findViewById(R.id.activity_status);
 
         activity = this;
         date.withYear(2013);
@@ -52,10 +51,10 @@ public class MainActivity extends ActionBarActivity
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
                 if(date.isAfter(CustomAdapter.trainingList.get(i).date)){
-                    txtStatus.setText("TIDIGARE TRÄNING");
+                    statusText.setText("TIDIGARE TRÄNING");
                 }
                 else{
-                    txtStatus.setText("KOMMANDE TRÄNING");
+                    statusText.setText("KOMMANDE TRÄNING");
                 }
             }
         });

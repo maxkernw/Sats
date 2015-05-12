@@ -213,12 +213,13 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         String curHrs = String.format("%02d", hrs);
         String curMin = String.format("%02d", min);
 
-        IonRequester.getName(activity, holder, bookedActivityObj.subType);
 
         holder.bigClockHours.setText(curHrs);
         holder.bigClockMinutes.setText(curMin);
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.durationInMinutes) + " min");
         holder.title.setText(bookedActivityObj.subType);
+
+        IonRequester.getName(activity, holder, bookedActivityObj.subType);
 
         if(bookedActivityObj.booking != null)
         {
