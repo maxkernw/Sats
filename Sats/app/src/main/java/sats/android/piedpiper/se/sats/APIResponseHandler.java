@@ -79,6 +79,10 @@ public class APIResponseHandler
         DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         date = format.parseDateTime(dateString);
 
+        if(subType.equals("gym")){
+            subType = "Styrketräning";
+        }
+
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
