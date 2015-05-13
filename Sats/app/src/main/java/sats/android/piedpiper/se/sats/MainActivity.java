@@ -53,7 +53,6 @@ public class MainActivity extends ActionBarActivity
             public void onPageSelected(int position)
             {
 
-
             }
 
             @Override
