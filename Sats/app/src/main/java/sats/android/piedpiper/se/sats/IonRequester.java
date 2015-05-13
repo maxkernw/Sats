@@ -56,7 +56,7 @@ public class IonRequester {
 
                         if(booking != null){
 
-                            String centerId = "", centerFilterId, classTypeId, id, instructorId, name, regionId;
+                            String centerId = "", centerFilterId, classTypeId, id, instructorId, name;
                             int durationInMinutes, bookedPersonsCount, maxPersonsCount;
                             String startTime;
                             ArrayList<Integer> waitingListCount = null;

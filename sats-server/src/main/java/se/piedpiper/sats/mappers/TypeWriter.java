@@ -40,7 +40,6 @@ public final class TypeWriter implements MessageBodyWriter<Type>
 	public boolean isWriteable(Class<?> type,
 			java.lang.reflect.Type genericType, Annotation[] annotations,
 			MediaType mediaType) {
-		// TODO Auto-generated method stub
 		return type.isAssignableFrom(Type.class);
 	}
 
@@ -48,7 +47,6 @@ public final class TypeWriter implements MessageBodyWriter<Type>
 	public long getSize(Type t, Class<?> type,
 			java.lang.reflect.Type genericType, Annotation[] annotations,
 			MediaType mediaType) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -58,7 +56,6 @@ public final class TypeWriter implements MessageBodyWriter<Type>
 			MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
 			OutputStream entityStream) throws IOException,
 			WebApplicationException {
-		// TODO Auto-generated method stub
 		try(final JsonWriter writer = new JsonWriter(new OutputStreamWriter(entityStream)))
 		{
 			gson.toJson(t, Type.class, writer);
@@ -73,7 +70,6 @@ public final class TypeWriter implements MessageBodyWriter<Type>
 		public JsonElement serialize(Type type,
 				java.lang.reflect.Type typeOfSrc,
 				JsonSerializationContext context) {
-			// TODO Auto-generated method stub
 			
 			final JsonObject userJson = new JsonObject();
 			userJson.add("name", new JsonPrimitive(type.getName()));

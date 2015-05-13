@@ -86,3 +86,24 @@
 192.168.68.106 - - [07/May/2015:09:47:17 +0200] "GET /sats-server/se/training/activities/Shape HTTP/1.1" 404 1010
 192.168.68.106 - - [07/May/2015:09:47:21 +0200] "GET /sats-server/se/training/activities/Hot MOJO HTTP/1.1" 505 -
 192.168.68.106 - - [07/May/2015:09:47:22 +0200] "GET /sats-server/se/training/activities/CrossTraining HTTP/1.1" 404 1010
+192.168.68.226 - - [07/May/2015:10:00:26 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20150121 HTTP/1.1" 304 -
+192.168.68.226 - - [07/May/2015:10:08:12 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20150121 HTTP/1.1" 304 -
+192.168.68.106 - - [07/May/2015:10:40:24 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:40:41 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:40:46 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:41:16 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:41:16 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:41:52 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 200 54
+192.168.68.106 - - [07/May/2015:10:43:09 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 504 1071
+192.168.68.106 - - [07/May/2015:10:45:50 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 504 1071
+192.168.68.106 - - [07/May/2015:10:47:54 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 504 1071
+192.168.68.106 - - [07/May/2015:10:53:13 +0200] "GET /sats-server/se/training/activities/gym HTTP/1.1" 504 1071
+192.168.68.226 - - [07/May/2015:11:52:46 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 304 -
+192.168.68.226 - - [07/May/2015:11:52:47 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 304 -
+192.168.68.226 - - [07/May/2015:11:52:48 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 304 -
+192.168.68.226 - - [07/May/2015:11:52:48 +0200] "GET /sats-server/se/training/activities/types HTTP/1.1" 304 -
+192.168.68.210 - - [07/May/2015:11:53:01 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20160521 HTTP/1.1" 200 23695
+192.168.68.210 - - [07/May/2015:11:53:03 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20160521 HTTP/1.1" 200 23695
+192.168.68.210 - - [07/May/2015:11:53:04 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20160521 HTTP/1.1" 200 23695
+192.168.68.210 - - [07/May/2015:11:53:06 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20160521 HTTP/1.1" 200 23695
+192.168.68.106 - - [07/May/2015:11:57:00 +0200] "GET /sats-server/se/training/activities/?fromDate=20121210&toDate=20160521 HTTP/1.1" 200 23695

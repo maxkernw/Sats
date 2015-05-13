@@ -14,6 +14,5 @@ public final class DatabaseExceptionMapper implements ExceptionMapper<DatabaseEx
 	public Response toResponse(final DatabaseException exception)
 	{
 		return Response.status(Status.GATEWAY_TIMEOUT).build();
-//		return Response.status(Status.GATEWAY_TIMEOUT).entity(exception.getMessage()).build();
 	}
 }

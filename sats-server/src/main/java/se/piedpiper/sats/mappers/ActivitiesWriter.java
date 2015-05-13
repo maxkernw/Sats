@@ -38,7 +38,8 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 
 	public ActivitiesWriter()
 	{
-		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).serializeNulls().create();
+		gson = new GsonBuilder().registerTypeAdapter(TreeSet.class, new TypesAdapter()).create();
+		//.serializeNulls()
 	}
 
 	// MessageBodyWriter
@@ -74,29 +75,34 @@ public final class ActivitiesWriter implements MessageBodyWriter<TreeSet<Activit
 		{
 			// The Object which will be returned
 			final JsonObject jsonToReturn = new JsonObject();
-			// An array to hold all Types
+			// An array to hold all Activities
 			final JsonArray jsonArrayForActivity = new JsonArray();
 
 			for(Activity activity : activities)
 			{
-				// An object to hold all information~ about the Types one by
+				// An object to hold all information~ about the Activities one by
 				// one
 				final JsonObject jsonObjectForActivity = new JsonObject();
 				
 				if(activity.getBooking() != null){
 					final JsonObject theClass = new JsonObject();
 					theClass.add("centerId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("centerFilterId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("classTypeId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("durationInMinutes", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("id", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("instructorId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("name", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("startTime", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("bookedPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("maxPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("regionId", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
-					theClass.add("waitingListCount", new JsonPrimitive(activity.getBooking().getAClass().getCenterId()));
+					theClass.add("centerFilterId", new JsonPrimitive(activity.getBooking().getAClass().getCenterFilterId()));
+					theClass.add("classTypeId", new JsonPrimitive(activity.getBooking().getAClass().getClassTypeId()));
+					theClass.add("durationInMinutes", new JsonPrimitive(activity.getBooking().getAClass().getDurationInMinutes()));
+					theClass.add("id", new JsonPrimitive(activity.getBooking().getAClass().getId()));
+					theClass.add("instructorId", new JsonPrimitive(activity.getBooking().getAClass().getInstructorId()));
+					theClass.add("name", new JsonPrimitive(activity.getBooking().getAClass().getName()));
+					if(activity.getBooking().getAClass().getStartTime() != null){
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+						theClass.add("startTime", new JsonPrimitive(sdf.format(activity.getBooking().getAClass().getStartTime())));						
+					}
+					theClass.add("bookedPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getBookedPersonsCount()));
+					theClass.add("maxPersonsCount", new JsonPrimitive(activity.getBooking().getAClass().getMaxPersonsCount()));
+					if(activity.getBooking().getAClass().getRegionId() != null && !activity.getBooking().getAClass().getRegionId().isEmpty()){						
+						theClass.add("regionId", new JsonPrimitive(activity.getBooking().getAClass().getRegionId()));
+					}
+					theClass.add("waitingListCount", new JsonPrimitive(activity.getBooking().getAClass().getWaitingListCount()));
 					JsonArray classCategories = new JsonArray();
 					for(Integer integer: activity.getBooking().getAClass().getClassCategories()){
 						classCategories.add(new JsonPrimitive(integer));

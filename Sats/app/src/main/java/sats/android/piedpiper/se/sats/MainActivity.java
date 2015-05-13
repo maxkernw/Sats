@@ -3,7 +3,6 @@ package sats.android.piedpiper.se.sats;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,7 +11,9 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 
+
 import sats.android.piedpiper.se.sats.storage.CenterStorage;
+
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -76,6 +77,7 @@ public class MainActivity extends ActionBarActivity
 
         im.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick(View view)
             {
