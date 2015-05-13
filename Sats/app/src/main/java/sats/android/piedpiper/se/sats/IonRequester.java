@@ -73,8 +73,7 @@ public class IonRequester {
                             bookedPersonsCount = theClass.get("bookedPersonsCount").getAsInt();
                             maxPersonsCount = theClass.get("maxPersonsCount").getAsInt();
                             DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-                            DateTime date = new DateTime();
-                            date.withYear(2013);
+                            DateTime date = new DateTime(2012,12,25,0,0,0);
 
                             if (theClass.has("startTime")) {
                                 startTime = theClass.get("startTime").getAsString();
