@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-
 import org.joda.time.DateTime;
 
 
@@ -38,33 +36,8 @@ public class ViewPagerAdapter extends PagerAdapter
     public Object instantiateItem(ViewGroup container, int position)
     {
         RelativeLayout views = new RelativeLayout(container.getContext());
-
-
         ViewPager pager = (ViewPager) container.findViewById(R.id.graph);
 
-        /*ImageView line1 = new ImageView(container.getContext());
-
-        line1.setImageResource(R.drawable.thin_horisontal_divider);
-
-        line1.setScaleType(ImageView.ScaleType.FIT_XY);
-
-        RelativeLayout.LayoutParams parameters = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        parameters.width = LayoutParams.MATCH_PARENT;
-        parameters.topMargin = 1;
-        parameters.height = 1;
-
-        line1.setLayoutParams(parameters);
-
-        pager.addView(line1);*/
-
-        //GradientDrawable drawable = (GradientDrawable) container.getResources().getDrawable(R.drawable.shape);
-
-        int leftMargin=65;
-        int topMargin=10;
-        int rightMargin=10;
-        int bottomMargin=2;
-        int bottomMarginDate = 25;
         if(position == 2){
             MyView text = new MyView(container.getContext());
 
@@ -92,47 +65,24 @@ public class ViewPagerAdapter extends PagerAdapter
             text.bringToFront();
            views.addView(text);
         }
-        TextView date = new TextView(container.getContext());
 
 
 
 
-        //GradientDrawable drawable = (GradientDrawable) container.getResources().getDrawable(R.drawable.shape);
-
-//        text2.setBackground(drawable);
-//        text3.setBackground(drawable);
-//        text4.setBackground(drawable);
-//        text5.setBackground(drawable);
-//        text6.setBackground(drawable);
 
 
         RelativeLayout layout = new RelativeLayout(container.getContext());
         RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        //x.addRule(RelativeLayout.INVISIBLE, R.id.highline);
         views.setLayoutParams(x);
         layout.setLayoutParams(x);
-//        TableLayout.LayoutParams tableRowParams=
-//                new TableLayout.LayoutParams(20,20);
 
-
-        /*int leftMargin=65;
-        int topMargin=10;
-        int rightMargin=10;
-        int bottomMargin=2;
-        int bottomMarginDate = 25;*/
-        //text.setPadding(leftMargin, topMargin, 0, bottomMargin);
-
-
-
-        //layout.setBackgroundColor(container.getResources().getColor(R.color.primary_calendar));
-        layout.setBackground(container.getResources().getDrawable(R.drawable.caldark));
+        layout.setBackground(container.getResources().getDrawable(R.drawable.caldark, null));
 
         layout.addView(views);
 
 
         if(position % 2 == 0){
-            layout.setBackground(container.getResources().getDrawable(R.drawable.callightright));
-            //layout.setBackgroundResource(R.drawable.shape);
+            layout.setBackground(container.getResources().getDrawable(R.drawable.callightright, null));
         }
         if(position > 1){
 
