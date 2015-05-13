@@ -34,7 +34,7 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Ion.with(activity).load(raspberryURL).setTimeout(100000).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+        Ion.with(activity).load(sURL).setTimeout(100000).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (e == null) {

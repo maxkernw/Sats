@@ -3,6 +3,7 @@ package sats.android.piedpiper.se.sats;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -56,7 +57,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position)
             {
-
+                Log.e("pos", "Pos: " + position);
             }
 
             @Override

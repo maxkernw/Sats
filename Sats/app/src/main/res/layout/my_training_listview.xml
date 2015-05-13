@@ -57,7 +57,7 @@
 
                 <ImageView
                     android:layout_width="20dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     android:src="@drawable/calendet_mark_right"
                     android:scaleType="fitXY"
                     android:layout_marginLeft="125dp"
@@ -66,18 +66,12 @@
                 <ImageView
                     android:id="@+id/shadow"
                     android:layout_width="20dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     android:src="@drawable/calendet_mark_left"
                     android:scaleType="fitXY"
                     android:layout_marginLeft="215dp"
                     />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:src="@color/white"
-                    android:layout_marginTop="150dp"
-                    />
 
 
             </RelativeLayout>
