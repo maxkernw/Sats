@@ -17,12 +17,13 @@ public final class Class
     public final DateTime startTime;
     public final int bookedPersonsCount;
     public final int maxPersonsCount;
-    public final ArrayList<Integer> waitingListCount;
+    public final int waitingListCount;
+    public final ArrayList<Integer> classCategoryIds;
 
     public Class(String centerId, String centerFilterId, String classTypeId,
                  int durationInMinutes, String id, String instructorId, String name,
                  DateTime startTime, int bookedPersonsCount, int maxPersonsCount,
-                 ArrayList<Integer> waitingListCount)
+                 int waitingListCount, ArrayList<Integer> classCategoryIds)
     {
         this.centerId = centerId;
         this.centerFilterId = centerFilterId;
@@ -35,5 +36,6 @@ public final class Class
         this.bookedPersonsCount = bookedPersonsCount;
         this.maxPersonsCount = maxPersonsCount;
         this.waitingListCount = waitingListCount;
+        this.classCategoryIds = classCategoryIds;
     }
 }

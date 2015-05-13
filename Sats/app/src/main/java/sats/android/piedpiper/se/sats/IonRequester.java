@@ -3,6 +3,7 @@ package sats.android.piedpiper.se.sats;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -34,27 +35,27 @@ public class IonRequester {
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20121210&toDate=20160521";
     private static CustomAdapter adapter;
 
+
     public static void getBooking (final android.app.Activity activity, final StickyListHeadersListView listView){
         Ion.with(activity.getApplicationContext()).load(sURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
-                if(result == null){
+                if (result == null) {
                     DateTime date = DateTime.now();
                     Log.e("Info", "could not get json" + date.toString());
-                }else{
+                } else {
                     jsonActivities = result.getAsJsonArray("Activities");
 
-                    for(int i = 0; i < jsonActivities.size(); i++)
-                    {
+                    for (int i = 0; i < jsonActivities.size(); i++) {
 
                         JsonObject booking = null;
-                        if(jsonActivities.get(i).getAsJsonObject().has("booking")){
+                        if (jsonActivities.get(i).getAsJsonObject().has("booking")) {
                             booking = jsonActivities.get(i).getAsJsonObject().get("booking").getAsJsonObject();
                         }
 
                         Booking theBooking = null;
 
-                        if(booking != null){
+                        if (booking != null) {
 
                             String centerId = "", centerFilterId, classTypeId, id, instructorId, name;
                             int durationInMinutes, bookedPersonsCount, maxPersonsCount;
@@ -74,19 +75,19 @@ public class IonRequester {
                             DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                             DateTime date = new DateTime(2012,12,25,0,0,0);
 
-                            if(theClass.has("startTime")) {
+                            if (theClass.has("startTime")) {
                                 startTime = theClass.get("startTime").getAsString();
 
 
-                                    date = format.parseDateTime(startTime);
+                                date = format.parseDateTime(startTime);
 
 
                             }
 
-                            Class trainingClass = new Class( centerId,  centerFilterId,  classTypeId,
-                                    durationInMinutes,  id,  instructorId,  name, date,  bookedPersonsCount,  maxPersonsCount, waitingListCount);
+                            Class trainingClass = new Class(centerId, centerFilterId, classTypeId,
+                                    durationInMinutes, id, instructorId, name, date, bookedPersonsCount, maxPersonsCount, 0 ,waitingListCount);
 
-                            String status, center,BookingId;
+                            String status, center, BookingId;
                             int positionInQueue;
 
                             status = booking.get("status").getAsString();
@@ -110,13 +111,13 @@ public class IonRequester {
 
                         DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
-                        Log.e("Log", "Date"+ daten);
+                        Log.e("Log", "Date" + daten);
                         DateTime date = format.parseDateTime(daten);
 
 
                         Activity active = new Activity(theBooking, comment, date.toDateTime(), distance,
-                                durationInMinutes,  id,  source,  status,
-                                subType,  type);
+                                durationInMinutes, id, source, status,
+                                subType, type);
 
                         ActivitiesList.add(active);
                     }
@@ -189,8 +190,14 @@ public class IonRequester {
                 {
                     holder.title.setText(result.get("name").getAsString());
                 }
+
             }
         });
     }
+
+
+
+
+
 }
 

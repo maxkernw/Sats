@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
-                sothree:umanoDragView="@+id/tidigare"
+                sothree:umanoDragView="@+id/activity_status"
                 sothree:umanoOverlay="true"
                 sothree:umanoPanelHeight="345dp"
                 sothree:umanoParalaxOffset="100dp"
@@ -50,6 +50,10 @@
                     android:id="@+id/graph"
                     android:divider="@drawable/vertical_divider"
                     />
+
+
+
+
 
                 <ImageView
                     android:layout_width="20dp"
@@ -76,8 +80,6 @@
                     />
 
 
-
-
             </RelativeLayout>
 
 
@@ -90,7 +92,7 @@
                     android:background="@color/white">
 
                     <TextView
-                        android:id="@+id/tidigare"
+                        android:id="@+id/activity_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -110,12 +112,13 @@
                         android:scaleY="0.50"/>
 
 
-                    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-                        android:id="@+id/listan"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tidigare"
-                        android:layout_marginTop="10dp"/>
+
+                <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+                    android:id="@+id/listan"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/activity_status"
+                    android:layout_marginTop="10dp"/>
 
                 </RelativeLayout>
 
