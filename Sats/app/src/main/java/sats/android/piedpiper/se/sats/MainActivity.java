@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final TextView txtStatus = (TextView) findViewById(R.id.activity_statusg);
+        final TextView txtStatus = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
