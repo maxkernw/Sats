@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+
+import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
     //private Date date = new Date();
-    private DateTime date = new DateTime();
+    private DateTime date = new DateTime(2015, 4, 18, 10, 10);
     private static android.app.Activity activity;
 
     @Override
@@ -24,13 +27,14 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
+        APIResponseHandler responseHandler = new APIResponseHandler(this);
 
         activity = this;
-        date.withYear(2013);
+        //date = date.withYear(2013);
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-        
-        IonRequester.getBooking(this, listView);
+
+        responseHandler.getAllActivities(listView);
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);

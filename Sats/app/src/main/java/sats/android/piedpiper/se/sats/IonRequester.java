@@ -86,7 +86,7 @@ public class IonRequester {
                             }
 
                             Class trainingClass = new Class(centerId, centerFilterId, classTypeId,
-                                    durationInMinutes, id, instructorId, name, date, bookedPersonsCount, maxPersonsCount, waitingListCount);
+                                    durationInMinutes, id, instructorId, name, date, bookedPersonsCount, maxPersonsCount, 0 ,waitingListCount);
 
                             String status, center, BookingId;
                             int positionInQueue;
