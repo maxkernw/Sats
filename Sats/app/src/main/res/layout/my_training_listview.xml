@@ -39,37 +39,34 @@
                 sothree:umanoParalaxOffset="100dp"
                 sothree:umanoShadowHeight="4dp">
 
-                <RelativeLayout
-                    android:id="@+id/relativeLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/graph"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:divider="@drawable/vertical_divider" />
+                <android.support.v4.view.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:id="@+id/graph"
+                    android:divider="@drawable/vertical_divider"
+                    />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="125dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/calendet_mark_right" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/calendet_mark_right"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="125dp"
 
-                    <ImageView
-                        android:id="@+id/shadow"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="215dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/calendet_mark_left" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="150dp"
-                        android:src="@color/white" />
+                    />
+                <ImageView
+                    android:id="@+id/shadow"
+                    android:layout_width="20dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/calendet_mark_left"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="215dp"
+                    />
 
                 </RelativeLayout>
 

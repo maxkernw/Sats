@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,10 @@ import org.joda.time.DateTime;
 public class ViewPagerAdapter extends PagerAdapter
 {
     private View mCurrentView;
-    DateTime date = new DateTime();
+    DateTime date = new DateTime(2013,12,20,0,0);
+    DateTime date2 = new DateTime(2013,12,27,0,0);
 
-    int NumberOfPages = 30;
+    int NumberOfPages = 52;
 
 
     @Override
@@ -37,31 +39,50 @@ public class ViewPagerAdapter extends PagerAdapter
     {
         RelativeLayout views = new RelativeLayout(container.getContext());
         ViewPager pager = (ViewPager) container.findViewById(R.id.graph);
+        TextView week = new TextView(container.getContext());
+        week.setBackgroundColor(container.getResources().getColor(R.color.white));
 
+
+        //Find the relativelayout and get height for week
+        RelativeLayout parent = (RelativeLayout) container.findViewById(R.id.relativeLayout);
+        RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, week.getId());
+
+        week.setLayoutParams(params);
+        LayoutParams heightParam = week.getLayoutParams();
+
+        heightParam.height = 90;
+        week.setText(date.getDayOfMonth() + "-" + date2.getDayOfMonth() + "/" + date2.getMonthOfYear());
+        week.setGravity(Gravity.CENTER);
+
+        views.addView(week);
         if(position == 2){
-            MyView text = new MyView(container.getContext());
-
-            text.setId(View.generateViewId());
+            MyView text = new MyView(container.getContext(), true, 6);
 
             views.addView(text);
 
-        }else if(position == NumberOfPages / 2){
+        }else if(position == 5){
+
             ImageView top = new ImageView(container.getContext());
             top.setImageResource(R.drawable.now_marker);
-            MyView text = new MyView(container.getContext());
+            MyView text = new MyView(container.getContext(), false, 5);
+
             top.setScaleX(0.6f);
             top.setScaleY(0.6f);
-            top.setPadding(60,-40,2,2);
-            top.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            text.setId(View.generateViewId());
+            top.setPadding(65,-20,0,0);
+
+
+
+            top.setScaleType(ImageView.ScaleType.CENTER);
 
             views.addView(top);
-            pager.addView(text);
+            views.addView(text);
 
         }
         else
         {
-            MyView text = new MyView(container.getContext());
+            MyView text = new MyView(container.getContext(), false, 5);
             text.bringToFront();
            views.addView(text);
         }
