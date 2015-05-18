@@ -45,7 +45,6 @@ public class MainActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             @Override
@@ -69,7 +68,6 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
@@ -105,7 +103,7 @@ public class MainActivity extends ActionBarActivity
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-                if(date.isAfter(CustomAdapter.trainingList.get(i).date)){
+                if(date.isAfter(CustomAdapter.trainingList.get(i).date)){ //listview.getAdapter
                     statusText.setText("TIDIGARE TRÄNING");
                 }
                 else{

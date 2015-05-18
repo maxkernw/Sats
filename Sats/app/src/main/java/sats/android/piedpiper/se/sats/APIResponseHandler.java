@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import sats.android.piedpiper.se.sats.models.*;
 import sats.android.piedpiper.se.sats.models.Class;
@@ -38,12 +39,13 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Ion.with(activity).load(raspberryURL).setTimeout(500000).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+        getCenterNames();
+
+        Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if(e == null)
                 {
-                    getCenterNames();
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
                     for(JsonElement element : jsonArray){
@@ -53,7 +55,7 @@ public class APIResponseHandler
                     Collections.sort(myActivities);
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
                 }else {
-                    Log.e("Info", "server timed out");
+                    Log.e("Info", "could not get activities");
                 }
             }
         });
@@ -100,7 +102,12 @@ public class APIResponseHandler
         String id = object.get("id").getAsString();
         int positionInQueue = object.get("positionInQueue").getAsInt();
 
-        center = centerNamesMap.get(center);
+        Log.e("Info", "center id: " + center);
+
+        if(centerNamesMap.containsKey(center)){
+            center = centerNamesMap.get(center);
+            Log.e("Info", "centerName: " + center);
+        }
 
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
@@ -144,29 +151,32 @@ public class APIResponseHandler
 
     private void getCenterNames()
     {
-        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
-            @Override
-            public void onCompleted(Exception e, JsonObject result) {
-                if (e == null){
-                    JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
-                    JsonArray jsonCentersArray = new JsonArray();
-                    for (JsonElement element : jsonRegionsArray){   //loopar regions. för varje region
-                        JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
-                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
-                    }
+        try
+        {
+            JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
+            JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
+            JsonArray jsonCentersArray = new JsonArray();
 
-                    for (JsonElement centerElement : jsonCentersArray){    //loopar centers
-                        JsonObject center = centerElement.getAsJsonObject();
-                        String centerId = center.get("id").getAsString();
-                        String centerName = center.get("name").getAsString();
-
-                        centerNamesMap.put(centerId, centerName);
-                    }
-                }else {
-                    Log.e("Info", "Could not get center names");
-                }
+            for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
+                jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
             }
-        });
+
+            for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                JsonObject center = centerElement.getAsJsonObject();
+                String centerId = center.get("id").getAsString();
+                String centerName = center.get("name").getAsString();
+
+                centerNamesMap.put(centerId, centerName);
+            }
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch (ExecutionException e) {
+            Log.e("Info", "Could not get center names");
+            e.printStackTrace();
+        }
     }
 
 }
