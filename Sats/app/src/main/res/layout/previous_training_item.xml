@@ -65,7 +65,7 @@
                 <ImageView
                     android:id="@+id/comment_img"
                     android:layout_width="wrap_content"
-                    android:layout_height="14dp"
+                    android:layout_height="10dp"
                     android:layout_marginTop="3dp"
                     android:alpha="0.5"
                     android:src="@drawable/ic_comment"/>
@@ -74,9 +74,9 @@
                     android:id="@+id/comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp"
+                    android:paddingLeft="2dp"
                     android:text="Lägg till kommentar"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="10dp"
                     android:textColor="#a8a8a8"/>
             </LinearLayout>
 
