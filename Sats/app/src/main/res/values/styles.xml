@@ -20,7 +20,7 @@
 
     <style name="CustomProgressbar" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateOnly">false</item>
-        <item name="progressDrawable">@drawable/progress_bar_drawable_style</item>
+        <!--<item name="progressDrawable">@drawable/progress_bar_drawable_style</item>-->
         <item name="android:max">100</item>
     </style>
 

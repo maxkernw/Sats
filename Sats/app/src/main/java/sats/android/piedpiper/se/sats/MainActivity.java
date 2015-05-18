@@ -73,15 +73,14 @@ public class MainActivity extends ActionBarActivity
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-        IonRequester.getBooking(this, listView);
+        //IonRequester.getBooking(this, listView);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         APIResponseHandler responseHandler = new APIResponseHandler(this);
 
+        responseHandler.getAllActivities(listView);
+
         activity = this;
         //date = date.withYear(2013);
-
-
-        responseHandler.getAllActivities(listView);
 
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
@@ -94,7 +93,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-                IonRequester.clear(activity, listView);
+                //IonRequester.clear(activity, listView);
                 im.startAnimation(animRot);
             }
         });
