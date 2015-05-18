@@ -15,6 +15,11 @@ import org.json.JSONException;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.internal.log.RealmLog;
+import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.storage.CenterStorage;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -66,18 +71,29 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
+        int realmObjects;
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
 //        IonRequester.getBooking(this, listView);
 
-        System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
+        Realm realm = Realm.getInstance(this);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
 
-        APIResponseHandler responseHandler = new APIResponseHandler(this);
+        if(realmObjects == 0)
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
 
-        responseHandler.getAllActivities(listView);
+            responseHandler.getAllActivities(listView);
+        }
+        else if(realmObjects > 0)
+        {
+            StorageHandler storageHandler = new StorageHandler(this);
 
-        activity = this;
+            storageHandler.getAllActivities(listView);
+        }
+
         //date = date.withYear(2013);
 
 
@@ -85,35 +101,27 @@ public class MainActivity extends ActionBarActivity
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
 
-        im.setOnClickListener(new View.OnClickListener()
-        {
+        im.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 IonRequester.clear(activity, listView);
                 im.startAnimation(animRot);
             }
         });
 
-        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
-        {
+        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
-            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
-            {
+            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l) {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-                if(date.after(CustomAdapter.trainingList.get(i).getDate()))
-                {
+                if (date.after(CustomAdapter.trainingList.get(i).getDate())) {
 
                     statusText.setText("TIDIGARE TRÄNING");
-                }
-                else
-                {
+                } else {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
             }
         });
     }
-
 }

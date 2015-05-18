@@ -26,7 +26,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20130404&toDate=20150604";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20130404&toDate=20160521";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";

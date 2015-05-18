@@ -178,7 +178,6 @@ public final class IonRequester
     public static void clear(android.app.Activity activity, final StickyListHeadersListView listView)
     {
         ActivitiesList.clear();
-        Realm.deleteRealmFile(activity.getApplicationContext());
         getBooking(activity, listView);
     }
 

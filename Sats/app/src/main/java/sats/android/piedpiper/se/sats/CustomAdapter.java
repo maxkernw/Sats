@@ -34,7 +34,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private Calendar mCalendar = Calendar.getInstance();
     private final String[] swedish_days = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"};
     private final String[] swedish_months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"};
-    private Date myDate = new Date();
+    private Date myDate;
     private static final int NUMBER_OF_VIEWS_SERVED_BY_ADAPTER = 3;
     private static final int PREVIOUS = 0;
     private static final int BOOKED = 1;
@@ -46,7 +46,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
-        myDate.setYear(2013);
+        myDate = new Date(2014, 1, 1, 10, 10);
     }
 
     @Override
@@ -223,7 +223,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
             holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
             //set text center
-            holder.center.setText(bookedActivityObj.booking.center);
+            holder.center.setText(bookedActivityObj.getBooking().getCenter());
 
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
             {
