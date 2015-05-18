@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +22,7 @@ import sats.android.piedpiper.se.sats.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.holders.OwnActivityHolder;
 import sats.android.piedpiper.se.sats.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.ClassType;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
@@ -221,6 +223,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
             holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
             //set text center
+            holder.center.setText(bookedActivityObj.booking.center);
 
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
             {
@@ -231,15 +234,36 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
 
-        lay.setOnClickListener(new View.OnClickListener()
+      /*  lay.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
+                moreInfo.putExtra("instructor", bookedActivityObj.booking.aClass.instructorId);
+                moreInfo.putExtra("duration", bookedActivityObj.booking.aClass.durationInMinutes);
+                moreInfo.putExtra("classname", bookedActivityObj.booking.aClass.name);
+                moreInfo.putExtra("numberAttending", bookedActivityObj.booking.aClass.bookedPersonsCount);
+                moreInfo.putExtra("maxAttending", bookedActivityObj.booking.aClass.maxPersonsCount);
+                int bigOne = Integer.parseInt(bookedActivityObj.booking.aClass.classTypeId);
+                ClassType klassen = IonRequester.getClassTypeById(bigOne);
+                IonRequester.getCenterName(activity, bookedActivityObj.booking.aClass.centerId);
+
+                moreInfo.putExtra("CenterName", IonRequester.centerName);
+                moreInfo.putExtra("videoURL", klassen.videoURL);
+                moreInfo.putExtra("description", klassen.description);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                moreInfo.putExtra("date", bookedActivityObj.date.toString());
+
+                moreInfo.putExtra("kondition", klassen.getValue(0));
+                moreInfo.putExtra("styrka", klassen.getValue(1));
+                moreInfo.putExtra("rorlighet", klassen.getValue(2));
+                moreInfo.putExtra("balans", klassen.getValue(3));
+                moreInfo.putExtra("spenst", klassen.getValue(4));
+
                 CustomAdapter.this.activity.startActivity(moreInfo);
             }
-        });
+        });*/
     }
 
     private void setupPreviousActivity(View view, int position)

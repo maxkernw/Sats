@@ -43,7 +43,6 @@ public class MainActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             @Override
@@ -68,20 +67,18 @@ public class MainActivity extends ActionBarActivity
 
         activity = this;
 
-
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
 //        IonRequester.getBooking(this, listView);
 
         System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
 
-
         APIResponseHandler responseHandler = new APIResponseHandler(this);
 
-        //date = date.withYear(2013);
-
-
         responseHandler.getAllActivities(listView);
+
+        activity = this;
+        //date = date.withYear(2013);
 
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
@@ -108,6 +105,7 @@ public class MainActivity extends ActionBarActivity
 
                 if(date.after(CustomAdapter.trainingList.get(i).getDate()))
                 {
+
                     statusText.setText("TIDIGARE TRÄNING");
                 }
                 else

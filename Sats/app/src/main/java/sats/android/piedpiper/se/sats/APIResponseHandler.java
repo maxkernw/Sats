@@ -8,11 +8,14 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
 import sats.android.piedpiper.se.sats.models.Activity;
@@ -25,20 +28,25 @@ public class APIResponseHandler
 {
     public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20130404&toDate=20150604";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
+    public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
+    private HashMap<String, String> centerNamesMap;
     private static Realm realm;
 
     public APIResponseHandler(android.app.Activity activity)
     {
         this.activity = activity;
         myActivities = new ArrayList<>();
+        centerNamesMap = new HashMap<>();
     }
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Ion.with(activity).load(raspberryURL).setTimeout(100000).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        getCenterNames();
+
+        Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
 
             @Override
@@ -80,7 +88,7 @@ public class APIResponseHandler
                     realm.close();
 
                 } else {
-                    Log.e(TAG, "server timed out");
+                    Log.e(TAG, "Could not get activities!");
                     e.printStackTrace();
                 }
             }
@@ -155,6 +163,12 @@ public class APIResponseHandler
         realmBooking.setPositionInQueue(positionInQueue);
 
         realm.commitTransaction();
+
+        if(centerNamesMap.containsKey(center)){
+            center = centerNamesMap.get(center);
+            Log.e("Info", "centerName: " + center);
+        }
+
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
@@ -214,6 +228,36 @@ public class APIResponseHandler
 
         realm.commitTransaction();
         return new Klass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
+    }
+
+    private void getCenterNames()
+    {
+        try
+        {
+            JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
+            JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
+            JsonArray jsonCentersArray = new JsonArray();
+
+            for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
+                jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
+            }
+
+            for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                JsonObject center = centerElement.getAsJsonObject();
+                String centerId = center.get("id").getAsString();
+                String centerName = center.get("name").getAsString();
+
+                centerNamesMap.put(centerId, centerName);
+            }
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch (ExecutionException e) {
+            Log.e("Info", "Could not get center names");
+            e.printStackTrace();
+        }
     }
 
 }

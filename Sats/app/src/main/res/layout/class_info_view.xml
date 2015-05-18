@@ -129,11 +129,12 @@
                     android:text="Latinamerikanska rytmer och rörelseglädje karaktärer denna heta dansklass. Join the Party!" />
 
                 <RelativeLayout
+                    android:id="@+id/fitness"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp">
 
                     <TextView
-                        android:id="@+id/fitness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -141,6 +142,7 @@
                         android:textStyle="bold" />
 
                     <LinearLayout
+                        android:id="@+id/fittnes_progress_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -148,94 +150,325 @@
 
                         <ImageView
                             android:id="@+id/fitness_bar_block1"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block2"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block3"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block4"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block5"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block6"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block7"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block8"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block9"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                         <ImageView
                             android:id="@+id/fitness_bar_block10"
-                            android:layout_width="10dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg" />
+                            android:background="@drawable/progress_bg1" />
 
                     </LinearLayout>
                 </RelativeLayout>
 
-                <TextView
+                <RelativeLayout
                     android:id="@+id/strength"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Styrka"
-                    android:textStyle="bold" />
+                    android:paddingBottom="10dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Styrka"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/strength_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/strength_bar_block10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/flexibility"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rörlighet"
-                    android:textStyle="bold" />
+                    android:paddingBottom="10dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Rörlighet"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/flexibility_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/flexibility_bar_block10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Balans"
-                    android:textStyle="bold" />
+                    android:paddingBottom="10dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Balans"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/balance_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                        <ImageView
+                            android:id="@+id/balance_bar_block10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/progress_bg1" />
+
+                    </LinearLayout>
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/elasticity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Spänst"
                     android:textStyle="bold" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

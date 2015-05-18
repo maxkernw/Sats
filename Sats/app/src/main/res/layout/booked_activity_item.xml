@@ -142,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:typeface="normal"
                     android:textSize="10dp"
+                    android:text="Hämta center"
                     android:textColor="@color/secondary_color" />
 
                 <TextView
