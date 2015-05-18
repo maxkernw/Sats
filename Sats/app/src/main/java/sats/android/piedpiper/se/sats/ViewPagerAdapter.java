@@ -11,12 +11,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import org.joda.time.DateTime;
 
+import java.util.Date;
+
 
 public class ViewPagerAdapter extends PagerAdapter
 {
     private View mCurrentView;
-    DateTime date = new DateTime(2013,12,20,0,0);
-    DateTime date2 = new DateTime(2013,12,27,0,0);
+    Date date = new Date(2013,12,20,0,0);
+    Date date2 = new Date(2013,12,27,0,0);
+//    DateTime date = new DateTime(2013,12,20,0,0);
+//    DateTime date2 = new DateTime(2013,12,27,0,0);
 
     int NumberOfPages = 52;
 
@@ -46,14 +50,14 @@ public class ViewPagerAdapter extends PagerAdapter
         //Find the relativelayout and get height for week
         RelativeLayout parent = (RelativeLayout) container.findViewById(R.id.relativeLayout);
         RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, week.getId());
 
         week.setLayoutParams(params);
         LayoutParams heightParam = week.getLayoutParams();
 
         heightParam.height = 90;
-        week.setText(date.getDayOfMonth() + "-" + date2.getDayOfMonth() + "/" + date2.getMonthOfYear());
+        week.setText(date.getDay()/*.getDayOfMonth()*/ + "-" + date2.getDay()/*.getDayOfMonth()*/ + "/" + date2.getMonth()/*.getMonthOfYear()*/);
         week.setGravity(Gravity.CENTER);
 
         views.addView(week);
@@ -97,7 +101,7 @@ public class ViewPagerAdapter extends PagerAdapter
         views.setLayoutParams(x);
         layout.setLayoutParams(x);
 
-        layout.setBackground(container.getResources().getDrawable(R.drawable.caldark, null));
+        layout.setBackground(container.getResources().getDrawable(R.drawable.cal_dark, null));
 
         layout.addView(views);
 

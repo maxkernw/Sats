@@ -9,15 +9,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.joda.time.DateTime;
+
 import org.json.JSONException;
 
+import java.util.Date;
 
+import io.realm.Realm;
 import sats.android.piedpiper.se.sats.storage.CenterStorage;
-
-import java.util.ArrayList;
-
-import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -25,7 +23,7 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     //private Date date = new Date();
-    private DateTime date = new DateTime(2015, 4, 18, 10, 10);
+    private Date date = new Date(2015, 4, 18, 10, 10);
     private static android.app.Activity activity;
 
     @Override
@@ -33,7 +31,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final TextView txtStatus = (TextView) findViewById(R.id.activity_status);
+        final TextView statusText = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
@@ -73,11 +71,13 @@ public class MainActivity extends ActionBarActivity
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-        IonRequester.getBooking(this, listView);
-        final TextView statusText = (TextView) findViewById(R.id.activity_status);
+//        IonRequester.getBooking(this, listView);
+
+        System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
+
+
         APIResponseHandler responseHandler = new APIResponseHandler(this);
 
-        activity = this;
         //date = date.withYear(2013);
 
 
@@ -106,10 +106,12 @@ public class MainActivity extends ActionBarActivity
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-                if(date.isAfter(CustomAdapter.trainingList.get(i).date)){
+                if(date.after(CustomAdapter.trainingList.get(i).getDate()))
+                {
                     statusText.setText("TIDIGARE TRÄNING");
                 }
-                else{
+                else
+                {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
             }
