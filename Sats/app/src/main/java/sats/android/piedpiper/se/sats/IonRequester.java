@@ -16,7 +16,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,12 +34,35 @@ public class IonRequester {
 
     private static JsonArray jsonActivities;
     private static ArrayList<Activity> ActivitiesList = new ArrayList<>();
-    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20121210&toDate=20160521";
+
+    public static int[] weekPosition = new int[53];
+    public static int week = 0;
+    public static int[] activitesPerWeek = new int[53];
+    public static int thisWeek = 0;
+
+
+
+    public static StringBuilder sURL =  new StringBuilder("http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101");
     private static CustomAdapter adapter;
+    private static CustomAdapter adapter2;
+    public static int activitiesWeek = 0;
 
 
     public static void getBooking (final android.app.Activity activity, final StickyListHeadersListView listView){
-        Ion.with(activity.getApplicationContext()).load(sURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+
+//        String fromDate = "";
+//        String toDate = "";
+//
+//        fromDate = dateFrom.toString().replaceAll("-", "").substring(0,8);
+//        toDate = dateTo.toString().replaceAll("-", "").substring(0,8);
+//        Log.e("fromDate", fromDate);
+//        Log.e("toDate", toDate);
+//       // DateTimeFormatter format = DateTimeFormat.forPattern("yyyyMMdd");
+//        sURL =  new StringBuilder("http://80.217.172.201:8080/sats/se/training/activities/?");
+//        sURL.append("fromDate=" + fromDate);
+//        sURL.append("&toDate=" + toDate);
+//        Log.e("SURL", "url: " + sURL);
+        Ion.with(activity.getApplicationContext()).load(sURL.toString()).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
@@ -120,13 +145,38 @@ public class IonRequester {
                                 subType, type);
 
                         ActivitiesList.add(active);
+                        Set<Activity> hs = new HashSet<>();
+                        hs.addAll(ActivitiesList);
+                        ActivitiesList.clear();
+                        ActivitiesList.addAll(hs);
+                        Collections.sort(ActivitiesList);
+
+
+                        if(date.getWeekOfWeekyear() != week){
+                            weekPosition[date.getWeekOfWeekyear()] = i;
+                            Log.e("DENNA VECKAN: ", String.valueOf(date.getWeekOfWeekyear()));
+                            week = date.getWeekOfWeekyear();
+                        }
+                        if(date.getWeekOfWeekyear() == week){
+                            activitesPerWeek[date.getWeekOfWeekyear()]++;
+                        }
+
+
+
+
                     }
 
-                    Set<Activity> hs = new HashSet<>();
-                    hs.addAll(ActivitiesList);
-                    ActivitiesList.clear();
-                    ActivitiesList.addAll(hs);
+
+
+
                     adapter = new CustomAdapter(activity, ActivitiesList);
+                    activitiesWeek = ActivitiesList.size();
+                    for(int i = 0; i < 53; i++)
+                    {
+                        Log.e("Weeks per derp", "Activiperweek " + IonRequester.activitesPerWeek[i]);
+                    }
+
+                    //adapter = new CustomAdapter(activity, ActivitiesList);
                     listView.setAdapter(adapter);
                 }
             }
@@ -135,7 +185,6 @@ public class IonRequester {
 
     public static void clear(android.app.Activity activity, final StickyListHeadersListView listView){
         ActivitiesList.clear();
-        getBooking(activity, listView);
     }
 
     private static JsonObject jsonCenter;

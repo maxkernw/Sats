@@ -337,6 +337,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             holder = (HeaderViewHolder) convertView.getTag();
         }
         mCalendar.setTime(trainingList.get(position).date.toDate());
+        trainingList.get(position).date.getWeekOfWeekyear();
+
         String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
         holder.text.setText(headerText);

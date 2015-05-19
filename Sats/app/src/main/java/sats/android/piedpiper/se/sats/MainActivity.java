@@ -26,6 +26,9 @@ public class MainActivity extends ActionBarActivity
     ViewPagerAdapter graphAdapter;
     //private Date date = new Date();
     private DateTime date = new DateTime(2015, 4, 18, 10, 10);
+    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1);
+
+    public static int pos;
     private static android.app.Activity activity;
 
     @Override
@@ -35,8 +38,21 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.my_training_listview);
         final TextView txtStatus = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
+
+
+
+        activity = this;
+
+        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+        final TextView statusText = (TextView) findViewById(R.id.activity_status);
+        IonRequester.getBooking(activity, listView);
+
+
+        APIResponseHandler responseHandler = new APIResponseHandler(this);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
+        graph.setCurrentItem(18);
+
         try
         {
             CenterStorage.populateCenters();
@@ -48,6 +64,9 @@ public class MainActivity extends ActionBarActivity
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
+            final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
             {
@@ -57,31 +76,32 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position)
             {
-                Log.e("pos", "Pos: " + position);
+                Log.e("pos", "Pos: " + (position-3));
+
+                if(position <= 6){
+                    listView.smoothScrollToPosition(0);
+                }else if(IonRequester.weekPosition[position-3] != 0){
+                    listView.smoothScrollToPosition(IonRequester.weekPosition[position-3]);
+                }
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state)
             {
+                //IonRequester.clear(activity,listView);
+
 
 
             }
         });
 
         activity = this;
-
-
-        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-
-        IonRequester.getBooking(this, listView);
-        final TextView statusText = (TextView) findViewById(R.id.activity_status);
-        APIResponseHandler responseHandler = new APIResponseHandler(this);
-
-        activity = this;
         //date = date.withYear(2013);
 
 
         responseHandler.getAllActivities(listView);
+
 
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
