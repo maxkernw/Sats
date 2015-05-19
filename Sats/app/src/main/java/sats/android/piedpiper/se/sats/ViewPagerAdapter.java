@@ -12,14 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import org.joda.time.DateTime;
 
-import java.util.Calendar;
+
+import java.util.Date;
 
 
 public class ViewPagerAdapter extends PagerAdapter
 {
     private View mCurrentView;
-    public static DateTime date = new DateTime(2013,12,20,0,0);
-    public static DateTime date2 = new DateTime(2013,12,27,0,0);
+    //public static DateTime date = new DateTime(2013,12,20,0,0);
+    //public static DateTime date2 = new DateTime(2013,12,27,0,0);
+
+    Date date = new Date(2013,12,20,0,0);
+    Date date2 = new Date(2013,12,27,0,0);
+//    DateTime date = new DateTime(2013,12,20,0,0);
+//    DateTime date2 = new DateTime(2013,12,27,0,0);
+
     int NumberOfPages = 52;
 
 
@@ -49,7 +56,7 @@ public class ViewPagerAdapter extends PagerAdapter
         //Find the relativelayout and get height for week
         RelativeLayout parent = (RelativeLayout) container.findViewById(R.id.relativeLayout);
         RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, week.getId());
 
         week.setLayoutParams(params);
@@ -57,6 +64,7 @@ public class ViewPagerAdapter extends PagerAdapter
 
         heightParam.height = 90;
         week.setText(MainActivity.dateView.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.dateView.plusWeeks(position+1).getDayOfMonth() + "/" + MainActivity.dateView.plusWeeks(position+1).getMonthOfYear());
+
         week.setGravity(Gravity.CENTER);
         Log.e("pos", "Position in viewpager: " + position);
         views.addView(week);
@@ -70,7 +78,7 @@ public class ViewPagerAdapter extends PagerAdapter
 
             ImageView top = new ImageView(container.getContext());
             top.setImageResource(R.drawable.now_marker);
-            MyView text = new MyView(container.getContext(), false, IonRequester.activitesPerWeek[position+6]);
+            MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position+6]);
 
             top.setScaleX(0.6f);
             top.setScaleY(0.6f);
@@ -90,13 +98,13 @@ public class ViewPagerAdapter extends PagerAdapter
         {
             if(position > 20)
             {
-                MyView text = new MyView(container.getContext(), false, IonRequester.activitesPerWeek[position - 5], IonRequester.activitesPerWeek[position - 6], IonRequester.activitesPerWeek[position - 4]);
+                MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
                 text.bringToFront();
                 views.addView(text);
             }
             else
             {
-                MyView text = new MyView(container.getContext(), true, IonRequester.activitesPerWeek[position - 5], IonRequester.activitesPerWeek[position - 6], IonRequester.activitesPerWeek[position - 4]);
+                MyView text = new MyView(container.getContext(), true, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
                 text.bringToFront();
                 views.addView(text);
             }
@@ -104,7 +112,7 @@ public class ViewPagerAdapter extends PagerAdapter
         }else
         {
             MyView text = new MyView(container.getContext(), true, 0);
-            Log.e("size", "Size: " + IonRequester.activitiesWeek);
+            Log.e("size", "Size: " + APIResponseHandler.activitesPerWeek);
             text.bringToFront();
             views.addView(text);
         }
@@ -123,7 +131,7 @@ public class ViewPagerAdapter extends PagerAdapter
         views.setLayoutParams(x);
         layout.setLayoutParams(x);
 
-        layout.setBackground(container.getResources().getDrawable(R.drawable.caldark, null));
+        layout.setBackground(container.getResources().getDrawable(R.drawable.cal_dark, null));
 
         layout.addView(views);
 

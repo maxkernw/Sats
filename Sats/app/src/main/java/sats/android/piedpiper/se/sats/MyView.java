@@ -77,33 +77,39 @@ public class MyView extends View
             case 5:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 80, "5", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 4:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 160, "4", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 3:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 236, "3", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 2:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 308, "2", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 1:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 383, "1", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 0:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
                 writeText(101, 421, "0", canvas);
+                paintLine(position, leftCell, rightCell, canvas);
                 break;
             default:
                 canvas.drawCircle(xPosition, yPos[5], radius, paint);
                 writeText(92, 80, "+5", canvas);
+                paintLine(5, leftCell, rightCell, canvas);
                 break;
         }
-        paintLine(position, leftCell, rightCell, canvas);
 
         super.onDraw(canvas);
 
@@ -155,23 +161,42 @@ public class MyView extends View
         if(currentCell == rightCell)
         {
             canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+2, paint);
-        }else if(currentCell < rightCell)
+        }else if(currentCell < rightCell && currentCell == 0)
         {
             canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+22, paint);
-        }else if(currentCell > rightCell)
+        }else if(currentCell > rightCell && currentCell == 1)
         {
             canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]-14, paint);
         }
 
+
+        else if(currentCell < rightCell)// && currentCell == 1)
+        {
+            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+42, paint);
+        }else if(currentCell > rightCell)// && currentCell == 2)
+        {
+            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]-34, paint);
+        }
+
+        //////////////////////////////////////////////
+
         if(currentCell == leftCell)
         {
             canvas.drawLine(77, yPos[currentCell]+2, 0, yPos[leftCell]+2, paint);
-        }else if(currentCell > leftCell)
+        }else if(currentCell > leftCell && currentCell == 1)
         {
             canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]-12, paint);
-        }else if(currentCell < leftCell)
+        }else if(currentCell < leftCell && currentCell == 0)
         {
             canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]+21, paint);
+        }
+
+        else if(currentCell > leftCell) //&& currentCell == 2)
+        {
+            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]-28, paint);
+        }else if(currentCell < leftCell) //&& currentCell == 1)
+        {
+            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]+32, paint);
         }
 
 

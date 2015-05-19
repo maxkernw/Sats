@@ -9,15 +9,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import org.joda.time.DateTime;
 import org.json.JSONException;
 
+import java.util.Date;
 
+import io.realm.Realm;
 import sats.android.piedpiper.se.sats.storage.CenterStorage;
-
-import java.util.ArrayList;
-
-import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -25,10 +24,10 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     //private Date date = new Date();
-    private DateTime date = new DateTime(2015, 4, 18, 10, 10);
     public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1);
 
     public static int pos;
+    private Date date = new Date(2013, 4, 18, 10, 10);
     private static android.app.Activity activity;
 
     @Override
@@ -36,7 +35,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final TextView txtStatus = (TextView) findViewById(R.id.activity_status);
+        final TextView statusText = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
 
 
@@ -44,8 +43,7 @@ public class MainActivity extends ActionBarActivity
         activity = this;
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-        final TextView statusText = (TextView) findViewById(R.id.activity_status);
-        IonRequester.getBooking(activity, listView);
+        //IonRequester.getBooking(activity, listView);
 
 
         APIResponseHandler responseHandler = new APIResponseHandler(this);
@@ -60,7 +58,6 @@ public class MainActivity extends ActionBarActivity
         {
             e.printStackTrace();
         }
-
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -80,8 +77,8 @@ public class MainActivity extends ActionBarActivity
 
                 if(position <= 6){
                     listView.smoothScrollToPosition(0);
-                }else if(IonRequester.weekPosition[position-3] != 0){
-                    listView.smoothScrollToPosition(IonRequester.weekPosition[position-3]);
+                }else if(APIResponseHandler.weekPosition[position-3] != 0){
+                    listView.smoothScrollToPosition(APIResponseHandler.weekPosition[position-3]);
                 }
 
             }
@@ -97,10 +94,17 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-        //date = date.withYear(2013);
+
+
+//        IonRequester.getBooking(this, listView);
+
+        System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
 
 
         responseHandler.getAllActivities(listView);
+
+        activity = this;
+        //date = date.withYear(2013);
 
 
 
@@ -126,10 +130,13 @@ public class MainActivity extends ActionBarActivity
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-                if(date.isAfter(CustomAdapter.trainingList.get(i).date)){
+                if(date.after(CustomAdapter.trainingList.get(i).getDate()))
+                {
+
                     statusText.setText("TIDIGARE TRÄNING");
                 }
-                else{
+                else
+                {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
             }
