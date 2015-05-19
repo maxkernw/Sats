@@ -19,7 +19,7 @@ public class MoreInfoActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(class_info_view);
+        setContentView(R.layout.class_info_view);
 
         Intent intent= getIntent();
         String classtypeId = intent.getStringExtra("classTypeId");

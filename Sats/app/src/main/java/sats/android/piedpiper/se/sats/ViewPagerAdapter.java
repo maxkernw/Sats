@@ -97,7 +97,7 @@ public class ViewPagerAdapter extends PagerAdapter
         views.setLayoutParams(x);
         layout.setLayoutParams(x);
 
-        layout.setBackground(container.getResources().getDrawable(R.drawable.caldark, null));
+        layout.setBackground(container.getResources().getDrawable(R.drawable.cal_dark, null));
 
         layout.addView(views);
 
