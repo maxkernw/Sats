@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public class ClassType {
 
     public String description;
-    public int id;
+    public String id;
     public String name;
     public String videoURL;
     public ArrayList<Profile> stats;
 
 
-    public ClassType(String description, int id, String name, ArrayList<Profile> stats, String videoURL) {
+    public ClassType(String description, String id, String name, ArrayList<Profile> stats, String videoURL) {
         this.description = description;
         this.id = id;
         this.name = name;
@@ -30,11 +30,11 @@ public class ClassType {
         this.description = description;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
