@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         graph = (ViewPager) findViewById(R.id.graph);
-        date.setYear(115);
 
         activity = this;
 
