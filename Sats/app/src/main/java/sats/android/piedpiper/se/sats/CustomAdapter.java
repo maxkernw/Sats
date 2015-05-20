@@ -207,9 +207,10 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
-        Activity bookedActivityObj = (Activity) getItem(position);
+        final Activity bookedActivityObj = (Activity) getItem(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
+
         String curHrs = String.format("%02d", hrs);
         String curMin = String.format("%02d", min);
 
@@ -234,22 +235,29 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
 
-      /*  lay.setOnClickListener(new View.OnClickListener()
+        lay.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
-                moreInfo.putExtra("instructor", bookedActivityObj.booking.aClass.instructorId);
-                moreInfo.putExtra("duration", bookedActivityObj.booking.aClass.durationInMinutes);
-                moreInfo.putExtra("classname", bookedActivityObj.booking.aClass.name);
-                moreInfo.putExtra("numberAttending", bookedActivityObj.booking.aClass.bookedPersonsCount);
-                moreInfo.putExtra("maxAttending", bookedActivityObj.booking.aClass.maxPersonsCount);
-                int bigOne = Integer.parseInt(bookedActivityObj.booking.aClass.classTypeId);
-                ClassType klassen = IonRequester.getClassTypeById(bigOne);
-                IonRequester.getCenterName(activity, bookedActivityObj.booking.aClass.centerId);
+                if(bookedActivityObj.getBooking() != null)
+                {
+                    Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
-                moreInfo.putExtra("CenterName", IonRequester.centerName);
+                    moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
+
+                    moreInfo.putExtra("instructor", bookedActivityObj.getBooking().getaKlass().getInstructorId());
+                    moreInfo.putExtra("duration", bookedActivityObj.getBooking().getaKlass().getDurationInMinutes());
+                    moreInfo.putExtra("numberAttending", bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount());
+                    moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
+                    moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
+
+                    CustomAdapter.this.activity.startActivity(moreInfo);
+                }
+                //moreInfo.putExtra("classname", bookedActivityObj.booking.aClass.name);
+
+
+                /*moreInfo.putExtra("CenterName", IonRequester.centerName);
                 moreInfo.putExtra("videoURL", klassen.videoURL);
                 moreInfo.putExtra("description", klassen.description);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -259,11 +267,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 moreInfo.putExtra("styrka", klassen.getValue(1));
                 moreInfo.putExtra("rorlighet", klassen.getValue(2));
                 moreInfo.putExtra("balans", klassen.getValue(3));
-                moreInfo.putExtra("spenst", klassen.getValue(4));
-
-                CustomAdapter.this.activity.startActivity(moreInfo);
+                moreInfo.putExtra("spenst", klassen.getValue(4));*/
             }
-        });*/
+        });
     }
 
     private void setupPreviousActivity(View view, int position)
@@ -281,16 +287,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
         box.setChecked(previousActivity.getStatus().equals("COMPLETED"));
 
-        box.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        box.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
-                if (cb.isChecked())
-                {
+                if (cb.isChecked()) {
                     cb.setText("Avklarat!");
-                } else
-                {
+                } else {
                     cb.setText("Avklarat?");
                 }
             }

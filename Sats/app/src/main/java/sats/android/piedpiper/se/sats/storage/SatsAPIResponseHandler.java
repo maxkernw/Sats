@@ -23,7 +23,7 @@ public class SatsAPIResponseHandler {
     private static JsonArray jsonClassTypes;
     private static JsonArray jsonCenters;
 
-    public static HashMap<Integer,ClassType> KlassTyper = new HashMap<Integer, ClassType>();
+    public static HashMap<String, ClassType> KlassTyper = new HashMap<>();
     public static HashMap<String,String> CenterNames = new HashMap<String, String>();
 
     public static void getClassType (android.app.Activity activity)
@@ -35,7 +35,7 @@ public class SatsAPIResponseHandler {
                     Log.e("Info", "could not get json");
                 } else {
                     String description, name, url;
-                    int ClassId;
+                    String ClassId;
                     jsonClassTypes = result.getAsJsonArray("classTypes");
                     JsonElement Profiless;
                     JsonArray Profile;
@@ -44,7 +44,7 @@ public class SatsAPIResponseHandler {
                     for (int i = 0; i < jsonClassTypes.size(); i++) {
                         description = jsonClassTypes.get(i).getAsJsonObject().get("description").getAsString();
                         name = jsonClassTypes.get(i).getAsJsonObject().get("name").getAsString();
-                        ClassId = jsonClassTypes.get(i).getAsJsonObject().get("id").getAsInt();
+                        ClassId = jsonClassTypes.get(i).getAsJsonObject().get("id").getAsString();
 
                         url = jsonClassTypes.get(i).getAsJsonObject().get("videoUrl").getAsString();
 

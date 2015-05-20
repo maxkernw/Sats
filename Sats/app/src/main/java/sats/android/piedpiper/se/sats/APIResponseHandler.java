@@ -22,7 +22,9 @@ import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.Klass;
+import sats.android.piedpiper.se.sats.models.Profile;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
@@ -32,8 +34,10 @@ public class APIResponseHandler
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
+    public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
+    private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private static Realm realm;
 
@@ -44,6 +48,7 @@ public class APIResponseHandler
         centerNamesMap = new HashMap<>();
         Realm.deleteRealmFile(activity.getApplicationContext());
         realm = Realm.getInstance(activity.getApplicationContext());
+        classTypes = new ArrayList<>();
     }
 
     public void getAllActivities(final StickyListHeadersListView listView)
@@ -170,7 +175,6 @@ public class APIResponseHandler
         realm.commitTransaction();
         if(centerNamesMap.containsKey(center)){
             center = centerNamesMap.get(center);
-            Log.e("Info", "centerName: " + center);
         }
 
         if(hasClass){
@@ -272,6 +276,59 @@ public class APIResponseHandler
             Log.e("Info", "Could not get center names");
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<ClassType> getClassTypes()
+    {
+        try
+        {
+            JsonObject result = Ion.with(activity).load(classTypesURL).asJsonObject().get();
+            JsonArray jsonArray = result.getAsJsonArray("classTypes");
+            for (JsonElement element : jsonArray) {
+                classTypes.add(getClassTypeObj(element));
+            }
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch (ExecutionException e) {
+            Log.e("Info", "Could not get ClassTypes");
+            e.printStackTrace();
+        }
+
+        return classTypes;
+    }
+
+    private ClassType getClassTypeObj(JsonElement element)
+    {
+        JsonObject object = element.getAsJsonObject();
+
+        ArrayList<Profile> stats = null;
+        String description = object.get("description").getAsString();
+        String videoURL = object.get("videoUrl").getAsString();
+        String name = object.get("name").getAsString();
+        String id = object.get("id").getAsString();
+        JsonArray profileJsonObj = object.get("profile").getAsJsonArray();
+
+        stats = getProfile(profileJsonObj);
+
+        return new ClassType(description, id, name, stats, videoURL);
+    }
+
+    private ArrayList<Profile> getProfile(JsonArray jsonArray)
+    {
+        ArrayList<Profile> profileArray = new ArrayList<>();
+        for (JsonElement element : jsonArray)
+        {
+            JsonObject object = element.getAsJsonObject();
+            String id = object.get("id").getAsString();
+            String name = object.get("name").getAsString();
+            int value = object.get("value").getAsInt();
+
+            profileArray.add(new Profile(id, name, value));
+        }
+
+        return profileArray;
     }
 
 }
