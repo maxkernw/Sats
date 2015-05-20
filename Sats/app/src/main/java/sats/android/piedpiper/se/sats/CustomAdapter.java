@@ -256,20 +256,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                     CustomAdapter.this.activity.startActivity(moreInfo);
                 }
-                //moreInfo.putExtra("classname", bookedActivityObj.booking.aClass.name);
-
-
-                /*moreInfo.putExtra("CenterName", IonRequester.centerName);
-                moreInfo.putExtra("videoURL", klassen.videoURL);
-                moreInfo.putExtra("description", klassen.description);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                moreInfo.putExtra("date", bookedActivityObj.date.toString());
-
-                moreInfo.putExtra("kondition", klassen.getValue(0));
-                moreInfo.putExtra("styrka", klassen.getValue(1));
-                moreInfo.putExtra("rorlighet", klassen.getValue(2));
-                moreInfo.putExtra("balans", klassen.getValue(3));
-                moreInfo.putExtra("spenst", klassen.getValue(4));*/
             }
         });
     }

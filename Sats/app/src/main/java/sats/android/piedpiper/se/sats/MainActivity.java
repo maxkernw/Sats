@@ -14,15 +14,12 @@ import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.joda.time.DateTime;
-import org.json.JSONException;
+
 import java.util.Date;
+
 import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.exceptions.RealmMigrationNeededException;
-import io.realm.internal.log.RealmLog;
 import sats.android.piedpiper.se.sats.models.Activity;
-import sats.android.piedpiper.se.sats.storage.CenterStorage;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -86,14 +83,6 @@ public class MainActivity extends ActionBarActivity
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
-
-        try
-        {
-            CenterStorage.populateCenters();
-        } catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -225,6 +214,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
+                APIResponseHandler responseHandler = new APIResponseHandler(activity);
+                responseHandler.clear(listView);
+
             }
         });
 

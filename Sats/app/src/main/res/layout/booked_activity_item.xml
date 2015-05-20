@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:typeface="normal"
                     android:textSize="10dp"
-                    android:text="Hämta center"
+                    android:text="Hämtar center ..."
                     android:textColor="@color/secondary_color" />
 
                 <TextView
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
                     android:textColor="@color/secondary_color"
-                    android:text="Majsan Lind" />
+                    android:text="Hämtar instruktör ..." />
             </LinearLayout>
 
             <LinearLayout

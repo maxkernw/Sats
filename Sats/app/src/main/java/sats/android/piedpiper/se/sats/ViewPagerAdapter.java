@@ -15,6 +15,8 @@ import org.joda.time.DateTime;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
+
 
 public class ViewPagerAdapter extends PagerAdapter
 {
@@ -67,16 +69,12 @@ public class ViewPagerAdapter extends PagerAdapter
 
         week.setGravity(Gravity.CENTER);
         views.addView(week);
-        /*if(position == 2){
-            MyView text = new MyView(container.getContext(), true, IonRequester.activitesPerWeek[position]);
 
-            views.addView(text);
-
-        }else */
         if(position == 20){
 
             ImageView top = new ImageView(container.getContext());
             top.setImageResource(R.drawable.now_marker);
+
             MyView text = new MyView(container.getContext(), false, StorageHandler.activitesPerWeek[position - 5], StorageHandler.activitesPerWeek[position - 6], StorageHandler.activitesPerWeek[position - 4]);
 
             top.setScaleX(0.6f);
