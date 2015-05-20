@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.joda.time.DateTime;
+
 import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +32,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20130404&toDate=20160521";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
@@ -40,6 +42,11 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private static Realm realm;
+    public static int[] weekPosition = new int[53];
+    public static int week = 0;
+    public static int[] activitesPerWeek = new int[53];
+    public static int thisWeek = 0;
+    int i = 0;
 
     public APIResponseHandler(android.app.Activity activity)
     {
@@ -84,11 +91,22 @@ public class APIResponseHandler
                     }
 
                     for (int i = 0; i < myActivities.size(); i++) {
-                        Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
+                        Log.e("Wwkeokaow", "date" + i + ": " + myActivities.get(i).getDate().toString());
+                        DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                        if(joda.getWeekOfWeekyear() != week){
+                            weekPosition[joda.getWeekOfWeekyear()] = i;
+                            Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
+                            week = joda.getWeekOfWeekyear();
+                        }
+                        if(joda.getWeekOfWeekyear() == week){
+                            activitesPerWeek[joda.getWeekOfWeekyear()]++;
+                        }
                     }
+                    Log.e("After for", "After for" + myActivities.size());
 
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
-
+                    
                     realm.close();
 
                 } else {
@@ -102,7 +120,6 @@ public class APIResponseHandler
     private Activity getActivityObj(JsonElement element)
     {
         JsonObject object = element.getAsJsonObject();
-
         realm.beginTransaction();
         sats.android.piedpiper.se.sats.models.Activity realmActivity = realm.createObject(sats.android.piedpiper.se.sats.models.Activity.class);
 
@@ -151,6 +168,7 @@ public class APIResponseHandler
 
             realmActivity.getBookings().add(bookings.first());
         }
+
 
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
     }

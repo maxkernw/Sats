@@ -134,7 +134,8 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     android:textIsSelectable="false"
-                    android:textColor="#ff000000" />
+                    android:textColor="#ff000000"
+                    android:text="SATS CORE" />
 
                 <TextView
                     android:id="@+id/center"
@@ -150,7 +151,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:textColor="@color/secondary_color" />
+                    android:textColor="@color/secondary_color"
+                    android:text="Majsan Lind" />
             </LinearLayout>
 
             <LinearLayout

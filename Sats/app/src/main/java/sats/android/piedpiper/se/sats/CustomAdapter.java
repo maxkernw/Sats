@@ -1,6 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
-        myDate = new Date(2014, 1, 1, 10, 10);
+        myDate = new Date();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     public int getItemViewType(int position)
     {
         Activity myTrainingActivityObj = (Activity) getItem(position);
-
+        myDate.setYear(113);
         boolean isPreviousActivity;
         isPreviousActivity = (myTrainingActivityObj.getStatus().equals("COMPLETED")) ||
                 myTrainingActivityObj.getDate().before(myDate);
@@ -226,6 +227,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             //set text center
             holder.center.setText(bookedActivityObj.getBooking().getCenter());
 
+
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
             {
                 LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
@@ -284,19 +286,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.date.setText(previousDateFormat);
         setActivityImage(holder, previousActivity);
 
-        CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        box.setChecked(previousActivity.getStatus().equals("COMPLETED"));
-
-        box.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                if (cb.isChecked()) {
-                    cb.setText("Avklarat!");
-                } else {
-                    cb.setText("Avklarat?");
-                }
-            }
-        });
+        ImageView box = (ImageView) view.findViewById(R.id.checkbox_img);
+        TextView text = (TextView) view.findViewById(R.id.checkbox_text);
+        if (previousActivity.getStatus().equals("COMPLETED")){
+            box.setImageResource(R.drawable.checkbox_filled);
+            text.setText("Avklarat!");
+        }else {
+            box.setImageResource(R.drawable.checkbox_empty);
+            text.setText("Avklarat?");
+        }
     }
 
     private void setActivityImage(PreviousActivityHolder previousActivityHolder, Activity previousActivity)
@@ -362,7 +360,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
+
         mCalendar.setTime(trainingList.get(position).getDate());
+
         String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
         holder.text.setText(headerText);

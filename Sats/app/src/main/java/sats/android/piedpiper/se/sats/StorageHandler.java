@@ -2,6 +2,8 @@ package sats.android.piedpiper.se.sats;
 
 import android.util.Log;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +24,9 @@ public class StorageHandler
     private ArrayList<Activity> myActivities;
     private HashMap<String, String> centerNamesMap;
     private static Realm realm;
+    public static int[] weekPosition = new int[53];
+    public static int week = 0;
+    public static int[] activitesPerWeek = new int[53];
 
     public StorageHandler(android.app.Activity activity)
     {
@@ -44,6 +49,18 @@ public class StorageHandler
             for (int i = 0; i < result.size(); i++)
             {
                 myActivities.add(result.get(i));
+            }
+            for (int i = 0; i < myActivities.size(); i++) {
+                DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                if(joda.getWeekOfWeekyear() != week){
+                    weekPosition[joda.getWeekOfWeekyear()] = i;
+                    Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
+                    week = joda.getWeekOfWeekyear();
+                }
+                if(joda.getWeekOfWeekyear() == week){
+                    activitesPerWeek[joda.getWeekOfWeekyear()]++;
+                }
             }
         }
         catch (RealmMigrationNeededException e)
