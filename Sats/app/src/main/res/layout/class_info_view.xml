@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bokade deltagare: "
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Center: "
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Datum: "
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Instruktör: "
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Kondition"
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -222,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Styrka"
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Rörlighet"
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -272,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Balans"
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -297,7 +297,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Spänst"
-                        android:textColor="@android:color/black"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <ProgressBar

@@ -106,7 +106,7 @@ public class APIResponseHandler
                     Log.e("After for", "After for" + myActivities.size());
 
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
-                    
+
                     realm.close();
 
                 } else {
@@ -363,6 +363,12 @@ public class APIResponseHandler
         }
 
         return profileArray;
+    }
+
+    public void clear(final StickyListHeadersListView listView)
+    {
+        myActivities.clear();
+        getAllActivities(listView);
     }
 
 }

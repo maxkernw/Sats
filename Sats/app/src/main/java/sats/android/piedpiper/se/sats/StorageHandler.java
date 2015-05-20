@@ -38,39 +38,29 @@ public class StorageHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        try
+        RealmQuery<Activity> query = realm.where(Activity.class);
+
+        RealmResults<Activity> result = query.findAll();
+        result.sort("date");
+        getCenterNames();
+
+        Log.i(TAG, "Result storleken: " + String.valueOf(result.size()));
+
+        for (int i = 0; i < result.size(); i++)
         {
-            RealmQuery<Activity> query = realm.where(Activity.class);
-
-            RealmResults<Activity> result = query.findAll();
-            result.sort("date");
-            getCenterNames();
-
-            for (int i = 0; i < result.size(); i++)
-            {
-                myActivities.add(result.get(i));
-            }
-            for (int i = 0; i < myActivities.size(); i++) {
-                DateTime joda = new DateTime(myActivities.get(i).getDate());
-
-                if(joda.getWeekOfWeekyear() != week){
-                    weekPosition[joda.getWeekOfWeekyear()] = i;
-                    Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
-                    week = joda.getWeekOfWeekyear();
-                }
-                if(joda.getWeekOfWeekyear() == week){
-                    activitesPerWeek[joda.getWeekOfWeekyear()]++;
-                }
-            }
+            myActivities.add(result.get(i));
         }
-        catch (RealmMigrationNeededException e)
-        {
-            APIResponseHandler responseHandler = new APIResponseHandler(activity);
+        for (int i = 0; i < myActivities.size(); i++) {
+            DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-            responseHandler.getAllActivities(listView);
-
-            Log.e(TAG, e.getMessage());
-            e.printStackTrace();
+            if(joda.getWeekOfWeekyear() != week){
+                weekPosition[joda.getWeekOfWeekyear()] = i;
+                Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
+                week = joda.getWeekOfWeekyear();
+            }
+            if(joda.getWeekOfWeekyear() == week){
+                activitesPerWeek[joda.getWeekOfWeekyear()]++;
+            }
         }
         listView.setAdapter(new CustomAdapter(activity, myActivities));
     }
