@@ -19,11 +19,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.holders.OwnActivityHolder;
 import sats.android.piedpiper.se.sats.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.Booking;
+import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.ClassType;
+import sats.android.piedpiper.se.sats.models.Instructor;
+import sats.android.piedpiper.se.sats.models.Klass;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
@@ -208,7 +216,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
-        final Activity bookedActivityObj = (Activity) getItem(position);
+        //final Activity bookedActivityObj = (Activity) getItem(position);
+        final Activity bookedActivityObj = trainingList.get(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
 
@@ -220,6 +229,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.getDurationInMinutes()) + " min");
         holder.title.setText(bookedActivityObj.getSubType());
 
+        // Hämtar BookingItem från APIn
         if(bookedActivityObj.getBooking() != null)
         {
             holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
@@ -229,6 +239,28 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
 
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
+            {
+                LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
+                bookedPersons.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        // Hämtar BookingItem från Realm
+        Realm realm = Realm.getInstance(activity);
+        Booking realmBooking = bookedActivityObj.getBookings().first();
+        if(realmBooking != null)
+        {
+            Klass realmBookingClass = realmBooking.getKlasses().first();
+            int realmCenterId = Integer.valueOf(realmBooking.getCenter());
+            RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
+            Center realmCenter = realmCenters.first();
+
+            holder.instructor.setText(realmBookingClass.getInstructorId());
+            holder.participants.setText(String.valueOf(realmBookingClass.getBookedPersonsCount()));
+            holder.center.setText(realmCenter.getName());
+
+
+            if (realmBookingClass.getBookedPersonsCount() == 0)
             {
                 LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
                 bookedPersons.setVisibility(View.INVISIBLE);
