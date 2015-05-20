@@ -77,7 +77,7 @@ public class ViewPagerAdapter extends PagerAdapter
 
             ImageView top = new ImageView(container.getContext());
             top.setImageResource(R.drawable.now_marker);
-            MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
+            MyView text = new MyView(container.getContext(), false, StorageHandler.activitesPerWeek[position - 5], StorageHandler.activitesPerWeek[position - 6], StorageHandler.activitesPerWeek[position - 4]);
 
             top.setScaleX(0.6f);
             top.setScaleY(0.6f);
@@ -97,13 +97,13 @@ public class ViewPagerAdapter extends PagerAdapter
         {
             if(position > 20)
             {
-                MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
+                MyView text = new MyView(container.getContext(), false, StorageHandler.activitesPerWeek[position - 5], StorageHandler.activitesPerWeek[position - 6], StorageHandler.activitesPerWeek[position - 4]);
                 text.bringToFront();
                 views.addView(text);
             }
             else
             {
-                MyView text = new MyView(container.getContext(), true, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
+                MyView text = new MyView(container.getContext(), true, StorageHandler.activitesPerWeek[position - 5], StorageHandler.activitesPerWeek[position - 6], StorageHandler.activitesPerWeek[position - 4]);
                 text.bringToFront();
                 views.addView(text);
             }
@@ -111,7 +111,7 @@ public class ViewPagerAdapter extends PagerAdapter
         }else
         {
             MyView text = new MyView(container.getContext(), true, 0);
-            Log.e("size", "Size: " + APIResponseHandler.activitesPerWeek);
+            Log.e("size", "Size: " + StorageHandler.activitesPerWeek);
             text.bringToFront();
             views.addView(text);
         }

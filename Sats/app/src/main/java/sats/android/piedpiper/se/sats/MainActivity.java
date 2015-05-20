@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
 import org.joda.time.DateTime;
 import org.json.JSONException;
-
 import java.util.Date;
-
 import io.realm.Realm;
+import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.storage.CenterStorage;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -25,10 +26,12 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     //private Date date = new Date();
-    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(1).minusYears(4);
+    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
 
     public static int pos;
-    private Date date = new Date(2012, 4, 18, 10, 10);
+    private Date date = new Date();
+
+
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
@@ -37,9 +40,10 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_training_listview);g
+        setContentView(R.layout.my_training_listview);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
+        date.setYear(115);
 
         activity = this;
 
@@ -78,6 +82,7 @@ public class MainActivity extends ActionBarActivity
 
 
         APIResponseHandler responseHandler = new APIResponseHandler(this);
+        final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
@@ -90,7 +95,6 @@ public class MainActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
@@ -98,6 +102,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
             {
+
                 if (position < 21 && position > 14)
                 {
                     leftMarker.setVisibility(View.INVISIBLE);
@@ -106,36 +111,42 @@ public class MainActivity extends ActionBarActivity
                 if (position < 16)
                 {
                     leftMarker.setVisibility(View.VISIBLE);
+
                 }
                 if (position > 19)
                 {
-
                     rightMarker.setVisibility(View.VISIBLE);
                 }
+                rightMarker.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        graph.setCurrentItem(18);
+                    }
+                });
+                leftMarker.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        graph.setCurrentItem(18);
+                    }
+                });
+
             }
 
             @Override
             public void onPageSelected(int position)
             {
                 pos = position;
-                Log.e("Pos", "Position: " + position);
                 if (position <= 6)
                 {
                     listView.smoothScrollToPosition(0);
-                } else if (APIResponseHandler.weekPosition[position - 3] != 0)
+                } else if (StorageHandler.weekPosition[position - 3] != 0)
                 {
-                    listView.smoothScrollToPosition(APIResponseHandler.weekPosition[position - 3]);
+                    listView.smoothScrollToPosition(StorageHandler.weekPosition[position - 3]);
                 }
-/*
-                if (position == 15)
-                {
-                    leftMarker.setVisibility(View.VISIBLE);
-                }
-
-                if (position == 19)
-                {
-                    rightMarker.setVisibility(View.VISIBLE);
-                }*/
             }
 
             @Override
@@ -145,40 +156,85 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        activity = this;
+       slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+       {
+           @Override
+           public void onPanelSlide(View view, float v)
+           {
 
-        System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
+           }
 
-        responseHandler.getAllActivities(listView);
+           @Override
+           public void onPanelCollapsed(View view)
+           {
 
-        activity = this;
+           }
+
+           @Override
+           public void onPanelExpanded(View view)
+           {
+                rightMarker.setVisibility(View.INVISIBLE);
+                leftMarker.setVisibility(View.INVISIBLE);
+           }
+
+           @Override
+           public void onPanelAnchored(View view)
+           {
+
+           }
+
+           @Override
+           public void onPanelHidden(View view)
+           {
+
+           }
+       });
+
+
+        int realmObjects;
+
+
+        //System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
+
+        Realm realm = Realm.getInstance(this);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects == 0)
+        {
+            responseHandler = new APIResponseHandler(this);
+            responseHandler.getAllActivities(listView);
+        }
+        else if(realmObjects > 0)
+        {
+            StorageHandler storageHandler = new StorageHandler(this);
+            storageHandler.getAllActivities(listView);
+        }
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
-        im.setOnClickListener(new View.OnClickListener()
-        {
+
+
+        im.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 im.startAnimation(animRot);
             }
         });
 
-        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
-        {
+        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
-            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
-            {
+            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l) {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-                if (date.after(CustomAdapter.trainingList.get(i).getDate()))
-                {
+
+                if (date.after(CustomAdapter.trainingList.get(i).getDate())) {
 
                     statusText.setText("TIDIGARE TRÄNING");
-                } else
-                {
+
+                } else {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
             }

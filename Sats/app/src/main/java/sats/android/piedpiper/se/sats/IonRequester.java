@@ -230,7 +230,6 @@ public final class IonRequester
     public static void clear(android.app.Activity activity, final StickyListHeadersListView listView)
     {
         ActivitiesList.clear();
-        Realm.deleteRealmFile(activity.getApplicationContext());
         getBooking(activity, listView);
     }
 
@@ -253,7 +252,7 @@ public final class IonRequester
 
                     boolean availableForOnlineBooking, isElixia;
                     String description, name, url;
-                    int filterId, id, lati, longi, regionId;
+                    int id, filterId, lati, longi, regionId;
 
                     availableForOnlineBooking = jsonCenter.get("availableForOnlineBooking").getAsBoolean();
                     description = jsonCenter.get("description").getAsString();
