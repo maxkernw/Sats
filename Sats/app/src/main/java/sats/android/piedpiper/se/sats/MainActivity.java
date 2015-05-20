@@ -25,10 +25,10 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     //private Date date = new Date();
-    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(1);
+    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(1).minusYears(4);
 
     public static int pos;
-    private Date date = new Date(2013, 4, 18, 10, 10);
+    private Date date = new Date(2012, 4, 18, 10, 10);
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_training_listview);
+        setContentView(R.layout.my_training_listview);g
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         graph = (ViewPager) findViewById(R.id.graph);
 
