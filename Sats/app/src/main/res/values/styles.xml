@@ -25,4 +25,8 @@
         <item name="android:max">100</item>
     </style>
 
+    <style name="CustomCheckbox">
+        <item name="android:maxHeight">10dip</item>
+        <item name="android:maxWidth">10dip</item>
+    </style>
 </resources>

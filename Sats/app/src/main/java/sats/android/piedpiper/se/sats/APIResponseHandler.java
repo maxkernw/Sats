@@ -28,7 +28,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20130404&toDate=20150604";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150104&toDate=20150604";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
@@ -85,9 +85,9 @@ public class APIResponseHandler
                     }
                     //////
 
-                    for (int i = 0; i < myActivities.size(); i++) {
+                  /*  for (int i = 0; i < myActivities.size(); i++) {
                         Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
-                    }
+                    }*/
 
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
                     realm.close();
@@ -103,7 +103,6 @@ public class APIResponseHandler
     private Activity getActivityObj(JsonElement element)
     {
         JsonObject object = element.getAsJsonObject();
-
         realm.beginTransaction();
         sats.android.piedpiper.se.sats.models.Activity realmActivity = realm.createObject(sats.android.piedpiper.se.sats.models.Activity.class);
 

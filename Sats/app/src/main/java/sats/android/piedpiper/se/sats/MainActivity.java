@@ -22,7 +22,6 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    //private Date date = new Date();
     private Date date = new Date(2015, 4, 18, 10, 10);
     private static android.app.Activity activity;
 
@@ -31,10 +30,15 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
+        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
+        final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         graph = (ViewPager) findViewById(R.id.graph);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
+        activity = this;
+
         try
         {
             CenterStorage.populateCenters();
@@ -43,51 +47,31 @@ public class MainActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-        graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
+        graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
                 Log.e("pos", "Pos: " + position);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
 
             }
         });
 
-        activity = this;
-
-        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-
-//        IonRequester.getBooking(this, listView);
-
         System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
 
         APIResponseHandler responseHandler = new APIResponseHandler(this);
-
         responseHandler.getAllActivities(listView);
-
-        activity = this;
-        //date = date.withYear(2013);
-
-
-        final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
-        final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
-
 
         im.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick(View view)
             {
@@ -105,7 +89,6 @@ public class MainActivity extends ActionBarActivity
 
                 if(date.after(CustomAdapter.trainingList.get(i).getDate()))
                 {
-
                     statusText.setText("TIDIGARE TRÄNING");
                 }
                 else

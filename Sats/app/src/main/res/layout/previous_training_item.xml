@@ -15,58 +15,53 @@
         <ImageView
             android:id="@+id/img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:paddingRight="20dp"
+            android:paddingRight="15dp"
             android:src="@drawable/strength_trainging_icon"
-            android:paddingLeft="15dp"
-            android:scaleX="0.70"
-            android:scaleY="0.70"/>
+            android:paddingLeft="15dp"/>
 
         <LinearLayout
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toRightOf="@id/img">
+            android:layout_toRightOf="@id/img"
+            android:paddingBottom="3dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    android:textStyle="bold"
+                    android:text="Styrketräning"
+                    android:paddingStart="3dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#868686"/>
-            </LinearLayout>
+                    android:textColor="#ff767676"
+                    android:text="Fredag 26/3"
+                    android:paddingStart="3dp" />
+
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
 
                 <ImageView
                     android:id="@+id/comment_img"
                     android:layout_width="wrap_content"
                     android:layout_height="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:alpha="0.5"
                     android:src="@drawable/ic_comment"/>
 
@@ -82,23 +77,25 @@
 
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/checkbox1"
+        <ImageView
+            android:id="@+id/checkbox_img"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/checkbox_text"
+            android:src="@drawable/checkbox_filled"/>
+        <TextView
+            android:id="@+id/checkbox_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:button="@drawable/checkbox"
-            android:paddingLeft="14dp"
-            android:checked="true"
+            android:paddingRight="20dp"
             android:text="Avklarat!"
-            android:textSize="20dp"
-            android:textAlignment="@integer/abc_max_action_buttons"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#868686"/>
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="#ff000000"/>
 
     </RelativeLayout>
 

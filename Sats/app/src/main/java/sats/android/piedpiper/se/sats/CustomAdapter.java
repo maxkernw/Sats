@@ -1,6 +1,8 @@
 package sats.android.piedpiper.se.sats;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
-        myDate.setYear(2013);
+        myDate.setYear(113);
+        Log.e("Info", "my date: " + myDate.toString());
     }
 
     @Override
@@ -284,19 +287,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.date.setText(previousDateFormat);
         setActivityImage(holder, previousActivity);
 
-        CheckBox box = (CheckBox) view.findViewById(R.id.checkbox1);
-        box.setChecked(previousActivity.getStatus().equals("COMPLETED"));
-
-        box.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                if (cb.isChecked()) {
-                    cb.setText("Avklarat!");
-                } else {
-                    cb.setText("Avklarat?");
-                }
-            }
-        });
+        ImageView box = (ImageView) view.findViewById(R.id.checkbox_img);
+        TextView text = (TextView) view.findViewById(R.id.checkbox_text);
+        if (previousActivity.getStatus().equals("COMPLETED")){
+            box.setImageResource(R.drawable.checkbox_filled);
+            text.setText("Avklarat!");
+        }else {
+            box.setImageResource(R.drawable.checkbox_empty);
+            text.setText("Avklarat?");
+        }
     }
 
     private void setActivityImage(PreviousActivityHolder previousActivityHolder, Activity previousActivity)
