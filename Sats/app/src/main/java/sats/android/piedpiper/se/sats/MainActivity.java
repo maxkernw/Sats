@@ -17,6 +17,7 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.exceptions.RealmMigrationNeededException;
 import io.realm.internal.log.RealmLog;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
@@ -66,13 +67,25 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-        int realmObjects;
+        int realmObjects = 0;
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-        Realm realm = Realm.getInstance(this);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
+        Realm realm;
+        try
+        {
+            realm = Realm.getInstance(this);
+            realmObjects = realm.allObjects(Activity.class).size();
+            realm.close();
+        }
+        catch (RealmMigrationNeededException e)
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(activity);
+            responseHandler.getAllActivities(listView);
+
+            Log.e("MainActivity", e.getMessage());
+            e.printStackTrace();
+        }
 
         if(realmObjects == 0)
         {
