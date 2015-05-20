@@ -8,7 +8,10 @@ import java.util.HashMap;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmMigrationNeededException;
 import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.Booking;
+import sats.android.piedpiper.se.sats.models.Center;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
@@ -30,15 +33,43 @@ public class StorageHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        RealmQuery<Activity> query = realm.where(Activity.class);
-        RealmResults<Activity> result = query.findAll();
-        result.sort("date");
-
-        for (int i = 0; i < result.size(); i++)
+        try
         {
-            myActivities.add(result.get(i));
-        }
+            RealmQuery<Activity> query = realm.where(Activity.class);
 
+            RealmResults<Activity> result = query.findAll();
+            result.sort("date");
+            getCenterNames();
+
+            for (int i = 0; i < result.size(); i++)
+            {
+                myActivities.add(result.get(i));
+            }
+        }
+        catch (RealmMigrationNeededException e)
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(activity);
+
+            responseHandler.getAllActivities(listView);
+
+            Log.e(TAG, e.getMessage());
+            e.printStackTrace();
+        }
         listView.setAdapter(new CustomAdapter(activity, myActivities));
+    }
+
+    private void getCenterNames()
+    {
+        for(Booking booking : realm.where(Booking.class).findAll())
+        {
+            for(Center center : realm.where(Center.class).findAll())
+            {
+                if(String.valueOf(center.getId()) == booking.getCenter())
+                {
+                    booking.setCenter(center.getName());
+                    Log.i(TAG, booking.getCenter());
+                }
+            }
+        }
     }
 }

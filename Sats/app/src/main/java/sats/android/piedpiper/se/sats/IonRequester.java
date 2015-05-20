@@ -200,7 +200,7 @@ public final class IonRequester
 
                     boolean availableForOnlineBooking, isElixia;
                     String description, name, url;
-                    int filterId, id, lati, longi, regionId;
+                    int id, filterId, lati, longi, regionId;
 
                     availableForOnlineBooking = jsonCenter.get("availableForOnlineBooking").getAsBoolean();
                     description = jsonCenter.get("description").getAsString();

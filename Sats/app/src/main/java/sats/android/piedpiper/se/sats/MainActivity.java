@@ -27,7 +27,6 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    //private Date date = new Date();
     private Date date = new Date(2015, 4, 18, 10, 10);
     private static android.app.Activity activity;
 
@@ -53,20 +52,16 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
             {
-
             }
 
             @Override
             public void onPageSelected(int position)
             {
-                Log.e("pos", "Pos: " + position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state)
             {
-
-
             }
         });
 
@@ -75,8 +70,6 @@ public class MainActivity extends ActionBarActivity
 
         final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
-//        IonRequester.getBooking(this, listView);
-
         Realm realm = Realm.getInstance(this);
         realmObjects = realm.allObjects(Activity.class).size();
         realm.close();
@@ -84,18 +77,13 @@ public class MainActivity extends ActionBarActivity
         if(realmObjects == 0)
         {
             APIResponseHandler responseHandler = new APIResponseHandler(this);
-
             responseHandler.getAllActivities(listView);
         }
         else if(realmObjects > 0)
         {
             StorageHandler storageHandler = new StorageHandler(this);
-
             storageHandler.getAllActivities(listView);
         }
-
-        //date = date.withYear(2013);
-
 
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);

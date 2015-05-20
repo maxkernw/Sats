@@ -18,8 +18,10 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
+import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.Klass;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -40,6 +42,8 @@ public class APIResponseHandler
         this.activity = activity;
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
+        Realm.deleteRealmFile(activity.getApplicationContext());
+        realm = Realm.getInstance(activity.getApplicationContext());
     }
 
     public void getAllActivities(final StickyListHeadersListView listView)
@@ -54,17 +58,12 @@ public class APIResponseHandler
             {
                 if (e == null) {
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
-                    Realm.deleteRealmFile(activity.getApplicationContext());
-                    realm = Realm.getInstance(activity.getApplicationContext());
 
                     for (JsonElement element : jsonArray)
                     {
                         myActivities.add(getActivityObj(element));
                     }
 
-                    //////
-                    // Osamas sortering
-                    //////
                     int x = myActivities.size();
                     int y;
                     for (int m = x; m >= 0; m--) {
@@ -78,13 +77,14 @@ public class APIResponseHandler
                             }
                         }
                     }
-                    //////
 
                     for (int i = 0; i < myActivities.size(); i++) {
                         Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
                     }
 
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
+
+                    System.out.println(realm.where(Activity.class).equalTo("id", "41687666").findAll());
                     realm.close();
 
                 } else {
@@ -141,6 +141,11 @@ public class APIResponseHandler
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
+            RealmResults<Booking> bookings = realm.where(Booking.class)
+                    .equalTo("id", booking.getId())
+                    .findAll();
+
+            realmActivity.getBookings().add(bookings.first());
         }
 
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
@@ -163,7 +168,6 @@ public class APIResponseHandler
         realmBooking.setPositionInQueue(positionInQueue);
 
         realm.commitTransaction();
-
         if(centerNamesMap.containsKey(center)){
             center = centerNamesMap.get(center);
             Log.e("Info", "centerName: " + center);
@@ -172,6 +176,12 @@ public class APIResponseHandler
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
+
+            RealmResults<Klass> classes = realm.where(Klass.class)
+                    .equalTo("id", myClass.getId())
+                    .findAll();
+
+            realmBooking.getKlasses().add(classes.first());
         }
 
         return new Booking(status, myClass, center, id, positionInQueue);
@@ -225,7 +235,6 @@ public class APIResponseHandler
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
-
         realm.commitTransaction();
         return new Klass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
     }
@@ -244,11 +253,16 @@ public class APIResponseHandler
             }
 
             for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
-                JsonObject center = centerElement.getAsJsonObject();
-                String centerId = center.get("id").getAsString();
-                String centerName = center.get("name").getAsString();
+                realm.beginTransaction();
+                Center realmCenter = realm.createObject(Center.class);
 
-                centerNamesMap.put(centerId, centerName);
+                JsonObject center = centerElement.getAsJsonObject();
+                int centerId = center.get("id").getAsInt();
+                realmCenter.setId(centerId);
+                String centerName = center.get("name").getAsString();
+                realmCenter.setName(centerName);
+                realm.commitTransaction();
+                centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
         catch (InterruptedException e) {
