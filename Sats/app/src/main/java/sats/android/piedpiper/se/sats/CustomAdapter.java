@@ -230,7 +230,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
             {
-                LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
+                RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
                 bookedPersons.setVisibility(View.INVISIBLE);
             }
         }

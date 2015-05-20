@@ -28,8 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.sothree.slidinguppanel.SlidingUpPanelLayout
-                xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/sliding_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,35 +39,34 @@
                 sothree:umanoParalaxOffset="100dp"
                 sothree:umanoShadowHeight="4dp">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
 
-                <android.support.v4.view.ViewPager
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:id="@+id/graph"
-                    android:divider="@drawable/vertical_divider"
-                    />
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:divider="@drawable/vertical_divider" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/calendet_mark_right"
-                    android:scaleType="fitXY"
-                    android:layout_marginLeft="125dp"
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="125dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/calendet_mark_right"
 
-                    />
-                <ImageView
-                    android:id="@+id/shadow"
-                    android:layout_width="20dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/calendet_mark_left"
-                    android:scaleType="fitXY"
-                    android:layout_marginLeft="215dp"
-                    />
+                        />
+
+                    <ImageView
+                        android:id="@+id/shadow"
+                        android:layout_width="20dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="215dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/calendet_mark_left" />
 
                 </RelativeLayout>
 
@@ -83,31 +81,32 @@
                         android:id="@+id/activity_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="6dp"
                         android:layout_marginTop="9dp"
                         android:gravity="center_vertical"
-                        android:text=""
+                        android:text="TIDIGARE TRÄNING"
                         android:textColor="@color/dark_gray"
                         android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="15dp"
                         android:layout_centerHorizontal="true"
-                        android:scaleX="0.50"
-                        android:scaleY="0.50"
+                        android:layout_marginTop="10dp"
                         android:src="@drawable/drag_button_normal" />
-
 
                     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                         android:id="@+id/listan"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_status"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:background="#FFFBFBFB" />
+
 
                 </RelativeLayout>
+
 
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

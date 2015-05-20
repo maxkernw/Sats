@@ -6,7 +6,7 @@
                                    android:layout_width="match_parent"
                                    android:layout_height="40dp"
                                    android:minHeight="?attr/actionBarSize"
-                                   android:background="@color/white"
+                                   android:background="#FFFBFBFB"
                                    local:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                                    local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -20,11 +20,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_toRightOf="@+id/logo_image"
             android:text="MIN TRÄNING"
-            android:textColor="@color/black" />
+            android:textColor="#ff454545" />
 
         <ImageView
             android:id="@+id/logo_image"
