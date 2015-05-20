@@ -107,7 +107,6 @@ public class APIResponseHandler
 
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
-                    //System.out.println(realm.where(Activity.class).equalTo("id", "41687666").findAll());
                     realm.close();
 
                 } else {
@@ -283,15 +282,32 @@ public class APIResponseHandler
                 realmCenter.setId(centerId);
                 String centerName = center.get("name").getAsString();
                 realmCenter.setName(centerName);
+                Boolean availableForOnlineBooking = center.get("availableForOnlineBooking").getAsBoolean();
+                realmCenter.setAvailableForOnlineBooking(availableForOnlineBooking);
+                String description = center.get("description").getAsString();
+                realmCenter.setDescription(description);
+                int filterId = center.get("filterId").getAsInt();
+                realmCenter.setFilterId(filterId);
+                Boolean isElixia = center.get("isElixia").getAsBoolean();
+                realmCenter.setIsElixia(isElixia);
+                long lati = center.get("lat").getAsLong();
+                realmCenter.setLati(lati);
+                long longi = center.get("long").getAsLong();
+                realmCenter.setLongi(longi);
+                int regionId = center.get("regionId").getAsInt();
+                realmCenter.setRegionId(regionId);
+                String url = center.get("url").getAsString();
+                realmCenter.setUrl(url);
                 realm.commitTransaction();
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
-        catch (InterruptedException e) {
+        catch (InterruptedException e)
+        {
             e.printStackTrace();
         }
         catch (ExecutionException e) {
-            Log.e("Info", "Could not get center names");
+            Log.e(TAG, "Could not get center names");
             e.printStackTrace();
         }
     }
@@ -310,7 +326,7 @@ public class APIResponseHandler
             e.printStackTrace();
         }
         catch (ExecutionException e) {
-            Log.e("Info", "Could not get ClassTypes");
+            Log.e(TAG, "Could not get ClassTypes");
             e.printStackTrace();
         }
 
@@ -347,6 +363,12 @@ public class APIResponseHandler
         }
 
         return profileArray;
+    }
+
+    public void clear(final StickyListHeadersListView listView)
+    {
+        myActivities.clear();
+        getAllActivities(listView);
     }
 
 }

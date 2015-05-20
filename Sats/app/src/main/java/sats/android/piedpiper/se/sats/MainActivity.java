@@ -14,18 +14,18 @@ import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.joda.time.DateTime;
-import org.json.JSONException;
+
 import java.util.Date;
+
 import io.realm.Realm;
+import io.realm.exceptions.RealmMigrationNeededException;
 import sats.android.piedpiper.se.sats.models.Activity;
-import sats.android.piedpiper.se.sats.storage.CenterStorage;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    //private Date date = new Date();
     public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
 
     public static int pos;
@@ -79,20 +79,10 @@ public class MainActivity extends ActionBarActivity
         rightMarker.setVisibility(View.INVISIBLE);
         rl2.addView(rightMarker, lp2);
 
-
-        APIResponseHandler responseHandler = new APIResponseHandler(this);
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         graphAdapter = new ViewPagerAdapter();
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
-
-        try
-        {
-            CenterStorage.populateCenters();
-        } catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -153,7 +143,10 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-       slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+        activity = this;
+        int realmObjects = 0;
+
+        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
        {
            @Override
            public void onPanelSlide(View view, float v)
@@ -188,18 +181,25 @@ public class MainActivity extends ActionBarActivity
        });
 
 
-        int realmObjects;
+        Realm realm;
+        try
+        {
+            realm = Realm.getInstance(this);
+            realmObjects = realm.allObjects(Activity.class).size();
+            realm.close();
+        }
+        catch (RealmMigrationNeededException e)
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
+            responseHandler.getAllActivities(listView);
 
-
-        //System.out.println("RADERA rEALm?! :: --> " + Realm.deleteRealmFile(this));
-
-        Realm realm = Realm.getInstance(this);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
+            Log.e("MainActivity", e.getMessage());
+            e.printStackTrace();
+        }
 
         if(realmObjects == 0)
         {
-            responseHandler = new APIResponseHandler(this);
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView);
         }
         else if(realmObjects > 0)
@@ -214,6 +214,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
+                APIResponseHandler responseHandler = new APIResponseHandler(activity);
+                responseHandler.clear(listView);
+
             }
         });
 

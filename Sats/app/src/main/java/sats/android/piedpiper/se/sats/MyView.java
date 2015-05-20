@@ -157,9 +157,37 @@ public class MyView extends View
         paint.setStrokeWidth(15);
         paint.setColor(getResources().getColor(R.color.orange));
 
-        canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
-        canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+2, paint);
 
+        if(leftCell > 5){
+            leftCell = 5;
+        }
+        if(rightCell > 5){
+            rightCell = 5;
+        }
+//        canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+//        canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+2, paint);
+
+        if(currentCell <= rightCell)
+        {
+            if(currentCell == 0 && currentCell != rightCell && rightCell != 1)
+            {
+                canvas.drawLine(140, yPos[currentCell]-5, 308, yPos[rightCell], paint);
+            }
+            else
+            {
+                canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+            }
+        }
+        else
+        {
+            canvas.drawLine(140, yPos[currentCell] + 7, 300, yPos[rightCell] - 12, paint);
+        }
+
+        if(currentCell >= leftCell){
+            canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+3, paint);
+        }else{
+            canvas.drawLine(80, yPos[currentCell]-10, -70, yPos[leftCell]+3, paint);
+        }
 
     }
 }
