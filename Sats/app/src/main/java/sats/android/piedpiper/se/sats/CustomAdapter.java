@@ -1,7 +1,6 @@
 package sats.android.piedpiper.se.sats;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private Calendar mCalendar = Calendar.getInstance();
     private final String[] swedish_days = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"};
     private final String[] swedish_months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"};
-    private Date myDate = new Date();
+    private Date myDate;
     private static final int NUMBER_OF_VIEWS_SERVED_BY_ADAPTER = 3;
     private static final int PREVIOUS = 0;
     private static final int BOOKED = 1;
@@ -48,8 +47,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
-        myDate.setYear(113);
-        Log.e("Info", "my date: " + myDate.toString());
+        myDate = new Date();
     }
 
     @Override
@@ -79,7 +77,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     public int getItemViewType(int position)
     {
         Activity myTrainingActivityObj = (Activity) getItem(position);
-
+        myDate.setYear(113);
         boolean isPreviousActivity;
         isPreviousActivity = (myTrainingActivityObj.getStatus().equals("COMPLETED")) ||
                 myTrainingActivityObj.getDate().before(myDate);
@@ -229,6 +227,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             //set text center
             holder.center.setText(bookedActivityObj.getBooking().getCenter());
 
+
             if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
             {
                 LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
@@ -361,7 +360,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
+
         mCalendar.setTime(trainingList.get(position).getDate());
+
         String headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
         holder.text.setText(headerText);

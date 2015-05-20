@@ -7,10 +7,14 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.joda.time.DateTime;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,15 +32,36 @@ public final class IonRequester
 
     private static JsonArray jsonActivities;
     private static ArrayList<Activity> ActivitiesList = new ArrayList<>();
-    public static final String sURL = "http://80.217.172.201:8080/sats/se/training/activities/";
+
+    public static int[] weekPosition = new int[53];
+    public static int week = 0;
+    public static int[] activitesPerWeek = new int[53];
+    public static int thisWeek = 0;
+
+
+
+    public static StringBuilder sURL =  new StringBuilder("http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101");
+    private static CustomAdapter adapter2;
+    public static int activitiesWeek = 0;
     private static CustomAdapter adapter;
     private static Realm realm;
 
-    public static void getBooking (final android.app.Activity activity, final StickyListHeadersListView listView)
-    {
-        Ion.with(activity.getApplicationContext()).load(sURL + "?fromDate=20121210&toDate=20160521").asJsonObject().setCallback(new FutureCallback<JsonObject>()
-        {
 
+        public static void getBooking (final android.app.Activity activity, final StickyListHeadersListView listView){
+
+//        String fromDate = "";
+//        String toDate = "";
+//
+//        fromDate = dateFrom.toString().replaceAll("-", "").substring(0,8);
+//        toDate = dateTo.toString().replaceAll("-", "").substring(0,8);
+//        Log.e("fromDate", fromDate);
+//        Log.e("toDate", toDate);
+//       // DateTimeFormatter format = DateTimeFormat.forPattern("yyyyMMdd");
+//        sURL =  new StringBuilder("http://80.217.172.201:8080/sats/se/training/activities/?");
+//        sURL.append("fromDate=" + fromDate);
+//        sURL.append("&toDate=" + toDate);
+//        Log.e("SURL", "url: " + sURL);
+        Ion.with(activity.getApplicationContext()).load(sURL.toString()).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
 
@@ -160,6 +185,26 @@ public final class IonRequester
                                 subType,  type);
 
                         ActivitiesList.add(active);
+                        Set<Activity> hs = new HashSet<>();
+                        hs.addAll(ActivitiesList);
+                        ActivitiesList.clear();
+                        ActivitiesList.addAll(hs);
+
+                        DateTime joda = new DateTime(daten);
+                        if(joda.getWeekOfWeekyear() != week){
+                            weekPosition[joda.getWeekOfWeekyear()] = i;
+                            Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
+                            week = joda.getWeekOfWeekyear();
+                        }
+                        if(joda.getWeekOfWeekyear() == week){
+                            activitesPerWeek[joda.getWeekOfWeekyear()]++;
+                        }
+
+
+
+
+                    }
+
                         realm.commitTransaction();
                     }
 
@@ -169,16 +214,22 @@ public final class IonRequester
                     ActivitiesList.clear();
                     ActivitiesList.addAll(hs);
                     adapter = new CustomAdapter(activity, ActivitiesList);
+                    activitiesWeek = ActivitiesList.size();
+                    for(int i = 0; i < 53; i++)
+                    {
+                        Log.e("Weeks per derp", "Activiperweek " + IonRequester.activitesPerWeek[i]);
+                    }
+
+                    //adapter = new CustomAdapter(activity, ActivitiesList);
                     listView.setAdapter(adapter);
                 }
-            }
+
         });
     }
 
     public static void clear(android.app.Activity activity, final StickyListHeadersListView listView)
     {
         ActivitiesList.clear();
-        Realm.deleteRealmFile(activity.getApplicationContext());
         getBooking(activity, listView);
     }
 
@@ -201,7 +252,7 @@ public final class IonRequester
 
                     boolean availableForOnlineBooking, isElixia;
                     String description, name, url;
-                    int filterId, id, lati, longi, regionId;
+                    int id, filterId, lati, longi, regionId;
 
                     availableForOnlineBooking = jsonCenter.get("availableForOnlineBooking").getAsBoolean();
                     description = jsonCenter.get("description").getAsString();
