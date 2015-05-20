@@ -66,7 +66,6 @@ public class ViewPagerAdapter extends PagerAdapter
         week.setText(MainActivity.dateView.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.dateView.plusWeeks(position+1).getDayOfMonth() + "/" + MainActivity.dateView.plusWeeks(position+1).getMonthOfYear());
 
         week.setGravity(Gravity.CENTER);
-        Log.e("pos", "Position in viewpager: " + position);
         views.addView(week);
         /*if(position == 2){
             MyView text = new MyView(container.getContext(), true, IonRequester.activitesPerWeek[position]);
@@ -78,7 +77,7 @@ public class ViewPagerAdapter extends PagerAdapter
 
             ImageView top = new ImageView(container.getContext());
             top.setImageResource(R.drawable.now_marker);
-            MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position+6]);
+            MyView text = new MyView(container.getContext(), false, APIResponseHandler.activitesPerWeek[position - 5], APIResponseHandler.activitesPerWeek[position - 6], APIResponseHandler.activitesPerWeek[position - 4]);
 
             top.setScaleX(0.6f);
             top.setScaleY(0.6f);

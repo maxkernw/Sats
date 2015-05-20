@@ -157,47 +157,8 @@ public class MyView extends View
         paint.setStrokeWidth(15);
         paint.setColor(getResources().getColor(R.color.orange));
 
-
-        if(currentCell == rightCell)
-        {
-            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+2, paint);
-        }else if(currentCell < rightCell && currentCell == 0)
-        {
-            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+22, paint);
-        }else if(currentCell > rightCell && currentCell == 1)
-        {
-            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]-14, paint);
-        }
-
-
-        else if(currentCell < rightCell)// && currentCell == 1)
-        {
-            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]+42, paint);
-        }else if(currentCell > rightCell)// && currentCell == 2)
-        {
-            canvas.drawLine(143, yPos[currentCell]+2, 220, yPos[rightCell]-34, paint);
-        }
-
-        //////////////////////////////////////////////
-
-        if(currentCell == leftCell)
-        {
-            canvas.drawLine(77, yPos[currentCell]+2, 0, yPos[leftCell]+2, paint);
-        }else if(currentCell > leftCell && currentCell == 1)
-        {
-            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]-12, paint);
-        }else if(currentCell < leftCell && currentCell == 0)
-        {
-            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]+21, paint);
-        }
-
-        else if(currentCell > leftCell) //&& currentCell == 2)
-        {
-            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]-28, paint);
-        }else if(currentCell < leftCell) //&& currentCell == 1)
-        {
-            canvas.drawLine(77, yPos[currentCell]+2, -10, yPos[leftCell]+32, paint);
-        }
+        canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+        canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+2, paint);
 
 
     }
