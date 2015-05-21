@@ -218,6 +218,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
         //final Activity bookedActivityObj = (Activity) getItem(position);
         final Activity bookedActivityObj = trainingList.get(position);
+        int realmObjects = 0;
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
 
@@ -229,6 +230,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.getDurationInMinutes()) + " min");
         holder.title.setText(bookedActivityObj.getSubType());
 
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        System.out.println(realm);
         // Hämtar BookingItem från APIn
         if(bookedActivityObj.getBooking() != null)
         {
@@ -244,26 +250,26 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 bookedPersons.setVisibility(View.INVISIBLE);
             }
         }
-
-        // Hämtar BookingItem från Realm
-        Realm realm = Realm.getInstance(activity);
-        Booking realmBooking = bookedActivityObj.getBookings().first();
-        if(realmBooking != null)
+        else if(realmObjects != 0)  // Hämtar BookingItem från Realm
         {
-            Klass realmBookingClass = realmBooking.getKlasses().first();
-            int realmCenterId = Integer.valueOf(realmBooking.getCenter());
-            RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
-            Center realmCenter = realmCenters.first();
-
-            holder.instructor.setText(realmBookingClass.getInstructorId());
-            holder.participants.setText(String.valueOf(realmBookingClass.getBookedPersonsCount()));
-            holder.center.setText(realmCenter.getName());
-
-
-            if (realmBookingClass.getBookedPersonsCount() == 0)
+            Booking realmBooking = bookedActivityObj.getBookings().first();
+            if(realmBooking != null)
             {
-                LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
-                bookedPersons.setVisibility(View.INVISIBLE);
+                Klass realmBookingClass = realmBooking.getKlasses().first();
+                int realmCenterId = Integer.valueOf(realmBooking.getCenter());
+                RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
+                Center realmCenter = realmCenters.first();
+
+                holder.instructor.setText(realmBookingClass.getInstructorId());
+                holder.participants.setText(String.valueOf(realmBookingClass.getBookedPersonsCount()));
+                holder.center.setText(realmCenter.getName());
+
+
+                if (realmBookingClass.getBookedPersonsCount() == 0)
+                {
+                    LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
+                    bookedPersons.setVisibility(View.INVISIBLE);
+                }
             }
         }
 

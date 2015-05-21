@@ -54,7 +54,6 @@ public class ViewPagerAdapter extends PagerAdapter
         TextView week = new TextView(container.getContext());
         week.setBackgroundColor(container.getResources().getColor(R.color.white));
 
-
         //Find the relativelayout and get height for week
         RelativeLayout parent = (RelativeLayout) container.findViewById(R.id.relativeLayout);
         RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(
@@ -83,13 +82,10 @@ public class ViewPagerAdapter extends PagerAdapter
             top.setX(52);
             top.setY(-20);
 
-
-
             top.setScaleType(ImageView.ScaleType.CENTER);
 
             views.addView(top);
             views.addView(text);
-
         }
         else if(position > 5)
         {
@@ -114,15 +110,6 @@ public class ViewPagerAdapter extends PagerAdapter
             views.addView(text);
         }
 
-
-
-
-
-
-
-
-
-
         RelativeLayout layout = new RelativeLayout(container.getContext());
         RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         views.setLayoutParams(x);
@@ -131,7 +118,6 @@ public class ViewPagerAdapter extends PagerAdapter
         layout.setBackground(container.getResources().getDrawable(R.drawable.cal_dark, null));
 
         layout.addView(views);
-
 
         if(position % 2 == 0){
             layout.setBackground(container.getResources().getDrawable(R.drawable.callightright, null));

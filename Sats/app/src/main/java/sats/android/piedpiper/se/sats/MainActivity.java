@@ -181,21 +181,9 @@ public class MainActivity extends ActionBarActivity
        });
 
 
-        Realm realm;
-        try
-        {
-            realm = Realm.getInstance(this);
-            realmObjects = realm.allObjects(Activity.class).size();
-            realm.close();
-        }
-        catch (RealmMigrationNeededException e)
-        {
-            APIResponseHandler responseHandler = new APIResponseHandler(this);
-            responseHandler.getAllActivities(listView);
-
-            Log.e("MainActivity", e.getMessage());
-            e.printStackTrace();
-        }
+        Realm realm = Realm.getInstance(this);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
 
         if(realmObjects == 0)
         {
