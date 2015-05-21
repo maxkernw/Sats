@@ -32,7 +32,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20141116&toDate=20151116";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
@@ -42,11 +42,11 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private static Realm realm;
-    public static int[] weekPosition = new int[53];
     public static int week = 0;
-    public static int[] activitesPerWeek = new int[53];
-    public static int thisWeek = 0;
-    int i = 0;
+    //public static int[] weekPosition = new int[53];
+    //public static int[] activitesPerWeek = new int[53];
+    public static HashMap<Integer,Integer> weekPosition = new HashMap<>();
+    public static HashMap<Integer,Integer> activitesPerWeek = new HashMap<>();
 
     public APIResponseHandler(android.app.Activity activity)
     {
@@ -58,8 +58,12 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Realm.deleteRealmFile(activity.getApplicationContext());
-        realm = Realm.getInstance(activity.getApplicationContext());
+        realm = Realm.getInstance(activity);
+        realm.close();
+        realm.deleteRealmFile(activity);
+
+        //Realm.deleteRealmFile(activity.getApplicationContext());
+        //realm = Realm.getInstance(activity.getApplicationContext());
         getCenterNames();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
@@ -90,17 +94,24 @@ public class APIResponseHandler
                         }
                     }
 
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
                     for (int i = 0; i < myActivities.size(); i++) {
-                        Log.e("Wwkeokaow", "date" + i + ": " + myActivities.get(i).getDate().toString());
+                        Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
 
                         if(joda.getWeekOfWeekyear() != week){
-                            weekPosition[joda.getWeekOfWeekyear()] = i;
-                            Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()));
+                            weekPosition.put(joda.getWeekOfWeekyear(), i);
+                            Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()+1));
                             week = joda.getWeekOfWeekyear();
                         }
                         if(joda.getWeekOfWeekyear() == week){
-                            activitesPerWeek[joda.getWeekOfWeekyear()]++;
+                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear()+1)){
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear()+1);
+                                value = value+1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1, value);
+                            }else{
+                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1,1);
+                            }
                         }
                     }
                     Log.e("After for", "After for" + myActivities.size());
