@@ -32,15 +32,17 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20141116&toDate=20151116";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20141116&toDate=20161116";
     public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
+    public static final String activityTypesURL = "http://80.217.172.201:8080/sats/se/training/activities/types";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
+    private HashMap<String, String> activityNamesMap;
     private static Realm realm;
     public static int week = 0;
     //public static int[] weekPosition = new int[53];
@@ -53,6 +55,7 @@ public class APIResponseHandler
         this.activity = activity;
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
+        activityNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
     }
 
@@ -65,6 +68,7 @@ public class APIResponseHandler
         //Realm.deleteRealmFile(activity.getApplicationContext());
         //realm = Realm.getInstance(activity.getApplicationContext());
         getCenterNames();
+        getActivityName();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
@@ -164,12 +168,14 @@ public class APIResponseHandler
             Log.e(TAG, "Could not parse dateString from json to date");
         }
 
+        realm.commitTransaction();
+        if(activityNamesMap.containsKey(subType)){
+            subType = activityNamesMap.get(subType);
+        }
         if(subType.equals("gym")){
             subType = "Styrketräning";
             realmActivity.setSubType(subType);
         }
-
-        realm.commitTransaction();
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
@@ -321,6 +327,30 @@ public class APIResponseHandler
             Log.e(TAG, "Could not get center names");
             e.printStackTrace();
         }
+    }
+
+    public HashMap<String, String> getActivityName()
+    {
+        try {
+            JsonObject result = Ion.with(activity).load(activityTypesURL).asJsonObject().get();
+            JsonArray jsonArray = result.getAsJsonArray("Types");
+
+            for (JsonElement element : jsonArray){
+                JsonObject object = element.getAsJsonObject();
+                String subType = object.get("subtype").getAsString(); //kan behöva ändras tyill sub_type
+                String name = object.get("name").getAsString();
+
+                activityNamesMap.put(subType, name);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Log.e(TAG, "Could not get types");
+            e.printStackTrace();
+        }
+
+        return activityNamesMap;
     }
 
     public ArrayList<ClassType> getClassTypes()

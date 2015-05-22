@@ -263,12 +263,13 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/bottom_right_box"
+                android:id="@+id/bottom_right_box_booked"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/divider"
+                android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout

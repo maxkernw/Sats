@@ -61,6 +61,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
         myDate = new Date();
+        myDate.setYear(113);
         weeks = getWeeks();
         mWeeks = getHeaderText();
     }
@@ -306,20 +307,17 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
             if (realmBookingClass.getBookedPersonsCount() == 0)
             {
-                LinearLayout bookedPersons = (LinearLayout) view.findViewById(R.id.participants);
+                RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
                 bookedPersons.setVisibility(View.INVISIBLE);
             }
         }
 
-        RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
+        RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box_booked);
 
-        lay.setOnClickListener(new View.OnClickListener()
-        {
+        lay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (bookedActivityObj.getBooking() != null)
-                {
+            public void onClick(View v) {
+                if (bookedActivityObj.getBooking() != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
                     moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
