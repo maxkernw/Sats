@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -292,7 +293,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         // Hämtar BookingItem från Realm
         Realm realm = Realm.getInstance(activity);
-        Booking realmBooking = bookedActivityObj.getBookings().first();
+        final Booking realmBooking = bookedActivityObj.getBookings().first();
         if(realmBooking != null)
         {
             Klass realmBookingClass = realmBooking.getKlasses().first();
@@ -317,7 +318,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookedActivityObj.getBooking() != null) {
+                if (bookedActivityObj.getBooking() != null || realmBooking != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
                     moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
@@ -328,8 +329,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                     moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
                     moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
 
-                    CustomAdapter.this.activity.startActivity(moreInfo);
+                    CustomAdapter.this.activity.startActivity(moreInfo, null);
                 }
+
+                Toast.makeText(activity, "Kan inte visa mer om passet",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
