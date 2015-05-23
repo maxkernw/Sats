@@ -261,8 +261,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
-        //final Activity bookedActivityObj = (Activity) getItem(position);
-        final Activity bookedActivityObj = trainingList.get(position);
+        final Activity bookedActivityObj = (Activity) getItem(position);
+        //final Activity bookedActivityObj = trainingList.get(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
 
@@ -321,19 +321,24 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 if (bookedActivityObj.getBooking() != null || realmBooking != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
-                    moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
+                    if (bookedActivityObj.getBooking().getaKlass() != null) {
+                        moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
 
-                    moreInfo.putExtra("instructor", bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                    moreInfo.putExtra("duration", bookedActivityObj.getBooking().getaKlass().getDurationInMinutes());
-                    moreInfo.putExtra("numberAttending", bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount());
-                    moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
-                    moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
+                        moreInfo.putExtra("instructor", bookedActivityObj.getBooking().getaKlass().getInstructorId());
+                        moreInfo.putExtra("duration", bookedActivityObj.getBooking().getaKlass().getDurationInMinutes());
+                        moreInfo.putExtra("numberAttending", bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount());
+                        moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
+                        moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
 
+                    }else{
+                        Toast.makeText(activity, "Kan inte hitta class",
+                                Toast.LENGTH_LONG).show();
+                    }
                     CustomAdapter.this.activity.startActivity(moreInfo, null);
+                }else {
+                    Toast.makeText(activity, "Kan inte visa mer om passet",
+                            Toast.LENGTH_LONG).show();
                 }
-
-                Toast.makeText(activity, "Kan inte visa mer om passet",
-                        Toast.LENGTH_LONG).show();
             }
         });
     }
