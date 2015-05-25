@@ -160,7 +160,6 @@ public class APIResponseHandler
             Log.e(TAG, "Could not parse dateString from json to date");
         }
 
-        realm.commitTransaction();
         if(activityNamesMap.containsKey(subType)){
             subType = activityNamesMap.get(subType);
         }
@@ -168,6 +167,7 @@ public class APIResponseHandler
             subType = "Styrketräning";
             realmActivity.setSubType(subType);
         }
+        realm.commitTransaction();
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
@@ -198,11 +198,11 @@ public class APIResponseHandler
         int positionInQueue = object.get("positionInQueue").getAsInt();
         realmBooking.setPositionInQueue(positionInQueue);
 
-        realm.commitTransaction();
         if(centerNamesMap.containsKey(center)){
             center = centerNamesMap.get(center);
         }
 
+        realm.commitTransaction();
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
