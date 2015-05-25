@@ -24,8 +24,9 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(7);//minusDays(3);
+    public StickyListHeadersListView listView;
 
     public static int pos;
     //private Date date = dateView.toDate();
@@ -40,7 +41,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+        listView = (StickyListHeadersListView) findViewById(R.id.listan);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
