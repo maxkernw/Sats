@@ -1,9 +1,10 @@
 package sats.android.piedpiper.se.sats;
 
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -20,12 +21,16 @@ public class CenterMapsActivity extends FragmentActivity {
     HashMap<String, LatLng> markers = new HashMap();
     APIResponseHandler handler = new APIResponseHandler(this);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center_maps);
 
-        markers = handler.markers;
+        handler.getCenterLocations();
+
+        markers = handler.getMarkers();
+
         setUpMapIfNeeded();
     }
 
@@ -47,6 +52,12 @@ public class CenterMapsActivity extends FragmentActivity {
 
     private void setUpMap() {
 
+        map.setMyLocationEnabled(true);
+
+        Location userLocation = map.getMyLocation();
+        LatLng myLocation = null;
+
+
         for (HashMap.Entry<String,LatLng> entry : markers.entrySet()) {
             String name = entry.getKey();
             LatLng kord = entry.getValue();
@@ -55,7 +66,13 @@ public class CenterMapsActivity extends FragmentActivity {
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.sats_pin_normal))
                     .position(kord)
                     .title(name));
-            Log.e("name", name);
+        }
+        if (userLocation != null) {
+            myLocation = new LatLng(userLocation.getLatitude(),
+                    userLocation.getLongitude());
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation,
+                    map.getMaxZoomLevel() - 5));
         }
     }
+
 }

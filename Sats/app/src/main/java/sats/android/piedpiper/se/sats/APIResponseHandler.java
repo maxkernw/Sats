@@ -45,6 +45,7 @@ public class APIResponseHandler
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
     public HashMap<String,LatLng> markers = new HashMap<>();
+    private static HashMap<String,LatLng> markers2 = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
     //public static int[] weekPosition = new int[53];
@@ -271,7 +272,7 @@ public class APIResponseHandler
         return new Klass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
     }
 
-    private void getCenterNames()
+    public void getCenterNames()
     {
         try
         {
@@ -406,6 +407,44 @@ public class APIResponseHandler
     {
         myActivities.clear();
         getAllActivities(listView);
+    }
+
+    public void getCenterLocations()
+    {
+        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (e == null) {
+                    JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
+                    JsonArray jsonCentersArray = new JsonArray();
+                    for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                        JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
+
+                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
+                    }
+
+                    for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                        JsonObject center = centerElement.getAsJsonObject();
+                        String centerId = center.get("id").getAsString();
+                        String centerName = center.get("name").getAsString();
+                        double lati = center.get("lat").getAsDouble();
+                        double longi = center.get("long").getAsDouble();
+                        LatLng kord = new LatLng(lati, longi);
+
+                        markers2.put(centerName, kord);
+
+
+                        centerNamesMap.put(centerId, centerName);
+                    }
+                } else {
+                    Log.e("Info", "Could not get center names");
+                }
+            }
+        });
+    }
+
+    public HashMap<String, LatLng> getMarkers(){
+        return markers2;
     }
 
 }

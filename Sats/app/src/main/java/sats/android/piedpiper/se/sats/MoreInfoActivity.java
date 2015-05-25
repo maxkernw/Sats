@@ -9,6 +9,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 import sats.android.piedpiper.se.sats.models.ClassType;
@@ -45,7 +47,8 @@ public class MoreInfoActivity extends Activity
         videoUrlV.loadUrl(classTypeObj.videoURL);
         videoUrlV.setWebChromeClient(new WebChromeClient());
 
-        
+
+
         //visa classType i layout
 
     }
@@ -56,4 +59,6 @@ public class MoreInfoActivity extends Activity
         WebView videoUrlV = (WebView) findViewById(R.id.VideoURL);
         videoUrlV.destroy();
     }
+
+
 }
