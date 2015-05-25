@@ -27,9 +27,11 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(6).minusDays(3);
 
     public static int pos;
-    private Date date = new Date();
+    //private Date date = dateView.toDate();
+    private Date todaydate = today.toDate();
 
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
@@ -45,7 +47,6 @@ public class MainActivity extends ActionBarActivity
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         graph = (ViewPager) findViewById(R.id.graph);
-        date.setYear(115);
 
         activity = this;
 
@@ -86,7 +87,7 @@ public class MainActivity extends ActionBarActivity
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
-            final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+            //final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -96,12 +97,11 @@ public class MainActivity extends ActionBarActivity
                     leftMarker.setVisibility(View.INVISIBLE);
                     rightMarker.setVisibility(View.INVISIBLE);
                 }
-                if (position < 16)
+                if (position < 15)
                 {
                     leftMarker.setVisibility(View.VISIBLE);
-
                 }
-                if (position > 19)
+                if (position > 20)
                 {
                     rightMarker.setVisibility(View.VISIBLE);
                 }
@@ -121,19 +121,19 @@ public class MainActivity extends ActionBarActivity
                         graph.setCurrentItem(18);
                     }
                 });
-
             }
 
             @Override
             public void onPageSelected(int position)
             {
-                pos = position;
-                if (position <= 6)
-                {
-                    listView.smoothScrollToPosition(0);
-                } else if (StorageHandler.weekPosition[position - 3] != 0)
-                {
-                    listView.smoothScrollToPosition(StorageHandler.weekPosition[position - 3]);
+                int thePosition = (52+(position-3))%52;
+
+                if(thePosition == 0){
+                    thePosition = 52;
+                }
+
+                if(StorageHandler.weekPosition.containsKey(thePosition)){
+                    listView.smoothScrollToPosition(StorageHandler.weekPosition.get(thePosition));
                 }
             }
 
@@ -184,6 +184,19 @@ public class MainActivity extends ActionBarActivity
         Realm realm = Realm.getInstance(this);
         realmObjects = realm.allObjects(Activity.class).size();
         realm.close();
+        try
+        {
+            realm = Realm.getInstance(this);
+            realmObjects = realm.allObjects(Activity.class).size();
+            realm.close();
+        }
+        catch (RealmMigrationNeededException e)
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
+            responseHandler.getAllActivities(listView);
+
+            e.printStackTrace();
+        }
 
         if(realmObjects == 0)
         {
@@ -214,7 +227,7 @@ public class MainActivity extends ActionBarActivity
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
 
-                if (date.after(CustomAdapter.trainingList.get(i).getDate())) {
+                if (todaydate.after(CustomAdapter.trainingList.get(i).getDate())) {
 
                     statusText.setText("TIDIGARE TRÄNING");
 

@@ -18,22 +18,9 @@ public class MyView extends View
     public static final int filledRadius = 35;
     int radius;
 
-
-
     static int xPosition = 110;
 
-    static int y0Position = 411;
-    static int y1Position = 373;
-    static int y2Position = 298;
-    static int y3Position = 226;
-    static int y4Position = 150;
-    static int y5Position = 73;
-
     static int[] yPos = new int[]{411,373,298,226,150,73};
-
-
-
-
 
     int leftCell = 0, rightCell = 0;
 
@@ -76,63 +63,49 @@ public class MyView extends View
         {
             case 5:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 80, "5", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 4:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 160, "4", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 3:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 236, "3", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 2:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 308, "2", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 1:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 383, "1", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             case 0:
                 canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
                 writeText(101, 421, "0", canvas);
-                paintLine(position, leftCell, rightCell, canvas);
                 break;
             default:
                 canvas.drawCircle(xPosition, yPos[5], radius, paint);
+                if(filled)
+                    paintLine(5, leftCell, rightCell, canvas);
                 writeText(92, 80, "+5", canvas);
-                paintLine(5, leftCell, rightCell, canvas);
                 break;
         }
 
         super.onDraw(canvas);
-
-        /*paint.setColor(getResources().getColor(R.color.orange));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(11);
-        canvas.drawCircle(110, 65, 30, paint);
-
-        paint.setStrokeWidth(4);
-        paint.setTextSize(32);
-        paint.setColor(Color.BLACK);
-        canvas.drawText("+7", 92, 75, paint);*/
-
-        //
-
-//        paint.setTextSize(80);
-//        paint.setStrokeWidth(200);
-//        paint.setColor(getResources().getColor(R.color.orange));
-//        paint.setStyle(Paint.Style.FILL);
-//        canvas.drawCircle(300, 300, 80, paint);
-//
-//        paint.setColor(Color.WHITE);
-//        canvas.drawText("3", 275, 330, paint);
     }
 
     public void writeText(int x, int y, String text, Canvas canvas)
@@ -152,35 +125,32 @@ public class MyView extends View
         canvas.drawText(text, x, y, paint);
     }
 
-    public void paintLine(int currentCell, int leftCell, int rightCell, Canvas canvas)
-    {
+    public void paintLine(int currentCell, int leftCell, int rightCell, Canvas canvas) {
         paint.setStrokeWidth(15);
         paint.setColor(getResources().getColor(R.color.orange));
 
-
-        if(leftCell > 5){
-            leftCell = 5;
+        if(rightCell != -1){
+            canvas.drawLine(110, yPos[currentCell]+2, 340, yPos[rightCell], paint);
         }
-        if(rightCell > 5){
-            rightCell = 5;
-        }
-//        canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
-//        canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+2, paint);
+        canvas.drawLine(110, yPos[currentCell]+2, -90, yPos[leftCell]+2, paint);
 
-        if(currentCell <= rightCell)
-        {
-            if(currentCell == 0 && currentCell != rightCell && rightCell != 1)
+        /*
+        if(rightCell != -1){
+            if(currentCell <= rightCell)
             {
-                canvas.drawLine(140, yPos[currentCell]-5, 308, yPos[rightCell], paint);
+                if(currentCell == 0 && currentCell != rightCell && rightCell != 1)
+                {
+                    canvas.drawLine(140, yPos[currentCell]-5, 308, yPos[rightCell], paint);
+                }
+                else
+                {
+                    canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+                }
             }
             else
             {
-                canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+                canvas.drawLine(140, yPos[currentCell] + 7, 300, yPos[rightCell] - 12, paint);
             }
-        }
-        else
-        {
-            canvas.drawLine(140, yPos[currentCell] + 7, 300, yPos[rightCell] - 12, paint);
         }
 
         if(currentCell >= leftCell){
@@ -188,6 +158,6 @@ public class MyView extends View
         }else{
             canvas.drawLine(80, yPos[currentCell]-10, -70, yPos[leftCell]+3, paint);
         }
-
+        */
     }
 }
