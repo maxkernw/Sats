@@ -69,10 +69,11 @@
 
             </RelativeLayout>
 
-            <ImageView
+            <WebView
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
-                android:background="@drawable/workout" />
+                android:background="@drawable/workout"
+                android:id="@+id/VideoURL" />
 
             <LinearLayout
                 android:id="@+id/class_context"

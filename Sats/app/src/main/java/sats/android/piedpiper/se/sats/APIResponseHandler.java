@@ -311,6 +311,7 @@ public class APIResponseHandler
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
                 LatLng kord = new LatLng(lati, longi);
+                markers.put(centerName, kord);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
@@ -332,7 +333,7 @@ public class APIResponseHandler
 
             for (JsonElement element : jsonArray){
                 JsonObject object = element.getAsJsonObject();
-                String subType = object.get("subtype").getAsString(); //kan behöva ändras tyill sub_type
+                String subType = object.get("subType").getAsString(); //kan behöva ändras tyill sub_type
                 String name = object.get("name").getAsString();
 
                 activityNamesMap.put(subType, name);
