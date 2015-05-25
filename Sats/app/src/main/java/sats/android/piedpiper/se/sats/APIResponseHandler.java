@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -43,6 +44,7 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
+    public HashMap<String,LatLng> markers = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
     //public static int[] weekPosition = new int[53];
@@ -308,6 +310,8 @@ public class APIResponseHandler
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
+                LatLng kord = new LatLng(lati, longi);
+                markers.put(centerName, kord);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }

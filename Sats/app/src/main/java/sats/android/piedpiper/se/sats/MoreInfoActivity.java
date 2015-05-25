@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,10 +37,23 @@ public class MoreInfoActivity extends Activity
             }
         }
 
-        TextView description = (TextView) findViewById(R.id.class_information);
-        description.setText(classTypeObj.description);
+        WebView videoUrlV = (WebView) findViewById(R.id.VideoURL);
 
+        videoUrlV.getSettings().setJavaScriptEnabled(true);
+
+        videoUrlV.getSettings().setPluginState(WebSettings.PluginState.ON);
+        videoUrlV.loadUrl(classTypeObj.videoURL);
+        videoUrlV.setWebChromeClient(new WebChromeClient());
+
+        
         //visa classType i layout
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebView videoUrlV = (WebView) findViewById(R.id.VideoURL);
+        videoUrlV.destroy();
     }
 }

@@ -262,8 +262,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
-        //final Activity bookedActivityObj = (Activity) getItem(position);
+/*
+        final Activity bookedActivityObj = (Activity) getItem(position);
+*/
+
         final Activity bookedActivityObj = trainingList.get(position);
+
         int realmObjects = 0;
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
@@ -325,13 +329,13 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 if (bookedActivityObj.getBooking() != null || bookingRealmList != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
-                    moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
+                    moreInfo.putExtra("classTypeId", bookedActivityObj.getBookings().first().getKlasses().first().getClassTypeId());
 
-                    moreInfo.putExtra("instructor", bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                    moreInfo.putExtra("duration", bookedActivityObj.getBooking().getaKlass().getDurationInMinutes());
-                    moreInfo.putExtra("numberAttending", bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount());
-                    moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
-                    moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
+                    moreInfo.putExtra("instructor", bookedActivityObj.getBookings().first().getKlasses().first().getInstructorId());
+                    moreInfo.putExtra("duration", bookedActivityObj.getBookings().first().getKlasses().first().getDurationInMinutes());
+                    moreInfo.putExtra("numberAttending", bookedActivityObj.getBookings().first().getKlasses().first().getBookedPersonsCount());
+                    moreInfo.putExtra("maxAttending", bookedActivityObj.getBookings().first().getKlasses().first().getMaxPersonsCount());
+                    moreInfo.putExtra("centerName", bookedActivityObj.getBookings().first().getCenter());
 
                     CustomAdapter.this.activity.startActivity(moreInfo, null);
                 }
