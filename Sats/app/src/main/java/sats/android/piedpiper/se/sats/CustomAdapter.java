@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -62,6 +63,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         inflater = activity.getLayoutInflater();
         numberOfPositions = trainingList.size();
         myDate = new Date();
+        myDate.setYear(113);
         weeks = getWeeks();
         mWeeks = getHeaderText();
     }
@@ -292,7 +294,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 bookedPersons.setVisibility(View.INVISIBLE);
             }
         }
-        RealmList<Booking> bookingRealmList = bookedActivityObj.getBookings();
+        final RealmList<Booking> bookingRealmList = bookedActivityObj.getBookings();
         // Hämtar BookingItem från Realm
         if(bookingRealmList != null)
         {
@@ -315,15 +317,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             }
         }
 
-        RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box);
+        RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box_booked);
 
-        lay.setOnClickListener(new View.OnClickListener()
-        {
+        lay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (bookedActivityObj.getBooking() != null)
-                {
+            public void onClick(View v) {
+                if (bookedActivityObj.getBooking() != null || bookingRealmList != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
                     moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
@@ -334,8 +333,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                     moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
                     moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
 
-                    CustomAdapter.this.activity.startActivity(moreInfo);
+                    CustomAdapter.this.activity.startActivity(moreInfo, null);
                 }
+
+                Toast.makeText(activity, "Kan inte visa mer om passet",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

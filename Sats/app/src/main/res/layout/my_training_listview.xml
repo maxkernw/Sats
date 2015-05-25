@@ -44,7 +44,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-
                     <android.support.v4.view.ViewPager
                         android:id="@+id/graph"
                         android:layout_width="match_parent"
@@ -56,9 +55,7 @@
                         android:layout_height="150dp"
                         android:layout_marginLeft="125dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/calendet_mark_right"
-
-                        />
+                        android:src="@drawable/calendet_mark_right" />
 
                     <ImageView
                         android:id="@+id/shadow"
@@ -70,12 +67,11 @@
 
                 </RelativeLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/my_training"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white">
+                    android:background="#FFFBFBFB">
 
                     <TextView
                         android:id="@+id/activity_status"
@@ -104,14 +100,10 @@
                         android:layout_marginTop="10dp"
                         android:background="#FFFBFBFB" />
 
-
                 </RelativeLayout>
-
 
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
         </FrameLayout>
-
     </RelativeLayout>
-
 </RelativeLayout>
