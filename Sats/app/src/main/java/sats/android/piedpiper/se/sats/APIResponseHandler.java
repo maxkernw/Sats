@@ -329,7 +329,7 @@ public class APIResponseHandler
 
             for (JsonElement element : jsonArray){
                 JsonObject object = element.getAsJsonObject();
-                String subType = object.get("subtype").getAsString(); //kan behöva ändras tyill sub_type
+                String subType = object.get("subType").getAsString(); //kan behöva ändras tyill sub_type
                 String name = object.get("name").getAsString();
 
                 activityNamesMap.put(subType, name);
@@ -403,5 +403,4 @@ public class APIResponseHandler
         myActivities.clear();
         getAllActivities(listView);
     }
-
 }

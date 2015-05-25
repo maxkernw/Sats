@@ -496,4 +496,21 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         TextView text;
     }
+
+    public boolean realmExists(android.app.Activity activity)
+    {
+        int realmObjects = 0;
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }

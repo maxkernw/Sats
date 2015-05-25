@@ -1,7 +1,6 @@
 package sats.android.piedpiper.se.sats;
 
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import io.realm.Realm;
+import sats.android.piedpiper.se.sats.models.Activity;
+
 public class ViewPagerAdapter extends PagerAdapter
 {
+    public ViewPagerAdapter(android.app.Activity activity) {
+        this.activity = activity;
+    }
+
     int NumberOfPages = 52;
+    android.app.Activity activity;
 
     @Override
     public int getCount()
@@ -54,26 +61,49 @@ public class ViewPagerAdapter extends PagerAdapter
         views.addView(week);
 
         MyView text;
-        ////////////////////
         int one,two,three;
-        if(StorageHandler.activitesPerWeek.containsKey(thisWeek)){
-            one = StorageHandler.activitesPerWeek.get(thisWeek);
-        }else{
-            one = 0;
+        if(realmExists(activity))
+        {
+            if(StorageHandler.activitesPerWeek.containsKey(thisWeek)){
+                one = StorageHandler.activitesPerWeek.get(thisWeek);
+            }else{
+                one = 0;
+            }
+
+            if(StorageHandler.activitesPerWeek.containsKey(thisWeek-1)){
+                two = StorageHandler.activitesPerWeek.get(thisWeek-1);
+            }else{
+                two = 0;
+            }
+
+            if(StorageHandler.activitesPerWeek.containsKey(thisWeek+1)){
+                three = StorageHandler.activitesPerWeek.get(thisWeek+1);
+            }else{
+                three = 0;
+            }
+        }
+        else
+        {
+            if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek)){
+                one = APIResponseHandler.activitesPerWeek.get(thisWeek);
+            }else{
+                one = 0;
+            }
+
+            if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek-1)){
+                two = APIResponseHandler.activitesPerWeek.get(thisWeek-1);
+            }else{
+                two = 0;
+            }
+
+            if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek+1)){
+                three = APIResponseHandler.activitesPerWeek.get(thisWeek+1);
+            }else{
+                three = 0;
+            }
         }
 
-        if(StorageHandler.activitesPerWeek.containsKey(thisWeek-1)){
-            two = StorageHandler.activitesPerWeek.get(thisWeek-1);
-        }else{
-            two = 0;
-        }
 
-        if(StorageHandler.activitesPerWeek.containsKey(thisWeek+1)){
-            three = StorageHandler.activitesPerWeek.get(thisWeek+1);
-        }else{
-            three = 0;
-        }
-        ///////////////////////////
         if(position == 20)
         {
             text = new MyView(container.getContext(), false, one, two, three);
@@ -146,4 +176,20 @@ public class ViewPagerAdapter extends PagerAdapter
         return (1 / nbPages);
     }
 
+    public boolean realmExists(android.app.Activity activity)
+    {
+        int realmObjects = 0;
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
