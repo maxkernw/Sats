@@ -299,9 +299,9 @@ public class APIResponseHandler
                 realmCenter.setFilterId(filterId);
                 Boolean isElixia = center.get("isElixia").getAsBoolean();
                 realmCenter.setIsElixia(isElixia);
-                long lati = center.get("lat").getAsLong();
+                double lati = center.get("lat").getAsDouble();
                 realmCenter.setLati(lati);
-                long longi = center.get("long").getAsLong();
+                double longi = center.get("long").getAsDouble();
                 realmCenter.setLongi(longi);
                 int regionId = center.get("regionId").getAsInt();
                 realmCenter.setRegionId(regionId);

@@ -10,13 +10,13 @@ public class Center extends RealmObject
     private boolean availableForOnlineBooking, isElixia;
     private String description, name, url;
     private int filterId, regionId;
-    private long lati, longi;
+    private double lati, longi;
 
     public Center()
     {
     }
 
-    public Center(boolean availableForOnlineBooking, boolean isElixia, String description, String name, String url, int filterId, int id, long lati, long longi, int regionId) {
+    public Center(boolean availableForOnlineBooking, boolean isElixia, String description, String name, String url, int filterId, int id, double lati, double longi, int regionId) {
         this.availableForOnlineBooking = availableForOnlineBooking;
         this.isElixia = isElixia;
         this.description = description;
@@ -57,11 +57,11 @@ public class Center extends RealmObject
         return id;
     }
 
-    public long getLati() {
+    public double getLati() {
         return lati;
     }
 
-    public long getLongi() {
+    public double getLongi() {
         return longi;
     }
 
@@ -97,11 +97,11 @@ public class Center extends RealmObject
         this.filterId = filterId;
     }
 
-    public void setLati(long lati) {
+    public void setLati(double lati) {
         this.lati = lati;
     }
 
-    public void setLongi(long longi) {
+    public void setLongi(double longi) {
         this.longi = longi;
     }
 
