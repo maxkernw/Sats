@@ -31,5 +31,5 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'net.danlew:android.joda:2.7.2'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-
+    compile 'io.realm:realm-android:0.80.1'
 }

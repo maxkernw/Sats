@@ -1,23 +1,28 @@
 package sats.android.piedpiper.se.sats.models;
 
-import org.joda.time.DateTime;
-
 import java.util.Date;
 
-public final class Activity implements Comparable<Object>
-{
-    public final Booking booking;
-    public final String comment;
-    public final DateTime date;
-    public final int distanceInKm;
-    public final int durationInMinutes;
-    public final String id;
-    public final String source;
-    public final String status;
-    public final String subType;
-    public final String type;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 
-    public Activity(Booking booking, String comment, DateTime date2, int distance,
+public class Activity extends RealmObject
+{
+    @PrimaryKey
+    private String id;
+    private String comment,source, status, subType, type;
+    private int distanceInKm, durationInMinutes;
+    private RealmList<Booking> bookings;
+    private Date date;
+    @Ignore
+    private Booking booking;
+
+    public Activity()
+    {
+    }
+
+    public Activity(Booking booking, String comment, Date date2, int distance,
                     int durationInMinutes, String id, String source, String status,
                     String subType, String type)
     {
@@ -33,83 +38,113 @@ public final class Activity implements Comparable<Object>
         this.type = type;
     }
 
-    @Override
-    public int compareTo(Object obj)
+    public Booking getBooking()
     {
-        return this.date.compareTo( ((Activity) obj).date );
+        return booking;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((booking == null) ? 0 : booking.hashCode());
-        result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + distanceInKm;
-        result = prime * result + durationInMinutes;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((source == null) ? 0 : source.hashCode());
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + ((subType == null) ? 0 : subType.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
+    public void setBooking(Booking booking)
+    {
+        this.booking = booking;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Activity other = (Activity) obj;
-        if (booking == null) {
-            if (other.booking != null)
-                return false;
-        } else if (!booking.equals(other.booking))
-            return false;
-        if (comment == null) {
-            if (other.comment != null)
-                return false;
-        } else if (!comment.equals(other.comment))
-            return false;
-        if (date == null) {
-            if (other.date != null)
-                return false;
-        } else if (!date.equals(other.date))
-            return false;
-        if (distanceInKm != other.distanceInKm)
-            return false;
-        if (durationInMinutes != other.durationInMinutes)
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (source == null) {
-            if (other.source != null)
-                return false;
-        } else if (!source.equals(other.source))
-            return false;
-        if (status == null) {
-            if (other.status != null)
-                return false;
-        } else if (!status.equals(other.status))
-            return false;
-        if (subType == null) {
-            if (other.subType != null)
-                return false;
-        } else if (!subType.equals(other.subType))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        return true;
+    public RealmList<Booking> getBookings()
+    {
+        return bookings;
     }
 
+    public void setBookings(RealmList<Booking> bookings)
+    {
+        this.bookings = bookings;
+    }
+
+    public String getComment()
+    {
+        return comment;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
+
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
+    public int getDistanceInKm()
+    {
+        return distanceInKm;
+    }
+
+    public void setDistanceInKm(int distanceInKm)
+    {
+        this.distanceInKm = distanceInKm;
+    }
+
+    public int getDurationInMinutes()
+    {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes)
+    {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public String getSource()
+    {
+        return source;
+    }
+
+    public void setSource(String source)
+    {
+        this.source = source;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public String getSubType()
+    {
+        return subType;
+    }
+
+    public void setSubType(String subType)
+    {
+        this.subType = subType;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
 }

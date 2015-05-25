@@ -23,9 +23,9 @@
             android:paddingRight="5dp"
             android:paddingTop="20dp">
 
-            <LinearLayout
-                android:id="@+id/class_info"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/class_header"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp">
@@ -44,27 +44,79 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/class_name"
-                    android:text="45min" />
+                    android:text="45min"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold" />
 
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/position_in_queue"
+                    android:src="@drawable/people_icon" />
+
+                <TextView
+                    android:id="@+id/position_in_queue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/pink"
+                    android:text="25"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="@drawable/workout" />
 
             <LinearLayout
                 android:id="@+id/class_context"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp">
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bokade deltagare: "
+                        android:textColor="#ff454545"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/booked_persons_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/max_persons_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -75,13 +127,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Center: "
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/center_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SATS Bromma" />
+                        android:text="SATS Bromma"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,13 +147,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Datum: "
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Torsdag 12 November" />
+                        android:text="Torsdag 12 November"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,13 +167,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Instruktör: "
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/instructor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Annika Bottne" />
+                        android:text="Annika Bottne"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView
@@ -139,76 +197,18 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Kondition"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/fittnes_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ProgressBar
+                        android:id="@+id/fitness_progress"
+                        style="@style/CustomProgressbar"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        android:max="100"
+                        android:progress="40" />
 
-                        <ImageView
-                            android:id="@+id/fitness_bar_block1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/fitness_bar_block10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                    </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -222,76 +222,18 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Styrka"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/strength_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ProgressBar
+                        android:id="@+id/strength_progress"
+                        style="@style/CustomProgressbar"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        android:max="100"
+                        android:progress="100" />
 
-                        <ImageView
-                            android:id="@+id/strength_bar_block1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/strength_bar_block10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                    </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -305,76 +247,18 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Rörlighet"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/flexibility_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ProgressBar
+                        android:id="@+id/flexibility_progress"
+                        style="@style/CustomProgressbar"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        android:max="100"
+                        android:progress="10" />
 
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/flexibility_bar_block10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                    </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -388,87 +272,44 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Balans"
+                        android:textColor="#ff454545"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/balance_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ProgressBar
+                        android:id="@+id/balance_progress"
+                        style="@style/CustomProgressbar"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        android:max="100"
+                        android:progress="50" />
 
-                        <ImageView
-                            android:id="@+id/balance_bar_block1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                        <ImageView
-                            android:id="@+id/balance_bar_block10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bg1" />
-
-                    </LinearLayout>
                 </RelativeLayout>
-                <TextView
+
+                <RelativeLayout
                     android:id="@+id/elasticity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Spänst"
-                    android:textStyle="bold" />
+                    android:paddingBottom="10dp">
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Spänst"
+                        android:textColor="#ff454545"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:id="@+id/elasticity_progress"
+                        style="@style/CustomProgressbar"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:max="100"
+                        android:progress="40" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 

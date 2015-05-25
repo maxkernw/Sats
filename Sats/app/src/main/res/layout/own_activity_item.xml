@@ -2,34 +2,29 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="3dp">
+
     <!-- Whole box-->
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/booking_layout_bg"
-        android:gravity="top"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="2dp">
 
         <LinearLayout
             android:id="@+id/top_box"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:gravity="top"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="10">
+            android:padding="10dp">
 
             <LinearLayout
                 android:id="@+id/top_left_box"
@@ -37,25 +32,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/class_type_own"
+                <TextView
+                    android:id="@+id/own_activity_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:id="@+id/own_activity_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="Eget träninspass"
-                        android:textSize="14dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    android:layout_marginLeft="8dp"
+                    android:text="Eget träninspass"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"
+                    android:textColor="#ff454545" />
 
                 <LinearLayout
-                    android:id="@+id/small_clock_info"
+                    android:id="@+id/total_time_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
@@ -65,27 +53,24 @@
                         android:id="@+id/booking_time_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_weight="0"
-                        android:scaleX="0.50"
-                        android:scaleY="0.50"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75"
                         android:src="@drawable/booking_ic_time" />
 
                     <TextView
                         android:id="@+id/own_activity_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/hours_background"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="0.1"
-                        android:textAlignment="inherit"
-                        android:textColor="@color/secondary_color"
-                        android:textSize="10dp" />
+                        android:text="12 min"
+                        android:textColor="@color/secondary_color" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/small_info_trainig"
+                    android:id="@+id/comments_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp">
@@ -104,11 +89,9 @@
                         android:id="@+id/class_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/hours_background"
                         android:layout_marginLeft="2dp"
                         android:layout_weight="0.1"
                         android:text="0 kommentar"
-                        android:textAlignment="inherit"
                         android:textColor="@color/secondary_color"
                         android:textSize="10dp" />
 
@@ -137,29 +120,22 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/top_divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="3.5dp"
-            android:layout_marginRight="3.5dp"
             android:alpha="0.5"
-            android:background="@drawable/top_divider"
-            android:orientation="vertical"></LinearLayout>
+            android:background="@drawable/top_divider">
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/bottom_box"
             android:layout_width="fill_parent"
-            android:layout_height="34dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
+            android:layout_height="30dp"
             android:background="@drawable/pressed_state_button_cp"
-            android:gravity="center"
             android:orientation="horizontal"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:gravity="center">
 
             <LinearLayout
                 android:id="@+id/bottom_left_box"
@@ -188,7 +164,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lägg till i kalender"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textSize="11dp" />
                 </LinearLayout>
 
@@ -196,12 +171,11 @@
 
             <LinearLayout
                 android:id="@+id/divider"
-                android:layout_width="wrap_content"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/mid_divider"
+                android:background="#ffe8e8e8"
                 android:orientation="horizontal">
-
             </LinearLayout>
 
             <LinearLayout
@@ -235,7 +209,6 @@
                         android:layout_toRightOf="@id/ic_more"
                         android:gravity="right"
                         android:text="Träningsprogram"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textSize="11dp" />
                 </RelativeLayout>
 

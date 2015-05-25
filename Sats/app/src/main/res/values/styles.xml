@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MyTheme" parent="MyTheme.Base">
     </style>
@@ -20,8 +21,12 @@
 
     <style name="CustomProgressbar" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateOnly">false</item>
-        <!--<item name="progressDrawable">@drawable/progress_bar_drawable_style</item>-->
+        <item name="android:progressDrawable">@drawable/progress_bar_drawable_style</item>
         <item name="android:max">100</item>
     </style>
 
+    <style name="CustomCheckbox">
+        <item name="android:maxHeight">10dip</item>
+        <item name="android:maxWidth">10dip</item>
+    </style>
 </resources>

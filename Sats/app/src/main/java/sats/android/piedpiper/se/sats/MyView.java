@@ -8,10 +8,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by Steffe on 15-05-11.
- */
-public class MyView extends View {
+public class MyView extends View
+{
 
     Paint paint;
     final boolean filled;
@@ -20,7 +18,24 @@ public class MyView extends View {
     public static final int filledRadius = 35;
     int radius;
 
-    public MyView(Context context, final boolean filled, final int position) {
+    static int xPosition = 110;
+
+    static int[] yPos = new int[]{411,373,298,226,150,73};
+
+    int leftCell = 0, rightCell = 0;
+
+    public MyView(Context context, final boolean filled, final int position, final int leftCell, final int rightCell)
+    {
+        super(context);
+        this.filled = filled;
+        this.position = position;
+        this.leftCell = leftCell;
+        this.rightCell = rightCell;
+        paint = new Paint();
+    }
+
+    public MyView(Context context, final boolean filled, final int position)
+    {
         super(context);
         this.filled = filled;
         this.position = position;
@@ -28,62 +43,121 @@ public class MyView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
 
         paint.setColor(getResources().getColor(R.color.orange));
         paint.setStrokeWidth(11);
 
-        if(filled == true){
+        if (filled == true)
+        {
             paint.setStyle(Paint.Style.FILL);
             radius = filledRadius;
-        }else{
+        } else
+        {
             paint.setStyle(Paint.Style.STROKE);
             radius = notFilledRadius;
         }
 
-        switch(position){
-            case 5: canvas.drawCircle(110, 73, radius, paint); writeText(102 ,80 , "5", canvas); break;
-            case 4: canvas.drawCircle(110, 150, radius, paint); writeText(102 ,160 , "4", canvas); break;
-            case 3: canvas.drawCircle(110, 226, radius, paint); writeText(102 ,236 , "3", canvas); break;
-            case 2: canvas.drawCircle(110, 298, radius, paint); writeText(102 ,308 , "2", canvas); break;
-            case 1: canvas.drawCircle(110, 373, radius, paint); writeText(102 ,383 , "1", canvas); break;
-            default: canvas.drawCircle(110, 73, radius, paint); writeText(92 ,80 , "+5", canvas); break;
+        switch (position)
+        {
+            case 5:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 80, "5", canvas);
+                break;
+            case 4:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 160, "4", canvas);
+                break;
+            case 3:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 236, "3", canvas);
+                break;
+            case 2:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 308, "2", canvas);
+                break;
+            case 1:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 383, "1", canvas);
+                break;
+            case 0:
+                canvas.drawCircle(xPosition, yPos[position], radius, paint);
+                if(filled)
+                    paintLine(position, leftCell, rightCell, canvas);
+                writeText(101, 421, "0", canvas);
+                break;
+            default:
+                canvas.drawCircle(xPosition, yPos[5], radius, paint);
+                if(filled)
+                    paintLine(5, leftCell, rightCell, canvas);
+                writeText(92, 80, "+5", canvas);
+                break;
         }
 
         super.onDraw(canvas);
-
-        /*paint.setColor(getResources().getColor(R.color.orange));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(11);
-        canvas.drawCircle(110, 65, 30, paint);
-
-        paint.setStrokeWidth(4);
-        paint.setTextSize(32);
-        paint.setColor(Color.BLACK);
-        canvas.drawText("+7", 92, 75, paint);*/
-
-        //
-
-//        paint.setTextSize(80);
-//        paint.setStrokeWidth(200);
-//        paint.setColor(getResources().getColor(R.color.orange));
-//        paint.setStyle(Paint.Style.FILL);
-//        canvas.drawCircle(300, 300, 80, paint);
-//
-//        paint.setColor(Color.WHITE);
-//        canvas.drawText("3", 275, 330, paint);
     }
 
-    public void writeText(int x, int y, String text, Canvas canvas){
+    public void writeText(int x, int y, String text, Canvas canvas)
+    {
         paint.setStrokeWidth(4);
         paint.setTextSize(32);
 
-    if(filled){
+        if (filled)
+        {
             paint.setColor(Color.WHITE);
-        }else{
+        }
+        else
+        {
             paint.setColor(Color.BLACK);
         }
 
         canvas.drawText(text, x, y, paint);
+    }
+
+    public void paintLine(int currentCell, int leftCell, int rightCell, Canvas canvas) {
+        paint.setStrokeWidth(15);
+        paint.setColor(getResources().getColor(R.color.orange));
+
+        if(rightCell != -1){
+            canvas.drawLine(110, yPos[currentCell]+2, 340, yPos[rightCell], paint);
+        }
+        canvas.drawLine(110, yPos[currentCell]+2, -90, yPos[leftCell]+2, paint);
+
+        /*
+        if(rightCell != -1){
+            if(currentCell <= rightCell)
+            {
+                if(currentCell == 0 && currentCell != rightCell && rightCell != 1)
+                {
+                    canvas.drawLine(140, yPos[currentCell]-5, 308, yPos[rightCell], paint);
+                }
+                else
+                {
+                    canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
+                }
+            }
+            else
+            {
+                canvas.drawLine(140, yPos[currentCell] + 7, 300, yPos[rightCell] - 12, paint);
+            }
+        }
+
+        if(currentCell >= leftCell){
+            canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+3, paint);
+        }else{
+            canvas.drawLine(80, yPos[currentCell]-10, -70, yPos[leftCell]+3, paint);
+        }
+        */
     }
 }
