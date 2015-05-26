@@ -29,8 +29,8 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27);//minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(7);//minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27).minusDays(1);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(7).minusDays(1);//minusDays(3);
     public StickyListHeadersListView listView;
 
     public static int pos;
