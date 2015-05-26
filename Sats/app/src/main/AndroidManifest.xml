@@ -35,7 +35,8 @@
         </activity>
         <activity
             android:name=".MoreInfoActivity"
-            android:label="Sats2" >
+            android:label="Sats2"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <meta-data
