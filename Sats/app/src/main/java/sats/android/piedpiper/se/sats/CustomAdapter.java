@@ -329,7 +329,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 if (bookedActivityObj.getBooking() != null || bookingRealmList != null) {
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
-                    moreInfo.putExtra("classTypeId", bookedActivityObj.getBookings().first().getKlasses().first().getClassTypeId());
+                   moreInfo.putExtra("classTypeId", bookedActivityObj.getBookings().first().getKlasses().first().getClassTypeId());
 
                     moreInfo.putExtra("instructor", bookedActivityObj.getBookings().first().getKlasses().first().getInstructorId());
                     moreInfo.putExtra("duration", bookedActivityObj.getBookings().first().getKlasses().first().getDurationInMinutes());

@@ -48,6 +48,9 @@
             android:name=".CenterMapsActivity"
             android:label="@string/title_activity_center_maps" >
         </activity>
+        <activity android:name=".InfoWebPage" android:label="info_page">
+
+        </activity>
     </application>
 
 </manifest>

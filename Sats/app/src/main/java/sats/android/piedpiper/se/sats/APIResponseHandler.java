@@ -44,7 +44,8 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
-    public HashMap<String,LatLng> markers = new HashMap<>();
+    public static HashMap<String, YMCA> markers = new HashMap<>();
+    public static HashMap<String,String> urls = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
     //public static int[] weekPosition = new int[53];
@@ -74,7 +75,8 @@ public class APIResponseHandler
             @Override
             public void onCompleted(Exception e, JsonObject result)
             {
-                if (e == null) {
+                if (e == null)
+                {
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
                     for (JsonElement element : jsonArray)
@@ -84,10 +86,13 @@ public class APIResponseHandler
 
                     int x = myActivities.size();
                     int y;
-                    for (int m = x; m >= 0; m--) {
-                        for (int i = 0; i < x - 1; i++) {
+                    for (int m = x; m >= 0; m--)
+                    {
+                        for (int i = 0; i < x - 1; i++)
+                        {
                             y = i + 1;
-                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime()) {
+                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
+                            {
                                 Activity temp;
                                 temp = myActivities.get(i);
                                 myActivities.set(i, myActivities.get(y));
@@ -96,21 +101,26 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-                    for (int i = 0; i < myActivities.size(); i++) {
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    for (int i = 0; i < myActivities.size(); i++)
+                    {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-                        if(joda.getWeekOfWeekyear() != week){
+                        if (joda.getWeekOfWeekyear() != week)
+                        {
                             weekPosition.put(joda.getWeekOfWeekyear(), i);
                             week = joda.getWeekOfWeekyear();
                         }
-                        if(joda.getWeekOfWeekyear() == week){
-                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear()+1)){
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear()+1);
-                                value = value+1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1, value);
-                            }else{
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1,1);
+                        if (joda.getWeekOfWeekyear() == week)
+                        {
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            {
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                value = value + 1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                            } else
+                            {
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
                             }
                         }
                     }
@@ -118,7 +128,8 @@ public class APIResponseHandler
 
                     realm.close();
 
-                } else {
+                } else
+                {
                     Log.e(TAG, "Could not get activities!");
                     e.printStackTrace();
                 }
@@ -276,6 +287,7 @@ public class APIResponseHandler
         try
         {
             JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
+            Log.e("Result", "Result: " + result);
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
@@ -311,7 +323,8 @@ public class APIResponseHandler
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
                 LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, kord);
+                markers.put(centerName, new YMCA(url, kord));
+                urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
