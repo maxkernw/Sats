@@ -363,6 +363,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                                     Toast.LENGTH_LONG).show();
                         }
                         CustomAdapter.this.activity.startActivity(moreInfo, null);
+                    }else{
+                        Toast.makeText(activity, "Kan inte visa mer om passet",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
             }

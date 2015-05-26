@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 import sats.android.piedpiper.se.sats.models.ClassType;
+import sats.android.piedpiper.se.sats.models.Profile;
 
 import static sats.android.piedpiper.se.sats.R.layout.class_info_view;
 import static sats.android.piedpiper.se.sats.R.layout.my_training_listview;
@@ -36,14 +37,13 @@ public class MoreInfoActivity extends Activity
 
         APIResponseHandler handler = new APIResponseHandler(this);
         ArrayList<ClassType> classTypes = handler.getClassTypes();
-
         ClassType classTypeObj = null;
+
         for (ClassType classType : classTypes){
             if (classType.getId().equals(classtypeId)){
                 classTypeObj = classType;
             }
         }
-
 
         TextView classTitle = (TextView) findViewById(R.id.class_name);
         TextView duration = (TextView) findViewById(R.id.class_duration_time);
@@ -55,6 +55,12 @@ public class MoreInfoActivity extends Activity
         TextView instructor = (TextView) findViewById(R.id.instructor);
         TextView description = (TextView) findViewById(R.id.class_information);
 
+        ProgressBar kondition = (ProgressBar) findViewById(R.id.fitness_progress);
+        ProgressBar strength = (ProgressBar) findViewById(R.id.strength_progress);
+        ProgressBar flexibility = (ProgressBar) findViewById(R.id.flexibility_progress);
+        ProgressBar balance = (ProgressBar) findViewById(R.id.balance_progress);
+        ProgressBar elasticity = (ProgressBar) findViewById(R.id.elasticity_progress);
+
         videoUrlV = (WebView) findViewById(R.id.VideoURL);
 
         videoUrlV.getSettings().setJavaScriptEnabled(true);
@@ -63,11 +69,6 @@ public class MoreInfoActivity extends Activity
         videoUrlV.loadUrl(classTypeObj.videoURL);
         videoUrlV.setWebChromeClient(new WebChromeClient());
 
-        ProgressBar kondition = (ProgressBar) findViewById(R.id.fitness_progress);
-        ProgressBar strength = (ProgressBar) findViewById(R.id.strength_progress);
-        ProgressBar flexibility = (ProgressBar) findViewById(R.id.flexibility_progress);
-        ProgressBar balance = (ProgressBar) findViewById(R.id.balance_progress);
-        ProgressBar elasticity = (ProgressBar) findViewById(R.id.elasticity_progress);
 
         if (classTypeObj != null)
         {
@@ -85,6 +86,27 @@ public class MoreInfoActivity extends Activity
 
             description.setText(classTypeObj.getDescription());
 
+            ArrayList<Profile> profiles = classTypeObj.getProfile();
+            for (Profile profile : profiles)
+            {
+                switch (profile.id) {
+                    case "cardio":
+                        kondition.setProgress(profile.value);
+                        break;
+                    case "strength":
+                        strength.setProgress(profile.value);
+                        break;
+                    case "flexibility":
+                        flexibility.setProgress(profile.value);
+                        break;
+                    case "balance":
+                        balance.setProgress(profile.value);
+                        break;
+                    case "agility":
+                        elasticity.setProgress(profile.value);
+                        break;
+                }
+            }
 
 
         }else{
@@ -100,6 +122,5 @@ public class MoreInfoActivity extends Activity
         super.onDestroy();
         videoUrlV.getSettings().setJavaScriptEnabled(false);
     }
-
 
 }
