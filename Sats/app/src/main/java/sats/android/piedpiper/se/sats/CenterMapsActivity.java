@@ -24,6 +24,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
+import android.location.Location;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -53,8 +57,10 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
 
     //WebView webView = new WebView(this);
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center_maps);
         Location location = new Location("My location");
@@ -66,9 +72,14 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
 
 
         markers = handler.markers;
-        gapi.connect();
         Log.e("Log", "Markers: " + markers.size());
+        //handler.getCenterLocations();
+
+        //markers = handler.getMarkers();
+
         setUpMapIfNeeded();
+        gapi.connect();
+
 
 
 
@@ -116,6 +127,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 {
                     //setContentView(webView);
                     WebView webview = new WebView(CenterMapsActivity.this);
+                    
 
                     webview.loadUrl(markers.get(marker.getTitle()).url);
 
@@ -123,6 +135,11 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 }
             });
         }
+                map.setMyLocationEnabled(true);
+
+
+
+
 
     }
 
@@ -131,9 +148,9 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     public void onConnected(Bundle bundle)
     {
         Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
-        Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
-        longitude = loc.getLongitude();
-        latitude = loc.getLatitude();
+        //Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
+        //longitude = loc.getLongitude();
+        //latitude = loc.getLatitude();
 
 
     }
@@ -149,6 +166,8 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     {
 
     }
+
+
 }
 
 

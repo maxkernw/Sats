@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -25,7 +26,8 @@
         android:theme="@style/MyTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="Sats" >
+            android:label="Sats"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +36,8 @@
         </activity>
         <activity
             android:name=".MoreInfoActivity"
-            android:label="Sats2" >
+            android:label="Sats2"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <meta-data

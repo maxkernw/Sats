@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +18,6 @@ import org.joda.time.DateTime;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.exceptions.RealmMigrationNeededException;
 import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -27,8 +25,9 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(7);//minusDays(3);
+    public StickyListHeadersListView listView;
 
     public static int pos;
     //private Date date = dateView.toDate();
@@ -43,7 +42,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+        listView = (StickyListHeadersListView) findViewById(R.id.listan);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
@@ -85,7 +84,7 @@ public class MainActivity extends ActionBarActivity
         rl2.addView(rightMarker, lp2);
 
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        graphAdapter = new ViewPagerAdapter();
+        graphAdapter = new ViewPagerAdapter(this);
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
 
@@ -148,69 +147,44 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-        int realmObjects = 0;
 
-        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
-       {
-           @Override
-           public void onPanelSlide(View view, float v)
-           {
+        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View view, float v) {
 
-           }
+            }
 
-           @Override
-           public void onPanelCollapsed(View view)
-           {
+            @Override
+            public void onPanelCollapsed(View view) {
 
-           }
+            }
 
-           @Override
-           public void onPanelExpanded(View view)
-           {
+            @Override
+            public void onPanelExpanded(View view) {
                 rightMarker.setVisibility(View.INVISIBLE);
                 leftMarker.setVisibility(View.INVISIBLE);
-           }
+            }
 
-           @Override
-           public void onPanelAnchored(View view)
-           {
+            @Override
+            public void onPanelAnchored(View view) {
 
-           }
+            }
 
-           @Override
-           public void onPanelHidden(View view)
-           {
+            @Override
+            public void onPanelHidden(View view) {
 
-           }
-       });
+            }
+        });
 
-
-        Realm realm = Realm.getInstance(this);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
-        try
-        {
-            realm = Realm.getInstance(this);
-            realmObjects = realm.allObjects(Activity.class).size();
-            realm.close();
-        }
-        catch (RealmMigrationNeededException e)
-        {
-            APIResponseHandler responseHandler = new APIResponseHandler(this);
-            responseHandler.getAllActivities(listView);
-
-            e.printStackTrace();
-        }
-
-        if(realmObjects == 0)
-        {
-            APIResponseHandler responseHandler = new APIResponseHandler(this);
-            responseHandler.getAllActivities(listView);
-        }
-        else if(realmObjects > 0)
+        if(realmExists(this))
         {
             StorageHandler storageHandler = new StorageHandler(this);
             storageHandler.getAllActivities(listView);
+        }
+        else
+        {
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
+            responseHandler.getAllActivities(listView);
         }
 
 
@@ -256,5 +230,22 @@ public class MainActivity extends ActionBarActivity
 
             }
         });
+    }
+
+    public boolean realmExists(android.app.Activity activity)
+    {
+        int realmObjects = 0;
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
