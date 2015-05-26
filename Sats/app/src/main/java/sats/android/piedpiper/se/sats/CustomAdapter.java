@@ -41,7 +41,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 {
     private final android.app.Activity activity;
     private final LayoutInflater inflater;
-    private final int numberOfPositions;
+    public static ArrayList<Activity> trainingList;
     private Calendar mCalendar = Calendar.getInstance();
     private final String[] swedish_days = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"};
     private final String[] swedish_months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"};
@@ -51,7 +51,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private static final int BOOKED = 1;
     private static final int OWN = 2;
 
-    public static ArrayList<Activity> trainingList;
     private int[] weeks;
     private String[] mWeeks;
 
@@ -60,7 +59,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.activity = activity;
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
-        numberOfPositions = trainingList.size();
         myDate = new Date();
         myDate.setYear(113);
         weeks = getWeeks();
@@ -69,25 +67,26 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     public int[] getWeeks()
     {
-        DateTime firstActivityDate = new DateTime(trainingList.get(0).getDate());
-        int week = firstActivityDate.getWeekOfWeekyear();
-        ArrayList<Integer> sectionIndices = new ArrayList<>();
-        for (int i = 0; i < trainingList.size(); i++)
+        if (!trainingList.isEmpty())
         {
-            DateTime activityDate = new DateTime(trainingList.get(i).getDate());
-            int activityWeek = activityDate.getWeekOfWeekyear();
-            if (activityWeek != week)
-            {
-                week = activityWeek;
-                sectionIndices.add(i);
+            DateTime firstActivityDate = new DateTime(trainingList.get(0).getDate());
+            int week = firstActivityDate.getWeekOfWeekyear();
+            ArrayList<Integer> sectionIndices = new ArrayList<>();
+            for (int i = 0; i < trainingList.size(); i++) {
+                DateTime activityDate = new DateTime(trainingList.get(i).getDate());
+                int activityWeek = activityDate.getWeekOfWeekyear();
+                if (activityWeek != week) {
+                    week = activityWeek;
+                    sectionIndices.add(i);
+                }
             }
+            int[] sections = new int[sectionIndices.size()];
+            for (int i = 0; i < sectionIndices.size(); i++) {
+                sections[i] = sectionIndices.get(i);
+            }
+            return sections;
         }
-        int[] sections = new int[sectionIndices.size()];
-        for (int i = 0; i < sectionIndices.size(); i++)
-        {
-            sections[i] = sectionIndices.get(i);
-        }
-        return sections;
+        return new int[] {1};
     }
 
     public String[] getHeaderText()
@@ -103,10 +102,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         return weekdate;
     }
 
+
     @Override
     public int getCount()
     {
-        return numberOfPositions;
+        //System.out.println(trainingList.size());
+        if(trainingList == null || trainingList.isEmpty()){
+            return 0;
+        }
+        return trainingList.size();
     }
 
     @Override
@@ -268,76 +272,109 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         String curHrs = String.format("%02d", hrs);
         String curMin = String.format("%02d", min);
+        String centerName = "ej hämtat";
 
         holder.bigClockHours.setText(curHrs);
         holder.bigClockMinutes.setText(curMin);
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.getDurationInMinutes()) + " min");
         holder.title.setText(bookedActivityObj.getSubType());
 
-
-        // Hämtar BookingItem från APIn
-        if(bookedActivityObj.getBooking() != null)
-        {
-            holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
-            holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
-            //set text center
-            holder.center.setText(bookedActivityObj.getBooking().getCenter());
-
-
-            if (bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount() == 0)
+        if (!bookedActivityObj.isValid()){
+            //Hämtar fr. api
+            Log.e("Info", "API");
+            if (bookedActivityObj.getBooking() != null)
             {
-                RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
-                bookedPersons.setVisibility(View.INVISIBLE);
+                holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
+                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
+                holder.center.setText(bookedActivityObj.getBooking().getCenter());
+                if (bookedActivityObj.getBooking().getPositionInQueue() == 0) {
+                    RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
+                    bookedPersons.setVisibility(View.INVISIBLE);
+                }
             }
-        }
-
-        // Hämtar BookingItem från Realm
-        Realm realm = Realm.getInstance(activity);
-        final Booking realmBooking = bookedActivityObj.getBookings().first();
-        if(realmBooking != null)
-        {
-            Klass realmBookingClass = realmBooking.getKlasses().first();
-            int realmCenterId = Integer.valueOf(realmBooking.getCenter());
-            RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
-            Center realmCenter = realmCenters.first();
-
-            holder.instructor.setText(realmBookingClass.getInstructorId());
-            holder.participants.setText(String.valueOf(realmBookingClass.getBookedPersonsCount()));
-            holder.center.setText(realmCenter.getName());
-
-
-            if (realmBookingClass.getBookedPersonsCount() == 0)
+        }else {
+            //Hämtar fr. realm
+            Log.e("Info", "Realm");
+            Realm realm = Realm.getInstance(activity);
+            final Booking realmBooking = bookedActivityObj.getBookings().first();
+            if (realmBooking != null)
             {
-                RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
-                bookedPersons.setVisibility(View.INVISIBLE);
+                Klass realmClass = realmBooking.getKlasses().first();
+
+                int realmCenterId = Integer.valueOf(realmBooking.getCenter());
+                RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
+                Center realmCenter = realmCenters.first();
+                centerName = realmCenter.getName();
+
+                holder.instructor.setText(realmClass.getInstructorId());
+                holder.participants.setText(String.valueOf(realmClass.getBookedPersonsCount()));
+                holder.center.setText(centerName);
+
+                if (realmBooking.getPositionInQueue() == 0) {
+                    RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
+                    bookedPersons.setVisibility(View.INVISIBLE);
+                }
             }
         }
 
         RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box_booked);
 
+        final String finalCenterName = centerName;
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookedActivityObj.getBooking() != null || realmBooking != null) {
-                    Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
+                Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
-                    if (bookedActivityObj.getBooking().getaKlass() != null) {
-                        moreInfo.putExtra("classTypeId", bookedActivityObj.getBooking().getaKlass().getClassTypeId());
+                if (!bookedActivityObj.isValid()){
+                    //Hämtar fr api
+                    Log.e("Info", "API on click");
+                    Booking bookingObj = bookedActivityObj.getBooking();
 
-                        moreInfo.putExtra("instructor", bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                        moreInfo.putExtra("duration", bookedActivityObj.getBooking().getaKlass().getDurationInMinutes());
-                        moreInfo.putExtra("numberAttending", bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount());
-                        moreInfo.putExtra("maxAttending", bookedActivityObj.getBooking().getaKlass().getMaxPersonsCount());
-                        moreInfo.putExtra("centerName", bookedActivityObj.getBooking().getCenter());
+                    if (bookingObj != null)
+                    {
+                        if (bookingObj.getaKlass() != null) {
+                            Klass classObj = bookingObj.getaKlass();
 
-                    }else{
-                        Toast.makeText(activity, "Kan inte hitta class",
-                                Toast.LENGTH_LONG).show();
+                            moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
+                            moreInfo.putExtra("instructor", classObj.getInstructorId());
+                            moreInfo.putExtra("centerName", finalCenterName);
+                            moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
+                            moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
+                            moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
+                            moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+
+                        }else{
+                            Toast.makeText(activity, "Kan inte hitta class",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        CustomAdapter.this.activity.startActivity(moreInfo, null);
                     }
-                    CustomAdapter.this.activity.startActivity(moreInfo, null);
                 }else {
-                    Toast.makeText(activity, "Kan inte visa mer om passet",
-                            Toast.LENGTH_LONG).show();
+                    //Hämtar fr realm
+                    Log.e("Info", "Realm on click");
+                    Booking realmBooking = bookedActivityObj.getBookings().first();
+
+                    if (realmBooking != null)
+                    {
+                        if (realmBooking.getKlasses().first() != null) {
+                            Klass classObj = realmBooking.getKlasses().first();
+
+                            moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
+                            moreInfo.putExtra("instructor", classObj.getInstructorId());
+                            moreInfo.putExtra("centerName", finalCenterName);
+                            moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
+                            moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
+                            moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
+                            moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+
+                        }else{
+                            Toast.makeText(activity, "Kan inte hitta class",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        CustomAdapter.this.activity.startActivity(moreInfo, null);
+                    }
                 }
             }
         });
@@ -435,15 +472,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         final DateTime activityDate = new DateTime();
         int week = activityDate.getWeekOfWeekyear();
         String headerText;
-        Log.e("asd", "mWeeks: " + Integer.valueOf(mWeeks[position]) + " " + " jodaweek: " + Integer.valueOf(week));
-        if (Integer.valueOf(mWeeks[position]) <= Integer.valueOf(week))
-        {
-             headerText = "Vecka " + mWeeks[position];
+        //Log.e("asd", "mWeeks: " + mWeeks[position] + " " + " jodaweek: " + week);
+        if (Integer.valueOf(mWeeks[position]) <= Integer.valueOf(week)) {
+            headerText = "Vecka " + mWeeks[position];
+        } else {
+            headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
         }
-        else{
-             headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
-        }
-
 
         holder.text.setText(headerText);
         return convertView;
