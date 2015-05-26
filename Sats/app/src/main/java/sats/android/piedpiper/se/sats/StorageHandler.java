@@ -46,8 +46,6 @@ public class StorageHandler
         result.sort("date");
         getCenterNames();
 
-        Log.i(TAG, "Result storleken: " + String.valueOf(result.size()));
-
         for (int i = 0; i < result.size(); i++)
         {
             myActivities.add(result.get(i));
@@ -70,6 +68,7 @@ public class StorageHandler
                 }
             }
         }
+        //Log.e("Storage", String.valueOf(myActivities));
         listView.setAdapter(new CustomAdapter(activity, myActivities));
     }
 
