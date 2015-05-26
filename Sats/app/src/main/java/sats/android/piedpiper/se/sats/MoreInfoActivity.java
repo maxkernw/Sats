@@ -30,6 +30,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
 {
     private YouTubePlayerView videoUrlV;
     private YouTubePlayer player;
+    private String GOOGLE_KEY = "AIzaSyDUts-9-KshgP8Pj9KBaWvyjncDcY0gJ7s";
 
 
     @Override
@@ -43,8 +44,6 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         String classtypeId = intent.getStringExtra("classTypeId");
 
         ClassType classTypeObj = null;
-
-
 
 
         TextView classTitle = (TextView) findViewById(R.id.class_name);
@@ -65,14 +64,8 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
 
 
         videoUrlV = (YouTubePlayerView) findViewById(R.id.VideoURL);
-        videoUrlV.initialize("AIzaSyDUts-9-KshgP8Pj9KBaWvyjncDcY0gJ7s", this);
+        videoUrlV.initialize(GOOGLE_KEY, this);
 
-
-        //videoUrlV.getSettings().setJavaScriptEnabled(true);
-
-        //videoUrlV.getSettings().setPluginState(WebSettings.PluginState.ON);
-        //videoUrlV.loadUrl(classTypeObj.videoURL);
-        //videoUrlV.setWebChromeClient(new WebChromeClient());
 
 
         if (classTypeObj != null)
@@ -127,7 +120,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         super.onDestroy();
         //videoUrlV.getSettings().setJavaScriptEnabled(false);
     }
-    
+
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b)
