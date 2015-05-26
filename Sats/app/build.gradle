@@ -33,4 +33,6 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'io.realm:realm-android:0.80.1'
     compile 'com.google.android.gms:play-services:7.3.0'
+ //   compile 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
