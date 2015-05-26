@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
@@ -43,18 +45,20 @@ public class APIResponseHandler
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
-    public HashMap<String,LatLng> markers = new HashMap<>();
+
+    public static HashMap<String, YMCA> markers = new HashMap<>();
+    public static HashMap<String,String> urls = new HashMap<>();
+
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
-    //public static int[] weekPosition = new int[53];
-    //public static int[] activitesPerWeek = new int[53];
     public static HashMap<Integer,Integer> weekPosition = new HashMap<>();
     public static HashMap<Integer,Integer> activitesPerWeek = new HashMap<>();
 
     public APIResponseHandler(android.app.Activity activity)
     {
         this.activity = activity;
+        realm = Realm.getInstance(activity);
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
@@ -66,11 +70,11 @@ public class APIResponseHandler
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
-
             @Override
             public void onCompleted(Exception e, JsonObject result)
             {
-                if (e == null) {
+                if (e == null)
+                {
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
                     for (JsonElement element : jsonArray)
@@ -80,10 +84,13 @@ public class APIResponseHandler
 
                     int x = myActivities.size();
                     int y;
-                    for (int m = x; m >= 0; m--) {
-                        for (int i = 0; i < x - 1; i++) {
+                    for (int m = x; m >= 0; m--)
+                    {
+                        for (int i = 0; i < x - 1; i++)
+                        {
                             y = i + 1;
-                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime()) {
+                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
+                            {
                                 Activity temp;
                                 temp = myActivities.get(i);
                                 myActivities.set(i, myActivities.get(y));
@@ -92,21 +99,26 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-                    for (int i = 0; i < myActivities.size(); i++) {
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    for (int i = 0; i < myActivities.size(); i++)
+                    {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-                        if(joda.getWeekOfWeekyear() != week){
+                        if (joda.getWeekOfWeekyear() != week)
+                        {
                             weekPosition.put(joda.getWeekOfWeekyear(), i);
                             week = joda.getWeekOfWeekyear();
                         }
-                        if(joda.getWeekOfWeekyear() == week){
-                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear()+1)){
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear()+1);
-                                value = value+1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1, value);
-                            }else{
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1,1);
+                        if (joda.getWeekOfWeekyear() == week)
+                        {
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            {
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                value = value + 1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                            } else
+                            {
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
                             }
                         }
                     }
@@ -154,7 +166,6 @@ public class APIResponseHandler
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
-
         String newSubType = getActivityName(subType);
         if(!newSubType.equals("No name")){
             subType = newSubType;
@@ -162,6 +173,7 @@ public class APIResponseHandler
         realmActivity.setSubType(subType);
 
         realm.commitTransaction();
+
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
@@ -171,7 +183,6 @@ public class APIResponseHandler
 
             realmActivity.getBookings().add(bookings.first());
         }
-
 
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
     }
@@ -200,7 +211,6 @@ public class APIResponseHandler
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
-
             RealmResults<Klass> classes = realm.where(Klass.class)
                     .equalTo("id", myClass.getId())
                     .findAll();
@@ -268,6 +278,7 @@ public class APIResponseHandler
         try
         {
             JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
+            Log.e("Result", "Result: " + result);
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
@@ -282,7 +293,9 @@ public class APIResponseHandler
 
                 JsonObject center = centerElement.getAsJsonObject();
                 int centerId = center.get("id").getAsInt();
-                realmCenter.setId(centerId);
+                if(realmCenter.getId() == 0){
+                    realmCenter.setId(centerId);
+                }
                 String centerName = center.get("name").getAsString();
                 realmCenter.setName(centerName);
                 Boolean availableForOnlineBooking = center.get("availableForOnlineBooking").getAsBoolean();
@@ -303,7 +316,8 @@ public class APIResponseHandler
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
                 LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, kord);
+                markers.put(centerName, new YMCA(url, kord));
+                urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
@@ -319,22 +333,19 @@ public class APIResponseHandler
 
     public ArrayList<ClassType> getClassTypes()
     {
-        try
-        {
+        try {
             JsonObject result = Ion.with(activity).load(classTypesURL).asJsonObject().get();
             JsonArray jsonArray = result.getAsJsonArray("classTypes");
             for (JsonElement element : jsonArray) {
+
                 classTypes.add(getClassTypeObj(element));
             }
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        catch (ExecutionException e) {
+        } catch (ExecutionException e) {
             Log.e(TAG, "Could not get ClassTypes");
             e.printStackTrace();
         }
-
         return classTypes;
     }
 
@@ -370,7 +381,7 @@ public class APIResponseHandler
         return profileArray;
     }
 
-    public void clear(final StickyListHeadersListView listView)
+    public void clear(final StickyListHeadersListView listView, Realm realm)
     {
         myActivities.clear();
         getAllActivities(listView);
@@ -420,17 +431,13 @@ public class APIResponseHandler
         try {
             JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
             name = result.get("name").getAsString();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            Log.e(TAG, "Could not get type");
-            //e.printStackTrace();
             return "No name";
         }
 
         return name;
     }
-
 
 }

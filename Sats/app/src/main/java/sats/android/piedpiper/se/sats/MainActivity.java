@@ -1,8 +1,10 @@
 package sats.android.piedpiper.se.sats;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,9 +16,12 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.exceptions.RealmMigrationNeededException;
 import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -45,9 +50,12 @@ public class MainActivity extends ActionBarActivity
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
+        final ImageView findCenter = (ImageView) findViewById(R.id.logo_image);
         graph = (ViewPager) findViewById(R.id.graph);
 
+
         activity = this;
+
 
         leftMarker = new ImageView(activity);
         leftMarker.setImageResource(R.drawable.back_to_now_right);
@@ -172,17 +180,40 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        if(realmExists(this))
-        {
-            StorageHandler storageHandler = new StorageHandler(this);
-            storageHandler.getAllActivities(listView);
-        }
-        else
-        {
+        //Tom lista
+        ArrayList<Activity> activitiesList = new ArrayList<>();
+        //Starta en ny realm instance
+        final Realm realm = Realm.getInstance(this);
+        //Load data
+        RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        //Behövs ion?
+        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
+            //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
-            responseHandler.getAllActivities(listView);
+            responseHandler.getAllActivities(listView); //sparar i realm
+            //visat data
+        }else {
+            //Convertera data
+            for (Activity activity : realmActivities){
+                activitiesList.add(activity);
+            }
+            //Sortera data
+            int x = activitiesList.size();
+            int y;
+            for (int m = x; m >= 0; m--) {
+                for (int i = 0; i < x - 1; i++) {
+                    y = i + 1;
+                    if (activitiesList.get(i).getDate().getTime() > activitiesList.get(y).getDate().getTime()) {
+                        Activity temp;
+                        temp = activitiesList.get(i);
+                        activitiesList.set(i, activitiesList.get(y));
+                        activitiesList.set(y, temp);
+                    }
+                }
+            }
+            //Visa lista & data
+            listView.setAdapter(new CustomAdapter(activity, activitiesList));
         }
-
 
         im.setOnClickListener(new View.OnClickListener() {
 
@@ -190,24 +221,39 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View view) {
                 im.startAnimation(animRot);
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                responseHandler.clear(listView);
-
+                //responseHandler.clear(listView);
+                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
+                MainActivity.this.activity.startActivity(moreInfo, null);
             }
         });
 
-        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
+        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
+        {
             @Override
-            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l) {
+            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
+            {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
 
-                if (todaydate.after(CustomAdapter.trainingList.get(i).getDate())) {
+                if (todaydate.after(CustomAdapter.trainingList.get(i).getDate()))
+                {
 
                     statusText.setText("TIDIGARE TRÄNING");
 
-                } else {
+                } else
+                {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
+            }
+        });
+
+        findCenter.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+
             }
         });
     }
