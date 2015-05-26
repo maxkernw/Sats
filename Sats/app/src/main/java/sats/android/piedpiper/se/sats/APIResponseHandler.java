@@ -43,7 +43,7 @@ public class APIResponseHandler
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
-g    private HashMap<String, String> activityNamesMap;
+    private HashMap<String, String> activityNamesMap;
 
     public static HashMap<String, YMCA> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();

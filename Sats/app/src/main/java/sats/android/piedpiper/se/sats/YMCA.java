@@ -2,9 +2,6 @@ package sats.android.piedpiper.se.sats;
 
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by Max on 25/05/15.
- */
 public class YMCA
 {
     LatLng coords;
