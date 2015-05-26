@@ -1,5 +1,6 @@
 package sats.android.piedpiper.se.sats;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -28,8 +29,9 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusWeeks(26).minusYears(1).minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(7);//minusDays(3);
+    public StickyListHeadersListView listView;
 
     public static int pos;
     //private Date date = dateView.toDate();
@@ -44,13 +46,16 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_training_listview);
-        final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
+        listView = (StickyListHeadersListView) findViewById(R.id.listan);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
+        final ImageView findCenter = (ImageView) findViewById(R.id.logo_image);
         graph = (ViewPager) findViewById(R.id.graph);
 
+
         activity = this;
+
 
         leftMarker = new ImageView(activity);
         leftMarker.setImageResource(R.drawable.back_to_now_right);
@@ -83,7 +88,7 @@ public class MainActivity extends ActionBarActivity
         rl2.addView(rightMarker, lp2);
 
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        graphAdapter = new ViewPagerAdapter();
+        graphAdapter = new ViewPagerAdapter(this);
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
 
@@ -146,7 +151,6 @@ public class MainActivity extends ActionBarActivity
         });
 
         activity = this;
-        int realmObjects = 0;
 
         slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -182,16 +186,13 @@ public class MainActivity extends ActionBarActivity
         final Realm realm = Realm.getInstance(this);
         //Load data
         RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
-        Log.e("Info", "Realm first size: " + realmActivities.size());
         //Behövs ion?
         if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
             //Hämta från ion
-            Log.e("Info", "Hämtar fr ion: " + realmActivities.size());
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
             //visat data
         }else {
-            Log.e("Info", "Hämtar fr realm: " + realmActivities.size());
             //Convertera data
             for (Activity activity : realmActivities){
                 activitiesList.add(activity);
@@ -210,7 +211,6 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
             }
-            Log.e("Info", "list i main size: " + activitiesList.size());
             //Visa lista & data
             listView.setAdapter(new CustomAdapter(activity, activitiesList));
         }
@@ -221,25 +221,57 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View view) {
                 im.startAnimation(animRot);
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                responseHandler.clear(listView, realm);
-
+                //responseHandler.clear(listView);
+                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
+                MainActivity.this.activity.startActivity(moreInfo, null);
             }
         });
 
-        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
+        listView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener()
+        {
             @Override
-            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l) {
+            public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
+            {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
 
-                if (todaydate.after(CustomAdapter.trainingList.get(i).getDate())) {
+                if (todaydate.after(CustomAdapter.trainingList.get(i).getDate()))
+                {
 
                     statusText.setText("TIDIGARE TRÄNING");
 
-                } else {
+                } else
+                {
                     statusText.setText("KOMMANDE TRÄNING");
                 }
             }
         });
+
+        findCenter.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+
+            }
+        });
+    }
+
+    public boolean realmExists(android.app.Activity activity)
+    {
+        int realmObjects = 0;
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

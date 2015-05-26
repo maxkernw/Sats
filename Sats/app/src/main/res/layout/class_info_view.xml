@@ -69,11 +69,11 @@
 
             </RelativeLayout>
 
-            <ImageView
+            <WebView
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
-                android:id="@+id/video"
-                android:background="@drawable/workout" />
+                android:background="@drawable/workout"
+                android:id="@+id/VideoURL" />
 
             <LinearLayout
                 android:id="@+id/class_context"
@@ -86,36 +86,81 @@
                 android:layout_marginTop="10dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp">
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bokade deltagare: "
-                        android:textColor="#ff454545"
-                        android:textStyle="bold" />
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/booked_persons_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_on"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/"
-                        android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_on"/>
 
-                    <TextView
-                        android:id="@+id/max_persons_count"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_on"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_on"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_off"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="30"
-                        android:textStyle="bold" />
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="15dp">
+
+                        <TextView
+                            android:id="@+id/booked_persons_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:textColor="#ff454545"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="#ff454545"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/max_persons_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30"
+                            android:textColor="#ff454545"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" bokade deltagare"
+                            android:textColor="#ff454545"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -183,8 +228,8 @@
                     android:id="@+id/class_information"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="10dp"
+                    android:paddingBottom="30dp"
+                    android:paddingTop="15dp"
                     android:text="Latinamerikanska rytmer och rörelseglädje karaktärer denna heta dansklass. Join the Party!" />
 
                 <RelativeLayout

@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -16,14 +14,11 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.holders.OwnActivityHolder;
@@ -31,11 +26,8 @@ import sats.android.piedpiper.se.sats.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
-import sats.android.piedpiper.se.sats.models.ClassType;
-import sats.android.piedpiper.se.sats.models.Instructor;
 import sats.android.piedpiper.se.sats.models.Klass;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter, SectionIndexer
 {
@@ -266,7 +258,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
         final Activity bookedActivityObj = (Activity) getItem(position);
-        //final Activity bookedActivityObj = trainingList.get(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
 
@@ -279,9 +270,9 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.getDurationInMinutes()) + " min");
         holder.title.setText(bookedActivityObj.getSubType());
 
+
         if (!bookedActivityObj.isValid()){
             //Hämtar fr. api
-            Log.e("Info", "API");
             if (bookedActivityObj.getBooking() != null)
             {
                 holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
@@ -294,7 +285,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             }
         }else {
             //Hämtar fr. realm
-            Log.e("Info", "Realm");
             Realm realm = Realm.getInstance(activity);
             final Booking realmBooking = bookedActivityObj.getBookings().first();
             if (realmBooking != null)
@@ -311,6 +301,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 holder.center.setText(centerName);
 
                 if (realmBooking.getPositionInQueue() == 0) {
+
                     RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
                     bookedPersons.setVisibility(View.INVISIBLE);
                 }
@@ -327,7 +318,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                 if (!bookedActivityObj.isValid()){
                     //Hämtar fr api
-                    Log.e("Info", "API on click");
                     Booking bookingObj = bookedActivityObj.getBooking();
 
                     if (bookingObj != null)
@@ -352,7 +342,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                     }
                 }else {
                     //Hämtar fr realm
-                    Log.e("Info", "Realm on click");
                     Booking realmBooking = bookedActivityObj.getBookings().first();
 
                     if (realmBooking != null)
@@ -472,11 +461,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         final DateTime activityDate = new DateTime();
         int week = activityDate.getWeekOfWeekyear();
         String headerText;
-        //Log.e("asd", "mWeeks: " + mWeeks[position] + " " + " jodaweek: " + week);
-        if (Integer.valueOf(mWeeks[position]) <= Integer.valueOf(week)) {
-            headerText = "Vecka " + mWeeks[position];
-        } else {
-            headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+        if (Integer.valueOf(mWeeks[position]) <= Integer.valueOf(week))
+        {
+             headerText = "Vecka " + mWeeks[position];
+        }
+        else{
+             headerText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK)-1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
         }
 
         holder.text.setText(headerText);
@@ -531,5 +521,22 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private class HeaderViewHolder
     {
         TextView text;
+    }
+
+    public boolean realmExists(android.app.Activity activity)
+    {
+        int realmObjects = 0;
+        Realm realm = Realm.getInstance(activity);
+        realmObjects = realm.allObjects(Activity.class).size();
+        realm.close();
+
+        if(realmObjects <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

@@ -54,12 +54,10 @@ public class StorageHandler
         }
         week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
         for (int i = 0; i < myActivities.size(); i++) {
-            Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
             DateTime joda = new DateTime(myActivities.get(i).getDate());
 
             if(joda.getWeekOfWeekyear() != week){
                 weekPosition.put(joda.getWeekOfWeekyear(), i);
-                Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()+1));
                 week = joda.getWeekOfWeekyear();
             }
             if(joda.getWeekOfWeekyear() == week){

@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -45,6 +46,11 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
+
+    public static HashMap<String, YMCA> markers = new HashMap<>();
+    public static HashMap<String,String> urls = new HashMap<>();
+
+    private static HashMap<String,LatLng> markers2 = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
     //public static int[] weekPosition = new int[53];
@@ -58,7 +64,6 @@ public class APIResponseHandler
         realm = Realm.getInstance(activity);
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
-        activityNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
     }
 
@@ -66,13 +71,13 @@ public class APIResponseHandler
     {
         getCenterNames();
 
-
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
             @Override
             public void onCompleted(Exception e, JsonObject result)
             {
-                if (e == null) {
+                if (e == null)
+                {
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
                     for (JsonElement element : jsonArray)
@@ -82,10 +87,13 @@ public class APIResponseHandler
 
                     int x = myActivities.size();
                     int y;
-                    for (int m = x; m >= 0; m--) {
-                        for (int i = 0; i < x - 1; i++) {
+                    for (int m = x; m >= 0; m--)
+                    {
+                        for (int i = 0; i < x - 1; i++)
+                        {
                             y = i + 1;
-                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime()) {
+                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
+                            {
                                 Activity temp;
                                 temp = myActivities.get(i);
                                 myActivities.set(i, myActivities.get(y));
@@ -94,29 +102,29 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-                    for (int i = 0; i < myActivities.size(); i++) {
-                        //Log.i(TAG, "date" + i + ": " + myActivities.get(i).getDate().toString());
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    for (int i = 0; i < myActivities.size(); i++)
+                    {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-                        if(joda.getWeekOfWeekyear() != week){
+                        if (joda.getWeekOfWeekyear() != week)
+                        {
                             weekPosition.put(joda.getWeekOfWeekyear(), i);
-                            //Log.e("DENNA VECKAN: ", String.valueOf(joda.getWeekOfWeekyear()+1));
                             week = joda.getWeekOfWeekyear();
                         }
-                        if(joda.getWeekOfWeekyear() == week){
-                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear()+1)){
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear()+1);
-                                value = value+1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1, value);
-                            }else{
-                                activitesPerWeek.put(joda.getWeekOfWeekyear()+1,1);
+                        if (joda.getWeekOfWeekyear() == week)
+                        {
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            {
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                value = value + 1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                            } else
+                            {
+                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
                             }
                         }
                     }
-                    Log.e("After for", "After for" + myActivities.size());
-
-                    //Visa data fr ion
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
                 } else {
@@ -199,11 +207,11 @@ public class APIResponseHandler
         int positionInQueue = object.get("positionInQueue").getAsInt();
         realmBooking.setPositionInQueue(positionInQueue);
 
-        realm.commitTransaction();
         if(centerNamesMap.containsKey(center)){
             center = centerNamesMap.get(center);
         }
 
+        realm.commitTransaction();
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
@@ -269,11 +277,12 @@ public class APIResponseHandler
         return new Klass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
     }
 
-    private void getCenterNames()
+    public void getCenterNames()
     {
         try
         {
             JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
+            Log.e("Result", "Result: " + result);
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
@@ -301,15 +310,18 @@ public class APIResponseHandler
                 realmCenter.setFilterId(filterId);
                 Boolean isElixia = center.get("isElixia").getAsBoolean();
                 realmCenter.setIsElixia(isElixia);
-                long lati = center.get("lat").getAsLong();
+                double lati = center.get("lat").getAsDouble();
                 realmCenter.setLati(lati);
-                long longi = center.get("long").getAsLong();
+                double longi = center.get("long").getAsDouble();
                 realmCenter.setLongi(longi);
                 int regionId = center.get("regionId").getAsInt();
                 realmCenter.setRegionId(regionId);
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
+                LatLng kord = new LatLng(lati, longi);
+                markers.put(centerName, new YMCA(url, kord));
+                urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
@@ -323,24 +335,6 @@ public class APIResponseHandler
         }
     }
 
-    public String getActivityName(String subType)
-    {
-        String name = "No name";
-        try {
-            JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
-            name = result.get("name").getAsString();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            Log.e(TAG, "Could not get type");
-            //e.printStackTrace();
-            return "No name";
-        }
-
-        return name;
-    }
-
     public ArrayList<ClassType> getClassTypes()
     {
         try {
@@ -350,7 +344,6 @@ public class APIResponseHandler
 
                 classTypes.add(getClassTypeObj(element));
             }
-            Log.e(TAG, "ClassTypes size" + classTypes.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -397,6 +390,59 @@ public class APIResponseHandler
     {
         myActivities.clear();
         getAllActivities(listView);
+    }
+
+    public void getCenterLocations()
+    {
+        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (e == null) {
+                    JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
+                    JsonArray jsonCentersArray = new JsonArray();
+                    for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                        JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
+
+                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
+                    }
+
+                    for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                        JsonObject center = centerElement.getAsJsonObject();
+                        String centerId = center.get("id").getAsString();
+                        String centerName = center.get("name").getAsString();
+                        double lati = center.get("lat").getAsDouble();
+                        double longi = center.get("long").getAsDouble();
+                        LatLng kord = new LatLng(lati, longi);
+
+                        markers2.put(centerName, kord);
+
+
+                        centerNamesMap.put(centerId, centerName);
+                    }
+                } else {
+                    Log.e("Info", "Could not get center names");
+                }
+            }
+        });
+    }
+
+    public HashMap<String, LatLng> getMarkers() {
+        return markers2;
+    }
+
+    public String getActivityName(String subType)
+    {
+        String name = "No name";
+        try {
+            JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
+            name = result.get("name").getAsString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            return "No name";
+        }
+
+        return name;
     }
 
 }

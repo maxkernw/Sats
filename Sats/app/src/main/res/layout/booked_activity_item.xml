@@ -135,7 +135,7 @@
                     android:id="@+id/center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hämta center"
+                    android:text="Kunde inte hämta center ..."
                     android:textColor="@color/secondary_color"
                     android:typeface="normal"
                     android:textSize="12dp" />
@@ -144,7 +144,7 @@
                     android:id="@+id/instructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Majsan Lind"
+                    android:text="Kunde inte hämta instruktör ..."
                     android:textColor="@color/secondary_color"
                     android:textSize="12dp" />
             </LinearLayout>

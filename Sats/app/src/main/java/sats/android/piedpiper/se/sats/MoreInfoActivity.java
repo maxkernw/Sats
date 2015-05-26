@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -17,11 +22,14 @@ import static sats.android.piedpiper.se.sats.R.layout.my_training_listview;
 
 public class MoreInfoActivity extends Activity
 {
+    private WebView videoUrlV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.class_info_view);
+        Log.i("ACTIVITETEN", "Create !!!!!");
 
         Intent intent= getIntent();
         String classtypeId = intent.getStringExtra("classTypeId");
@@ -36,7 +44,6 @@ public class MoreInfoActivity extends Activity
             }
         }
 
-        //TODO set&get video
 
         TextView classTitle = (TextView) findViewById(R.id.class_name);
         TextView duration = (TextView) findViewById(R.id.class_duration_time);
@@ -47,6 +54,14 @@ public class MoreInfoActivity extends Activity
         TextView dateStartTime = (TextView) findViewById(R.id.date);
         TextView instructor = (TextView) findViewById(R.id.instructor);
         TextView description = (TextView) findViewById(R.id.class_information);
+
+        videoUrlV = (WebView) findViewById(R.id.VideoURL);
+
+        videoUrlV.getSettings().setJavaScriptEnabled(true);
+
+        videoUrlV.getSettings().setPluginState(WebSettings.PluginState.ON);
+        videoUrlV.loadUrl(classTypeObj.videoURL);
+        videoUrlV.setWebChromeClient(new WebChromeClient());
 
         ProgressBar kondition = (ProgressBar) findViewById(R.id.fitness_progress);
         ProgressBar strength = (ProgressBar) findViewById(R.id.strength_progress);
@@ -78,4 +93,13 @@ public class MoreInfoActivity extends Activity
         //visa classType i layout
 
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        videoUrlV.getSettings().setJavaScriptEnabled(false);
+    }
+
+
 }
