@@ -143,7 +143,6 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 classTypeObj = classType;
             }
         }
-        //videoUrlV.loadVideo(classTypeObj.videoURL);
         youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
     }
 
