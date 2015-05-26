@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
@@ -59,6 +61,7 @@ public class APIResponseHandler
     public APIResponseHandler(android.app.Activity activity)
     {
         this.activity = activity;
+        realm = Realm.getInstance(activity);
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
@@ -66,13 +69,10 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Realm.deleteRealmFile(activity.getApplicationContext());
-        realm = Realm.getInstance(activity.getApplicationContext());
         getCenterNames();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
-
             @Override
             public void onCompleted(Exception e, JsonObject result)
             {
@@ -127,10 +127,7 @@ public class APIResponseHandler
                     }
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
-                    realm.close();
-
-                } else
-                {
+                } else {
                     Log.e(TAG, "Could not get activities!");
                     e.printStackTrace();
                 }
@@ -173,7 +170,6 @@ public class APIResponseHandler
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
-
         String newSubType = getActivityName(subType);
         if(!newSubType.equals("No name")){
             subType = newSubType;
@@ -181,6 +177,7 @@ public class APIResponseHandler
         realmActivity.setSubType(subType);
 
         realm.commitTransaction();
+
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
@@ -190,7 +187,6 @@ public class APIResponseHandler
 
             realmActivity.getBookings().add(bookings.first());
         }
-
 
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
     }
@@ -219,7 +215,6 @@ public class APIResponseHandler
         if(hasClass){
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
-
             RealmResults<Klass> classes = realm.where(Klass.class)
                     .equalTo("id", myClass.getId())
                     .findAll();
@@ -302,7 +297,9 @@ public class APIResponseHandler
 
                 JsonObject center = centerElement.getAsJsonObject();
                 int centerId = center.get("id").getAsInt();
-                realmCenter.setId(centerId);
+                if(realmCenter.getId() == 0){
+                    realmCenter.setId(centerId);
+                }
                 String centerName = center.get("name").getAsString();
                 realmCenter.setName(centerName);
                 Boolean availableForOnlineBooking = center.get("availableForOnlineBooking").getAsBoolean();
@@ -340,18 +337,16 @@ public class APIResponseHandler
 
     public ArrayList<ClassType> getClassTypes()
     {
-        try
-        {
+        try {
             JsonObject result = Ion.with(activity).load(classTypesURL).asJsonObject().get();
             JsonArray jsonArray = result.getAsJsonArray("classTypes");
             for (JsonElement element : jsonArray) {
+
                 classTypes.add(getClassTypeObj(element));
             }
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        catch (ExecutionException e) {
+        } catch (ExecutionException e) {
             Log.e(TAG, "Could not get ClassTypes");
             e.printStackTrace();
         }
@@ -391,7 +386,7 @@ public class APIResponseHandler
         return profileArray;
     }
 
-    public void clear(final StickyListHeadersListView listView)
+    public void clear(final StickyListHeadersListView listView, Realm realm)
     {
         myActivities.clear();
         getAllActivities(listView);
@@ -441,17 +436,13 @@ public class APIResponseHandler
         try {
             JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
             name = result.get("name").getAsString();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            Log.e(TAG, "Could not get type");
-            //e.printStackTrace();
             return "No name";
         }
 
         return name;
     }
-
 
 }

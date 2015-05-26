@@ -60,4 +60,8 @@ public class ClassType {
         return stats.get(index).value;
     }
 
+    public ArrayList<Profile> getProfile(){
+        return stats;
+    }
+
 }
