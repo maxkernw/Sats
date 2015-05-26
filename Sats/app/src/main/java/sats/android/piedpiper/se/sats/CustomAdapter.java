@@ -327,7 +327,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                     Intent moreInfo = new Intent(CustomAdapter.this.activity, MoreInfoActivity.class);
 
                     moreInfo.putExtra("classTypeId", bookedActivityObj.getBookings().first().getKlasses().first().getClassTypeId());
-
                     moreInfo.putExtra("instructor", bookedActivityObj.getBookings().first().getKlasses().first().getInstructorId());
                     moreInfo.putExtra("duration", bookedActivityObj.getBookings().first().getKlasses().first().getDurationInMinutes());
                     moreInfo.putExtra("numberAttending", bookedActivityObj.getBookings().first().getKlasses().first().getBookedPersonsCount());
