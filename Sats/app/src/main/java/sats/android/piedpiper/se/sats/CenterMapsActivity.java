@@ -127,7 +127,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 {
                     //setContentView(webView);
                     WebView webview = new WebView(CenterMapsActivity.this);
-                    
+
 
                     webview.loadUrl(markers.get(marker.getTitle()).url);
 
