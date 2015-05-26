@@ -81,7 +81,7 @@ public class MoreInfoActivity extends Activity
             maxBookedPersons.setText(intent.getStringExtra("maxAttending"));
 
             center.setText(intent.getStringExtra("centerName"));
-            dateStartTime.setText(intent.getStringExtra("startTime"));
+            dateStartTime.setText(intent.getStringExtra("startTime")); //todo formatera date
             instructor.setText(intent.getStringExtra("instructor"));
 
             description.setText(classTypeObj.getDescription());

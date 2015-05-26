@@ -332,7 +332,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         }else{
                             Toast.makeText(activity, "Kan inte hitta class",
@@ -356,7 +356,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         }else{
                             Toast.makeText(activity, "Kan inte hitta class",
