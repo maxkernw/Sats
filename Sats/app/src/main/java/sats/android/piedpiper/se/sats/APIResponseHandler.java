@@ -62,8 +62,6 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        Realm.deleteRealmFile(activity.getApplicationContext());
-        realm = Realm.getInstance(activity.getApplicationContext());
         getCenterNames();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
@@ -113,9 +111,6 @@ public class APIResponseHandler
                         }
                     }
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
-
-                    realm.close();
-
                 } else {
                     Log.e(TAG, "Could not get activities!");
                     e.printStackTrace();

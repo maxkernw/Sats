@@ -262,9 +262,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
-/*
-        final Activity bookedActivityObj = (Activity) getItem(position);
-*/
 
         final Activity bookedActivityObj = trainingList.get(position);
 
