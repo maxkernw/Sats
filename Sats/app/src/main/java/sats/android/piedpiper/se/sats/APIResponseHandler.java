@@ -38,12 +38,12 @@ public class APIResponseHandler
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
-    public static final String activityTypesURL = "http://80.217.172.201:8080/sats/se/training/activities/types";
+    public static final String activityTypesURL = "http://80.217.172.201:8080/sats/se/training/activities/";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
-    private HashMap<String, String> activityNamesMap;
+g    private HashMap<String, String> activityNamesMap;
 
     public static HashMap<String, YMCA> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
@@ -61,7 +61,6 @@ public class APIResponseHandler
         this.activity = activity;
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
-        activityNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
     }
 
@@ -70,7 +69,6 @@ public class APIResponseHandler
         Realm.deleteRealmFile(activity.getApplicationContext());
         realm = Realm.getInstance(activity.getApplicationContext());
         getCenterNames();
-        getActivityName();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
@@ -176,13 +174,12 @@ public class APIResponseHandler
             Log.e(TAG, "Could not parse dateString from json to date");
         }
 
-        if(activityNamesMap.containsKey(subType)){
-            subType = activityNamesMap.get(subType);
+        String newSubType = getActivityName(subType);
+        if(!newSubType.equals("No name")){
+            subType = newSubType;
         }
-        if(subType.equals("gym")){
-            subType = "Styrketräning";
-            realmActivity.setSubType(subType);
-        }
+        realmActivity.setSubType(subType);
+
         realm.commitTransaction();
         if(hasBooking){
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
@@ -341,30 +338,6 @@ public class APIResponseHandler
         }
     }
 
-    public HashMap<String, String> getActivityName()
-    {
-        try {
-            JsonObject result = Ion.with(activity).load(activityTypesURL).asJsonObject().get();
-            JsonArray jsonArray = result.getAsJsonArray("Types");
-
-            for (JsonElement element : jsonArray){
-                JsonObject object = element.getAsJsonObject();
-                String subType = object.get("subType").getAsString(); //kan behöva ändras tyill sub_type
-                String name = object.get("name").getAsString();
-
-                activityNamesMap.put(subType, name);
-            }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            Log.e(TAG, "Could not get types");
-            e.printStackTrace();
-        }
-
-        return activityNamesMap;
-    }
-
     public ArrayList<ClassType> getClassTypes()
     {
         try
@@ -458,7 +431,27 @@ public class APIResponseHandler
         });
     }
 
-    public HashMap<String, LatLng> getMarkers(){
+    public HashMap<String, LatLng> getMarkers() {
         return markers2;
     }
+
+    public String getActivityName(String subType)
+    {
+        String name = "No name";
+        try {
+            JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
+            name = result.get("name").getAsString();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Log.e(TAG, "Could not get type");
+            //e.printStackTrace();
+            return "No name";
+        }
+
+        return name;
+    }
+
+
 }
