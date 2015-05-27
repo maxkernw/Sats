@@ -202,4 +202,7 @@ public class ViewPagerAdapter extends PagerAdapter
             return false;
         }
     }
+    public int getItemPosition(Object object){
+        return POSITION_NONE;
+    }
 }
