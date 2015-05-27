@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.handlers;
 
 import android.util.Log;
 
@@ -15,15 +15,16 @@ import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
+import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
+import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
@@ -46,7 +47,6 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
 
-    public static HashMap<String, YMCA> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
 
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
@@ -109,29 +109,26 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
-                    for (int i = 0; i < myActivities.size(); i++)
-                    {
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
+                    for (int i = 0; i < myActivities.size(); i++) {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-                        if (joda.getWeekOfWeekyear() != week)
-                        {
+                        if(joda.getWeekOfWeekyear() != week){
                             weekPosition.put(joda.getWeekOfWeekyear(), i);
                             week = joda.getWeekOfWeekyear();
                         }
-                        if (joda.getWeekOfWeekyear() == week)
-                        {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
-                            {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
-                                value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
-                            } else
-                            {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
+                        if(joda.getWeekOfWeekyear() == week){
+                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                                value = value+1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                            }else{
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
                             }
                         }
                     }
+
+                    MainActivity.graphAdapter.notifyDataSetChanged();
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
                 } else
@@ -325,8 +322,7 @@ public class APIResponseHandler
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
-                LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, new YMCA(url, kord));
+                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
@@ -435,10 +431,6 @@ public class APIResponseHandler
                 }
             }
         });
-    }
-
-    public HashMap<String, LatLng> getMarkers() {
-        return markers2;
     }
 
     public String getActivityName(String subType)

@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.adapters;
 
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.youtube.player.internal.ac;
-
 import io.realm.Realm;
+import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
+import sats.android.piedpiper.se.sats.MyView;
+import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.models.Activity;
 
 public class ViewPagerAdapter extends PagerAdapter
@@ -60,7 +63,6 @@ public class ViewPagerAdapter extends PagerAdapter
         int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear();
 
         week.setGravity(Gravity.CENTER);
-        //Log.e("pos", "Position in viewpager: " + position);
         views.addView(week);
 
         MyView text;
@@ -87,8 +89,6 @@ public class ViewPagerAdapter extends PagerAdapter
         }
         else
         {
-            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
-            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = APIResponseHandler.activitesPerWeek.get(thisWeek);
             }else{
@@ -196,5 +196,8 @@ public class ViewPagerAdapter extends PagerAdapter
         {
             return false;
         }
+    }
+    public int getItemPosition(Object object){
+        return POSITION_NONE;
     }
 }

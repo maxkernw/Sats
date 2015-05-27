@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats.storage;
+package sats.android.piedpiper.se.sats.handlers;
 
 
 import android.util.Log;
@@ -12,7 +12,6 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.Profile;
 
