@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
@@ -35,7 +30,6 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     public static ViewPagerAdapter graphAdapter;
-
     //public static DateTime startTime = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
     //public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
 
@@ -43,11 +37,9 @@ public class MainActivity extends ActionBarActivity
     public static DateTime today = new DateTime().withDate(2015, 4, 7);
     
     public StickyListHeadersListView listView;
-
     public static int pos;
     //private Date date = startTime.toDate();
     private Date todaydate = today.toDate();
-
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
@@ -64,33 +56,25 @@ public class MainActivity extends ActionBarActivity
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final ImageView findCenter = (ImageView) findViewById(R.id.map_marker);
         graph = (ViewPager) findViewById(R.id.graph);
-
         activity = this;
 
-        //efter
-
-        //Tom lista
         ArrayList<Activity> activitiesList = new ArrayList<>();
-        //Starta en ny realm instance
         final Realm realm = Realm.getInstance(this);
-        //Load data
         RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
 
-        //Behövs ion?
         if(realmActivities.size() == 0){ //om realm inte har data men mst kolla om uppdaterat?
-            //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
-            //visat data
-        }else {
+        }
+        else
+        {
             StorageHandler sh = new StorageHandler(activity);
             sh.getAllActivities(listView);
 
-            //Convertera data
-            for (Activity activity : realmActivities){
+            for (Activity activity : realmActivities)
+            {
                 activitiesList.add(activity);
             }
-            //Sortera data
             int x = activitiesList.size();
             int y;
             for (int m = x; m >= 0; m--) {
@@ -105,15 +89,12 @@ public class MainActivity extends ActionBarActivity
                 }
             }
             realm.close();
-            //Visa lista & data
             listView.setAdapter(new CustomAdapter(activity, activitiesList));
         }
 
-        //efter
-
         leftMarker = new ImageView(activity);
         leftMarker.setImageResource(R.drawable.back_to_now_right);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainRelative);
+        RelativeLayout rlLeft = (RelativeLayout) findViewById(R.id.mainRelative);
         final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -124,11 +105,11 @@ public class MainActivity extends ActionBarActivity
         leftMarker.setX(26);
         leftMarker.setY(-19);
         leftMarker.setVisibility(View.INVISIBLE);
-        rl.addView(leftMarker, lp);
+        rlLeft.addView(leftMarker, lp);
 
         rightMarker = new ImageView(activity);
         rightMarker.setImageResource(R.drawable.back_to_now_left);
-        RelativeLayout rl2 = (RelativeLayout) findViewById(R.id.mainRelative);
+        RelativeLayout rlRight = (RelativeLayout) findViewById(R.id.mainRelative);
         final RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -139,7 +120,7 @@ public class MainActivity extends ActionBarActivity
         rightMarker.setX(-20);
         rightMarker.setY(-19);
         rightMarker.setVisibility(View.INVISIBLE);
-        rl2.addView(rightMarker, lp2);
+        rlRight.addView(rightMarker, lp2);
 
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         graphAdapter = new ViewPagerAdapter(activity);
@@ -148,8 +129,6 @@ public class MainActivity extends ActionBarActivity
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
-            //final StickyListHeadersListView listView = (StickyListHeadersListView) findViewById(R.id.listan);
-
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -189,18 +168,19 @@ public class MainActivity extends ActionBarActivity
             {
                 int thePosition = position+3;
 
-                Log.e("mainAc","position: " + String.valueOf(thePosition));
-
-                if(APIResponseHandler.activitesPerWeek.size() == 0){
+                if(APIResponseHandler.activitesPerWeek.size() == 0)
+                {
                     if(StorageHandler.weekPosition.containsKey(thePosition)){
                         listView.smoothScrollToPosition(StorageHandler.weekPosition.get(thePosition));
                     }
-                }else{
-                    if(APIResponseHandler.weekPosition.containsKey(thePosition)){
+                }
+                else
+                {
+                    if(APIResponseHandler.weekPosition.containsKey(thePosition))
+                    {
                         listView.smoothScrollToPosition(APIResponseHandler.weekPosition.get(thePosition));
                     }
                 }
-
             }
 
             @Override
@@ -208,8 +188,6 @@ public class MainActivity extends ActionBarActivity
 
             }
         });
-
-        activity = this;
 
         slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
         {
@@ -245,8 +223,6 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        //kod innan
-
         im.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -266,10 +242,8 @@ public class MainActivity extends ActionBarActivity
             {
                 TextView txt = (TextView) findViewById(R.id.date_header);
 
-
                 if (todaydate.after(CustomAdapter.trainingList.get(i).getDate()))
                 {
-
                     statusText.setText("TIDIGARE TRÄNING");
 
                 } else
@@ -286,7 +260,6 @@ public class MainActivity extends ActionBarActivity
             {
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 MainActivity.this.activity.startActivity(moreInfo, null);
-
             }
         });
     }
