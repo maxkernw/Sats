@@ -67,7 +67,7 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        if(realm == null)
+        if(realm != null)
         {
             Realm.deleteRealmFile(activity);
         }
@@ -119,14 +119,14 @@ public class APIResponseHandler
                         }
                         if (joda.getWeekOfWeekyear() == week)
                         {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
                             {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
                                 value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
                             } else
                             {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                             }
                         }
                     }

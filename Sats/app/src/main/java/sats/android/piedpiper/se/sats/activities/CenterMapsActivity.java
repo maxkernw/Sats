@@ -120,10 +120,10 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     @Override
     public void onConnected(Bundle bundle)
     {
-        Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
-        Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
-        longitude = loc.getLongitude();
-        latitude = loc.getLatitude();
+//        Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
+//        Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
+//        longitude = loc.getLongitude();
+//        latitude = loc.getLatitude();
     }
 
     @Override
