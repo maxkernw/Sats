@@ -1,30 +1,22 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 
+import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.Profile;
-
-import static sats.android.piedpiper.se.sats.R.layout.class_info_view;
-import static sats.android.piedpiper.se.sats.R.layout.my_training_listview;
 
 public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener
 {
@@ -150,7 +142,14 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 classTypeObj = classType;
             }
         }
-        youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+        if(classTypeObj.getName().contains("Hot MOJO®")){
+            youTubePlayer.loadVideo("QWzlBfhE-qw");
+        }
+        else
+        {
+            Log.e("Class", "Class: " + classTypeObj.getName());
+            youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+        }
     }
 
     @Override
