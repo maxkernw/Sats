@@ -350,7 +350,27 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
+                            //moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
+
+                            Date dateFromObject = classObj.getStartTime();
+                            //DateTime startTime = new DateTime(dateFromObject);
+                            mCalendar.setTime(dateFromObject);
+
+                            int month = mCalendar.get(Calendar.MONTH);
+                            //String dateText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.DAY_OF_MONTH)];
+
+                            int day = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+                            int dayinweek = (day+7)%7;
+                            String dateText = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+
+
+                            moreInfo.putExtra("startTime", dateText);
+
+//                            String dayText = swedish_days[startTime.getDayOfWeek()];
+//                            int day = startTime.getDayOfWeek();
+//                            String monthText = swedish_months[startTime.getMonthOfYear()];
+
+                            //moreInfo.putExtra("startTime", dayText + " " + String.valueOf(day) + " " + monthText);
 
                         }
 
@@ -380,7 +400,25 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
+
+                            Date dateFromObject = classObj.getStartTime();
+                            //DateTime startTime = new DateTime(dateFromObject);
+
+                            mCalendar.setTime(dateFromObject);
+
+                            int month = mCalendar.get(Calendar.MONTH);
+                            //String dateText = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.DAY_OF_MONTH)];
+                            int day = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+                            int dayinweek = (day+7)%7;
+                            String dateText = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+
+                            moreInfo.putExtra("startTime", dateText);
+
+//                            String dayText = swedish_days[startTime.getDayOfWeek()];
+//                            int day = startTime.getDayOfWeek();
+//                            String monthText = swedish_months[startTime.getMonthOfYear()];
+
+                            //moreInfo.putExtra("startTime", dayText + " " + String.valueOf(day) + " " + monthText);
 
                         }
                         else
