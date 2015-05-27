@@ -5,7 +5,10 @@ import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -28,6 +31,8 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     private View mGhost;
     public static double longitude;
     public static double latitude;
+    private TextView txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,11 +77,36 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             final String center = entry.getKey();
             final CenterInfo why = entry.getValue();
             LatLng coords = new LatLng(why.getLati(), why.getLongi());
+            map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+            {
+                @Override
+                public View getInfoWindow(Marker marker)
+                {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker)
+                {
+                    View v = getLayoutInflater().inflate(R.layout.info_window_map, null);
+                    txt = (TextView) v.findViewById(R.id.text_map);
+                    txt.setText("SATS " + marker.getTitle());
+
+                    return v;
+                }
+            });
+
+
+
+
 
             map.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.sats_pin_small))
                             .position(coords).title(center).flat(true)
             );
+
+
+
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
             {
                 @Override
