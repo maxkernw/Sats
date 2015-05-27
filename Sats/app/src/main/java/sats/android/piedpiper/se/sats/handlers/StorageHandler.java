@@ -24,7 +24,7 @@ public class StorageHandler
     private static final String TAG = "StorageHandler";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
-    private HashMap<String, String> centerNamesMap;
+    public static HashMap<String, String> centerNamesMap;
     private static Realm realm;
     public static int week = 0;
     public static HashMap<Integer, Integer> weekPosition = new HashMap<>();

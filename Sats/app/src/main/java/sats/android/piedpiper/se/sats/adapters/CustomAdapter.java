@@ -23,6 +23,7 @@ import sats.android.piedpiper.se.sats.adapters.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.OwnActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
@@ -336,7 +337,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
                             moreInfo.putExtra("instructor", classObj.getInstructorId());
                             //moreInfo.putExtra("centerName", finalCenterName);
-                            moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
+                            if(APIResponseHandler.activitesPerWeek.size() != 0){
+                                moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
+                            }else{
+                                moreInfo.putExtra("centerName", StorageHandler.centerNamesMap.get(classObj.getCenterId()));
+                            }
+
 
                             moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
