@@ -35,7 +35,14 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         Intent intent= getIntent();
         String classtypeId = intent.getStringExtra("classTypeId");
 
+        APIResponseHandler h = new APIResponseHandler(this);
+        ArrayList<ClassType> types = h.getClassTypes();
         ClassType classTypeObj = null;
+        for (ClassType type : types) {
+            if(type.getId().equals(classtypeId)){
+                classTypeObj = type;
+            }
+        }
 
 
         TextView classTitle = (TextView) findViewById(R.id.class_name);
@@ -71,7 +78,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
             maxBookedPersons.setText(intent.getStringExtra("maxAttending"));
 
             center.setText(intent.getStringExtra("centerName"));
-            dateStartTime.setText(intent.getStringExtra("startTime"));
+            dateStartTime.setText(intent.getStringExtra("startTime")); //todo formatera date
             instructor.setText(intent.getStringExtra("instructor"));
 
             description.setText(classTypeObj.getDescription());

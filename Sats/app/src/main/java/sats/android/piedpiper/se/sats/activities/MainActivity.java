@@ -68,9 +68,9 @@ public class MainActivity extends ActionBarActivity
         final Realm realm = Realm.getInstance(this);
         //Load data
         RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
-        //Behövs ion?
 
-        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
+        //Behövs ion?
+        if(realmActivities.size() == 0){ //om realm inte har data men mst kolla om uppdaterat?
             //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
