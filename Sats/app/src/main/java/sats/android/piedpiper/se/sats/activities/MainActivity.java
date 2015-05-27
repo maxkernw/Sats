@@ -276,6 +276,8 @@ public class MainActivity extends ActionBarActivity
                 findCenter.startAnimation(animFade);
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 activity.startActivity(moreInfo, null);
+
+                //overridePendingTransition(R.anim.next_activity, R.anim.open_activity);
             }
         });
     }
