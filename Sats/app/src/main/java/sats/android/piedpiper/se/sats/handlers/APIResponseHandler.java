@@ -67,7 +67,7 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        if(realm == null)
+        if(realm != null)
         {
             Realm.deleteRealmFile(activity);
         }
