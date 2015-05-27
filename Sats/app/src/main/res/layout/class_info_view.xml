@@ -37,7 +37,8 @@
                     android:paddingRight="5dp"
                     android:text="Zumba"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp" />
 
                 <TextView
                     android:id="@+id/class_duration_time"
@@ -55,17 +56,20 @@
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/position_in_queue"
                     android:paddingTop="8dp"
-                    android:src="@drawable/people_icon"/>
+                    android:src="@drawable/people_icon"
+                    android:id="@+id/people" />
 
                 <TextView
                     android:id="@+id/position_in_queue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="25"
+                    android:text="0"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/pink"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:autoText="false" />
 
             </RelativeLayout>
 
