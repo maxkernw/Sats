@@ -34,9 +34,7 @@ public class CenterDetailView extends ActionBarActivity
             }
 
         });
-        web.loadUrl(CenterMapsActivity.markers.get(marker.getTitle()).url);
-
-
+        web.loadUrl(MainActivity.markers.get(marker.getTitle()).getUrl());
 
     }
 }

@@ -10,10 +10,12 @@ import java.util.HashMap;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
@@ -22,13 +24,11 @@ public class StorageHandler
     private static final String TAG = "StorageHandler";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
-    private HashMap<String, String> centerNamesMap;
+    public static HashMap<String, String> centerNamesMap;
     private static Realm realm;
-    //public static int[] weekPosition = new int[53];
     public static int week = 0;
-    //public static int[] activitesPerWeek = new int[53];
-    public static HashMap<Integer,Integer> weekPosition = new HashMap<>();
-    public static HashMap<Integer,Integer> activitesPerWeek = new HashMap<>();
+    public static HashMap<Integer, Integer> weekPosition = new HashMap<>();
+    public static HashMap<Integer, Integer> activitesPerWeek = new HashMap<>();
 
     public StorageHandler(android.app.Activity activity)
     {
@@ -41,7 +41,6 @@ public class StorageHandler
     public void getAllActivities(final StickyListHeadersListView listView)
     {
         RealmQuery<Activity> query = realm.where(Activity.class);
-
         RealmResults<Activity> result = query.findAll();
         result.sort("date");
         getCenterNames();
@@ -50,39 +49,46 @@ public class StorageHandler
         {
             myActivities.add(result.get(i));
         }
-        week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-        for (int i = 0; i < myActivities.size(); i++) {
+        week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+
+        for (int i = 0; i < myActivities.size(); i++)
+        {
             DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-            if(joda.getWeekOfWeekyear() != week){
+            if (joda.getWeekOfWeekyear() != week)
+            {
                 weekPosition.put(joda.getWeekOfWeekyear(), i);
                 week = joda.getWeekOfWeekyear();
             }
-            if(joda.getWeekOfWeekyear() == week){
-                if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear() +1)){
-                    int value = activitesPerWeek.get(joda.getWeekOfWeekyear() +1);
-                    value = value+1;
-                    activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
-                }else{
-                    activitesPerWeek.put(joda.getWeekOfWeekyear() + 1,1);
+            if (joda.getWeekOfWeekyear() == week)
+            {
+                if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
+                {
+                    int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                    value = value + 1;
+                    activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                }
+                else
+                {
+                    activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                 }
             }
         }
-        //Log.e("Storage", String.valueOf(myActivities));
         listView.setAdapter(new CustomAdapter(activity, myActivities));
+        realm.close();
     }
 
     private void getCenterNames()
     {
-        for(Booking booking : realm.where(Booking.class).findAll())
+        for (Booking booking : realm.where(Booking.class).findAll())
         {
-            for(Center center : realm.where(Center.class).findAll())
+            for (Center center : realm.where(Center.class).findAll())
             {
-                if(String.valueOf(center.getId()) == booking.getCenter())
-                {
-                    booking.setCenter(center.getName());
-                    Log.i(TAG, booking.getCenter());
-                }
+                String centerName = center.getName();
+                String url = center.getUrl();
+                double lati = center.getLati();
+                double longi = center.getLongi();
+                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
             }
         }
     }

@@ -1,15 +1,9 @@
 package sats.android.piedpiper.se.sats;
 
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.model.LatLng;
-
-import sats.android.piedpiper.se.sats.models.Activity;
 
 public class MyLocationListener implements LocationListener{
 
