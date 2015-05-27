@@ -92,6 +92,7 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
             }
+            realm.close();
             //Visa lista & data
             listView.setAdapter(new CustomAdapter(activity, activitiesList));
         }
@@ -235,8 +236,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
-                //APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                //responseHandler.clear(listView);
+                APIResponseHandler responseHandler = new APIResponseHandler(activity);
+
+                responseHandler.clear(listView);
 
             }
         });

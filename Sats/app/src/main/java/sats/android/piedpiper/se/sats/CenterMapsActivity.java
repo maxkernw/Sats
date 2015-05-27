@@ -52,8 +52,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     public static double longitude = 18.0785538;
     public static double latitude = 59.2937625;
 
-    //WebView webView = new WebView(this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,11 +76,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         setUpMapIfNeeded();
         gapi.connect();
 
-
-
-
-
-
     }
 
     @Override
@@ -101,14 +94,11 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 setUpMap();
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude) ,14) );
-
         }
     }
 
     private void setUpMap()
     {
-
-
         for (HashMap.Entry<String, YMCA> entry : markers.entrySet())
         {
             final String center = entry.getKey();
@@ -125,20 +115,12 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 {
                     //setContentView(webView);
                     WebView webview = new WebView(CenterMapsActivity.this);
-
-
                     webview.loadUrl(markers.get(marker.getTitle()).url);
-
 
                 }
             });
         }
-                map.setMyLocationEnabled(true);
-
-
-
-
-
+            map.setMyLocationEnabled(true);
     }
 
 
@@ -149,8 +131,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         //Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
         //longitude = loc.getLongitude();
         //latitude = loc.getLatitude();
-
-
     }
 
     @Override
@@ -164,8 +144,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     {
 
     }
-
-
 }
 
 
