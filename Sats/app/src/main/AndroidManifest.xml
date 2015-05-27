@@ -49,6 +49,10 @@
             android:name=".activities.CenterMapsActivity"
             android:label="@string/title_activity_center_maps" >
         </activity>
+        <activity
+            android:name=".activities.CenterDetailView"
+            android:label="@string/map_detail" >
+        </activity>
     </application>
 
 </manifest>

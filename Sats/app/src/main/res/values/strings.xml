@@ -5,4 +5,5 @@
     <string name="button_cancel">Avboka</string>
     <string name="details">Detaljer</string>
     <string name="title_activity_center_maps">Map</string>
+    <string name="map_detail">mapdetail</string>
 </resources>

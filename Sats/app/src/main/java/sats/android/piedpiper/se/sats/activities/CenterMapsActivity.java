@@ -1,5 +1,6 @@
 package sats.android.piedpiper.se.sats.activities;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 
 import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
 import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 
 
@@ -33,11 +35,12 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
 
     private GoogleMap map;
     private GoogleApiClient gapi ;
-    HashMap<String, CenterInfo> markers = new HashMap();
+    public static HashMap<String, CenterInfo> markers = new HashMap();
 
     private View mGhost;
     public static double longitude;
     public static double latitude;
+    private static android.app.Activity activity;
 
 
     @Override
@@ -100,8 +103,13 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 public void onInfoWindowClick(Marker marker)
                 {
                     //setContentView(webView);
-                    WebView webview = new WebView(CenterMapsActivity.this);
-                    webview.loadUrl(markers.get(marker.getTitle()).url);
+//                    WebView webview = new WebView(CenterMapsActivity.this);
+//                    webview.loadUrl(markers.get(marker.getTitle()).url);
+//
+                    CenterDetailView.setMarker(marker);
+
+                    Intent moreInfo = new Intent(CenterMapsActivity.this, CenterDetailView.class);
+                    CenterMapsActivity.this.startActivity(moreInfo, null);
 
                 }
             });

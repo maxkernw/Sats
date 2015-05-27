@@ -277,7 +277,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             if (bookedActivityObj.getBooking() != null)
             {
                 holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getPositionInQueue()));
                 holder.center.setText(bookedActivityObj.getBooking().getCenter());
                 if (bookedActivityObj.getBooking().getPositionInQueue() == 0) {
                     RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
@@ -301,7 +301,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 }
 
                 holder.instructor.setText(realmClass.getInstructorId());
-                holder.participants.setText(String.valueOf(realmClass.getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(realmBooking.getPositionInQueue()));
                 holder.center.setText(centerName);
 
                 if (realmBooking.getPositionInQueue() == 0) {
