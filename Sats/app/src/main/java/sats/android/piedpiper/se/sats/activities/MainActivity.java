@@ -18,6 +18,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -27,6 +28,7 @@ import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
@@ -45,6 +47,7 @@ public class MainActivity extends ActionBarActivity
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
+    public static HashMap<String, CenterInfo> markers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -204,30 +207,36 @@ public class MainActivity extends ActionBarActivity
 
         activity = this;
 
-        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+        {
             @Override
-            public void onPanelSlide(View view, float v) {
+            public void onPanelSlide(View view, float v)
+            {
 
             }
 
             @Override
-            public void onPanelCollapsed(View view) {
+            public void onPanelCollapsed(View view)
+            {
 
             }
 
             @Override
-            public void onPanelExpanded(View view) {
+            public void onPanelExpanded(View view)
+            {
                 rightMarker.setVisibility(View.INVISIBLE);
                 leftMarker.setVisibility(View.INVISIBLE);
             }
 
             @Override
-            public void onPanelAnchored(View view) {
+            public void onPanelAnchored(View view)
+            {
 
             }
 
             @Override
-            public void onPanelHidden(View view) {
+            public void onPanelHidden(View view)
+            {
 
             }
         });

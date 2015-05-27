@@ -48,7 +48,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center_maps);
-        APIResponseHandler handler = new APIResponseHandler(this);
         Location location = new Location("My location");
         mGhost = new View(this);
         mGhost.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
@@ -56,7 +55,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         gapi = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
         gapi.connect();
-        markers = handler.markers;
+        markers = MainActivity.markers;
         Log.e("Log", "Markers: " + markers.size());
         //handler.getCenterLocations();
 
@@ -92,10 +91,11 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         {
             final String center = entry.getKey();
             final CenterInfo why = entry.getValue();
+            LatLng coords = new LatLng(why.getLati(), why.getLongi());
 
             map.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.sats_pin_small))
-                            .position(why.coords).title(center).flat(true)
+                            .position(coords).title(center).flat(true)
             );
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
             {

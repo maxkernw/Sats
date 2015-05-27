@@ -48,7 +48,6 @@ public class APIResponseHandler
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
 
-    public static HashMap<String, CenterInfo> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
 
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
@@ -347,8 +346,8 @@ public class APIResponseHandler
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
-                LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, new CenterInfo(url, kord));
+                Log.e("Innuti APIrespHand. ", "Med namnet: " + centerName);
+                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
