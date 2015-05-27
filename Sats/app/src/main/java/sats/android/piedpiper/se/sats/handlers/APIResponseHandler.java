@@ -8,9 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
 import org.joda.time.DateTime;
-
 import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,21 +16,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.activities.MainActivity;
-import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.ClassType;
-import sats.android.piedpiper.se.sats.models.Klass;
+import sats.android.piedpiper.se.sats.models.BookingClass;
 import sats.android.piedpiper.se.sats.models.Profile;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-
 
 public class APIResponseHandler
 {
@@ -47,16 +42,12 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
-
-    public static HashMap<String,String> urls = new HashMap<>();
-
-    private static HashMap<String,LatLng> markers2 = new HashMap<>();
+    public static HashMap<String, String> urls = new HashMap<>();
+    private static HashMap<String, LatLng> markers2 = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
-    //public static int[] weekPosition = new int[53];
-    //public static int[] activitesPerWeek = new int[53];
-    public static HashMap<Integer,Integer> weekPosition = new HashMap<>();
-    public static HashMap<Integer,Integer> activitesPerWeek = new HashMap<>();
+    public static HashMap<Integer, Integer> weekPosition = new HashMap<>();
+    public static HashMap<Integer, Integer> activitesPerWeek = new HashMap<>();
 
     public APIResponseHandler(android.app.Activity activity)
     {
@@ -68,7 +59,7 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        if(realm != null)
+        if (realm != null)
         {
             Realm.deleteRealmFile(activity);
         }
@@ -108,28 +99,7 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-                    for (int i = 0; i < myActivities.size(); i++) {
-                        DateTime joda = new DateTime(myActivities.get(i).getDate());
-
-                        if(joda.getWeekOfWeekyear() != week){
-                            weekPosition.put(joda.getWeekOfWeekyear(), i);
-                            week = joda.getWeekOfWeekyear();
-                        }
-                        if(joda.getWeekOfWeekyear() == week){
-                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
-                                value = value+1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
-                            }else{
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
-                            }
-                        }
-                    }
-
-                    MainActivity.graphAdapter.notifyDataSetChanged();
-
-                    /*week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
                     for (int i = 0; i < myActivities.size(); i++)
                     {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
@@ -151,8 +121,8 @@ public class APIResponseHandler
                                 activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                             }
                         }
-                    }*/
-                    Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
+                    }
+                    MainActivity.graphAdapter.notifyDataSetChanged();
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
                 } else
@@ -191,22 +161,25 @@ public class APIResponseHandler
         realmActivity.setDistanceInKm(distanceInKm);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
+        try
+        {
             date = format.parse(dateString);
             realmActivity.setDate(date);
-        } catch (ParseException e) {
+        } catch (ParseException e)
+        {
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
         String newSubType = getActivityName(subType);
-        if(!newSubType.equals("No name")){
+        if (!newSubType.equals("No name"))
+        {
             subType = newSubType;
         }
         realmActivity.setSubType(subType);
-
         realm.commitTransaction();
 
-        if(hasBooking){
+        if (hasBooking)
+        {
             JsonObject bookingJsonObj = object.get("booking").getAsJsonObject();
             booking = getBookingObj(bookingJsonObj);
             RealmResults<Booking> bookings = realm.where(Booking.class)
@@ -223,7 +196,7 @@ public class APIResponseHandler
         realm.beginTransaction();
         Booking realmBooking = realm.createObject(Booking.class);
 
-        Klass myClass = null;
+        BookingClass myClass = null;
         boolean hasClass = object.has("class");
         String status = object.get("status").getAsString();
         realmBooking.setStatus(status);
@@ -234,28 +207,30 @@ public class APIResponseHandler
         int positionInQueue = object.get("positionInQueue").getAsInt();
         realmBooking.setPositionInQueue(positionInQueue);
 
-        if(centerNamesMap.containsKey(center)){
+        if (centerNamesMap.containsKey(center))
+        {
             center = centerNamesMap.get(center);
         }
 
         realm.commitTransaction();
-        if(hasClass){
+        if (hasClass)
+        {
             JsonObject classJsonObj = object.get("class").getAsJsonObject();
             myClass = getClassObj(classJsonObj);
-            RealmResults<Klass> classes = realm.where(Klass.class)
+            RealmResults<BookingClass> classes = realm.where(BookingClass.class)
                     .equalTo("id", myClass.getId())
                     .findAll();
 
-            realmBooking.getKlasses().add(classes.first());
+            realmBooking.getBookingClasses().add(classes.first());
         }
 
         return new Booking(status, myClass, center, id, positionInQueue);
     }
 
-    private Klass getClassObj(JsonObject object)
+    private BookingClass getClassObj(JsonObject object)
     {
         realm.beginTransaction();
-        Klass realmClass = realm.createObject(Klass.class);
+        BookingClass realmClass = realm.createObject(BookingClass.class);
 
         Date startTime = null;
         ArrayList<Integer> classCategoryIds = new ArrayList<>();
@@ -282,10 +257,12 @@ public class APIResponseHandler
         realmClass.setWaitingListCount(waitingListCount);
         boolean hasCategoryIds = object.has("classCategoryIds");
 
-        if(hasCategoryIds){
+        if (hasCategoryIds)
+        {
             JsonArray categoryIds = object.get("classCategoryIds").getAsJsonArray();
 
-            for(int i = 0; i < categoryIds.size(); i++){
+            for (int i = 0; i < categoryIds.size(); i++)
+            {
                 int categoryId = categoryIds.get(i).getAsInt();
                 realmClass.getClassCategoryIds().add(categoryId);
                 classCategoryIds.add(categoryId);
@@ -293,15 +270,17 @@ public class APIResponseHandler
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
+        try
+        {
             startTime = format.parse(startTimeString);
             realmClass.setStartTime(startTime);
-        } catch (ParseException e) {
+        } catch (ParseException e)
+        {
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
         realm.commitTransaction();
-        return new Klass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
+        return new BookingClass(centerId, centerFilterId, classTypeId, durationInMinutes, id, instructorId, name, startTime, bookedPersonsCount, maxPersonsCount, waitingListCount, classCategoryIds);
     }
 
     public void getCenterNames()
@@ -313,18 +292,21 @@ public class APIResponseHandler
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
-            for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
-                JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
-                jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
+            for (JsonElement element : jsonRegionsArray)
+            {
+                JsonObject regionObject = element.getAsJsonObject();
+                jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray());
             }
 
-            for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+            for (JsonElement centerElement : jsonCentersArray)
+            {
                 realm.beginTransaction();
                 Center realmCenter = realm.createObject(Center.class);
 
                 JsonObject center = centerElement.getAsJsonObject();
                 int centerId = center.get("id").getAsInt();
-                if(realmCenter.getId() == 0){
+                if (realmCenter.getId() == 0)
+                {
                     realmCenter.setId(centerId);
                 }
                 String centerName = center.get("name").getAsString();
@@ -356,25 +338,27 @@ public class APIResponseHandler
         {
             e.printStackTrace();
         }
-        catch (ExecutionException e) {
-            Log.e(TAG, "Could not get center names");
+        catch (ExecutionException e)
+        {
             e.printStackTrace();
         }
     }
 
     public ArrayList<ClassType> getClassTypes()
     {
-        try {
+        try
+        {
             JsonObject result = Ion.with(activity).load(classTypesURL).asJsonObject().get();
             JsonArray jsonArray = result.getAsJsonArray("classTypes");
-            for (JsonElement element : jsonArray) {
-
+            for (JsonElement element : jsonArray)
+            {
                 classTypes.add(getClassTypeObj(element));
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            Log.e(TAG, "Could not get ClassTypes");
+        } catch (ExecutionException e)
+        {
             e.printStackTrace();
         }
 
@@ -391,7 +375,6 @@ public class APIResponseHandler
         String name = object.get("name").getAsString();
         String id = object.get("id").getAsString();
         JsonArray profileJsonObj = object.get("profile").getAsJsonArray();
-
         stats = getProfile(profileJsonObj);
 
         return new ClassType(description, id, name, stats, videoURL);
@@ -409,7 +392,6 @@ public class APIResponseHandler
 
             profileArray.add(new Profile(id, name, value));
         }
-
         return profileArray;
     }
 
@@ -431,51 +413,48 @@ public class APIResponseHandler
                     JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
                     JsonArray jsonCentersArray = new JsonArray();
                     for (JsonElement element : jsonRegionsArray)
-                    {   //loopar regions. för varje region
-                        JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
-
-                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
+                    {
+                        JsonObject regionObject = element.getAsJsonObject();
+                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray());
                     }
 
                     for (JsonElement centerElement : jsonCentersArray)
-                    {    //loopar centers
+                    {
                         JsonObject center = centerElement.getAsJsonObject();
                         String centerId = center.get("id").getAsString();
                         String centerName = center.get("name").getAsString();
                         double lati = center.get("lat").getAsDouble();
                         double longi = center.get("long").getAsDouble();
                         LatLng kord = new LatLng(lati, longi);
-
                         markers2.put(centerName, kord);
-
-
                         centerNamesMap.put(centerId, centerName);
                     }
-                } else
-                {
-                    Log.e("Info", "Could not get center names");
                 }
             }
         });
     }
 
-    public HashMap<String, LatLng> getMarkers() {
+    public HashMap<String, LatLng> getMarkers()
+    {
         return markers2;
     }
 
     public String getActivityName(String subType)
     {
         String name = "No name";
-        try {
+        try
+        {
             JsonObject result = Ion.with(activity).load(activityTypesURL + subType).asJsonObject().get();
             name = result.get("name").getAsString();
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             e.printStackTrace();
-        } catch (ExecutionException e) {
+        }
+        catch (ExecutionException e)
+        {
             return "No name";
         }
-
         return name;
     }
-
 }

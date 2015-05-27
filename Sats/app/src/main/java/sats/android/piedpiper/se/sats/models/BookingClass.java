@@ -9,7 +9,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
-public class Klass extends RealmObject
+public class BookingClass extends RealmObject
 {
     @PrimaryKey
     private String id;
@@ -20,14 +20,14 @@ public class Klass extends RealmObject
     @Ignore
     private ArrayList<Integer> classCategoryIds;
 
-    public Klass()
+    public BookingClass()
     {
     }
 
-    public Klass(String centerId, String centerFilterId, String classTypeId,
-                 int durationInMinutes, String id, String instructorId, String name,
-                 Date startTime, int bookedPersonsCount, int maxPersonsCount,
-                 int waitingListCount, ArrayList<Integer> classCategoryIds)
+    public BookingClass(String centerId, String centerFilterId, String classTypeId,
+                        int durationInMinutes, String id, String instructorId, String name,
+                        Date startTime, int bookedPersonsCount, int maxPersonsCount,
+                        int waitingListCount, ArrayList<Integer> classCategoryIds)
     {
         this.centerId = centerId;
         this.centerFilterId = centerFilterId;

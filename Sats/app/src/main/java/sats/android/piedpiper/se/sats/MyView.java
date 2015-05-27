@@ -1,27 +1,21 @@
 package sats.android.piedpiper.se.sats;
 
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.view.View;
 
 public class MyView extends View
 {
-
     Paint paint;
     final boolean filled;
     final int position;
     public static final int notFilledRadius = 30;
     public static final int filledRadius = 35;
     int radius;
-
     static int xPosition = 110;
-
     static int[] yPos = new int[]{411,373,298,226,150,73};
-
     int leftCell = 0, rightCell = 0;
 
     public MyView(Context context, final boolean filled, final int position, final int leftCell, final int rightCell)
@@ -104,7 +98,6 @@ public class MyView extends View
                 writeText(92, 80, "+5", canvas);
                 break;
         }
-
         super.onDraw(canvas);
     }
 
