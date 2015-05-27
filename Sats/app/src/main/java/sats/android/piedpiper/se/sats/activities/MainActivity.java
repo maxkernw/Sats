@@ -35,13 +35,17 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     public static ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
 
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
+    //public static DateTime startTime = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
+    //public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
+
+    public static DateTime startTime = new DateTime().withDate(2013,12,29);
+    public static DateTime today = new DateTime().withDate(2015, 4, 7);
+    
     public StickyListHeadersListView listView;
 
     public static int pos;
-    //private Date date = dateView.toDate();
+    //private Date date = startTime.toDate();
     private Date todaydate = today.toDate();
 
     private static android.app.Activity activity;
