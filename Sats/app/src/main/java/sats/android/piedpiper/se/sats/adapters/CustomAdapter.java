@@ -19,6 +19,7 @@ import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.activities.MainActivity;
 import sats.android.piedpiper.se.sats.activities.MoreInfoActivity;
 import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.adapters.holders.ActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.OwnActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.PreviousActivityHolder;
@@ -200,7 +201,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        OwnActivityHolder holder;
+        final OwnActivityHolder holder;
         holder = new OwnActivityHolder();
         newView = inflater.inflate(R.layout.own_activity_item, parent, false);
         holder.title = (TextView) newView.findViewById(R.id.own_activity_title);
@@ -214,7 +215,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        BookedActivityHolder holder;
+        final BookedActivityHolder holder;
         holder = new BookedActivityHolder();
         newView = inflater.inflate(R.layout.booked_activity_item, parent, false);
 
@@ -235,7 +236,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        PreviousActivityHolder holder;
+        final PreviousActivityHolder holder;
         holder = new PreviousActivityHolder();
         newView = inflater.inflate(R.layout.previous_training_item, parent, false);
         holder.title = (TextView) newView.findViewById(R.id.title);
@@ -248,7 +249,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupOwnActivity(View view, int position)
     {
-        OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
+        final OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
         Activity ownActivityObj = (Activity) getItem(position);
 
         holder.title.setText(ownActivityObj.getSubType());
@@ -257,7 +258,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupBookedActivity(View view, int position)
     {
-        BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
+        final BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
 
         final Activity bookedActivityObj = (Activity) getItem(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
@@ -337,12 +338,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                             moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
                             moreInfo.putExtra("instructor", classObj.getInstructorId());
-                            //moreInfo.putExtra("centerName", finalCenterName);
-                            if(APIResponseHandler.activitesPerWeek.size() != 0){
-                                moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
-                            }else{
-                                moreInfo.putExtra("centerName", StorageHandler.centerNamesMap.get(classObj.getCenterId()));
-                            }
+                            moreInfo.putExtra("centerName", holder.center.getText());
+//                            if(APIResponseHandler.activitesPerWeek.size() != 0){
+//                                moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
+//                            }else{
+//                                moreInfo.putExtra("centerName", StorageHandler.centerNamesMap.get(classObj.getCenterId()));
+//                            }
 
 
                             moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
@@ -368,7 +369,13 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                             moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
                             moreInfo.putExtra("instructor", classObj.getInstructorId());
-                            moreInfo.putExtra("centerName", finalCenterName);
+                            //moreInfo.putExtra("centerName", finalCenterName);
+                            moreInfo.putExtra("centerName", holder.center.getText());
+//                            if(APIResponseHandler.activitesPerWeek.size() != 0){
+//                                moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
+//                            }else{
+//                                moreInfo.putExtra("centerName", StorageHandler.centerNamesMap.get(classObj.getCenterId()));
+//                            }
                             moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
@@ -395,7 +402,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupPreviousActivity(View view, int position)
     {
-        PreviousActivityHolder holder = (PreviousActivityHolder) view.getTag();
+        final PreviousActivityHolder holder = (PreviousActivityHolder) view.getTag();
         Activity previousActivity = (Activity) getItem(position);
         mCalendar.setTime(trainingList.get(position).getDate());
         int month = mCalendar.get(Calendar.MONTH);
