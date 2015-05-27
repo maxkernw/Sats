@@ -62,7 +62,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             {
                 setUpMap();
             }
-
         }
     }
 

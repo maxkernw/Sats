@@ -97,7 +97,6 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                         break;
                 }
             }
-
         }
         else
         {
