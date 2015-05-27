@@ -102,7 +102,26 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
+                    for (int i = 0; i < myActivities.size(); i++) {
+                        DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                        if(joda.getWeekOfWeekyear() != week){
+                            weekPosition.put(joda.getWeekOfWeekyear(), i);
+                            week = joda.getWeekOfWeekyear();
+                        }
+                        if(joda.getWeekOfWeekyear() == week){
+                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                                value = value+1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                            }else{
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
+                            }
+                        }
+                    }
+
+                    /*week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
                     for (int i = 0; i < myActivities.size(); i++)
                     {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
@@ -124,7 +143,7 @@ public class APIResponseHandler
                                 activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
                             }
                         }
-                    }
+                    }*/
                     Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 

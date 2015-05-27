@@ -292,9 +292,12 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 Klass realmClass = realmBooking.getKlasses().first();
 
                 int realmCenterId = Integer.valueOf(realmBooking.getCenter());
-                RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
-                Center realmCenter = realmCenters.first();
-                centerName = realmCenter.getName();
+                RealmResults<Center> realmCenters = realm.where(Center.class).findAll();
+                for (Center center : realmCenters) {
+                    if(center.getId() == realmCenterId){
+                        centerName = center.getName();
+                    }
+                }
 
                 holder.instructor.setText(realmClass.getInstructorId());
                 holder.participants.setText(String.valueOf(realmClass.getBookedPersonsCount()));
