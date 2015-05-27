@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.handlers;
 
 import android.util.Log;
 
@@ -15,15 +15,14 @@ import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
+import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
@@ -35,8 +34,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20141116&toDate=20161116";
-    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
+    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20150101&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
@@ -47,7 +46,7 @@ public class APIResponseHandler
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
 
-    public static HashMap<String, YMCA> markers = new HashMap<>();
+    public static HashMap<String, CenterInfo> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
 
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
@@ -61,7 +60,6 @@ public class APIResponseHandler
     public APIResponseHandler(android.app.Activity activity)
     {
         this.activity = activity;
-        realm = Realm.getInstance(activity);
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
@@ -69,6 +67,11 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
+        if(realm != null)
+        {
+            Realm.deleteRealmFile(activity);
+        }
+        realm = Realm.getInstance(activity);
         getCenterNames();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
@@ -84,6 +87,8 @@ public class APIResponseHandler
                     {
                         myActivities.add(getActivityObj(element));
                     }
+
+                    realm.close();
 
                     int x = myActivities.size();
                     int y;
@@ -102,7 +107,26 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
+                    for (int i = 0; i < myActivities.size(); i++) {
+                        DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                        if(joda.getWeekOfWeekyear() != week){
+                            weekPosition.put(joda.getWeekOfWeekyear(), i);
+                            week = joda.getWeekOfWeekyear();
+                        }
+                        if(joda.getWeekOfWeekyear() == week){
+                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                                value = value+1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                            }else{
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
+                            }
+                        }
+                    }
+
+                    /*week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
                     for (int i = 0; i < myActivities.size(); i++)
                     {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
@@ -114,21 +138,22 @@ public class APIResponseHandler
                         }
                         if (joda.getWeekOfWeekyear() == week)
                         {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
                             {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
                                 value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
                             } else
                             {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                             }
                         }
-                    }
+                    }*/
                     Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
-                } else {
+                } else
+                {
                     e.printStackTrace();
                 }
             }
@@ -187,7 +212,6 @@ public class APIResponseHandler
 
             realmActivity.getBookings().add(bookings.first());
         }
-
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
     }
 
@@ -320,7 +344,7 @@ public class APIResponseHandler
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
                 LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, new YMCA(url, kord));
+                markers.put(centerName, new CenterInfo(url, kord));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
@@ -386,7 +410,7 @@ public class APIResponseHandler
         return profileArray;
     }
 
-    public void clear(final StickyListHeadersListView listView, Realm realm)
+    public void clear(final StickyListHeadersListView listView)
     {
         myActivities.clear();
         getAllActivities(listView);
@@ -394,19 +418,24 @@ public class APIResponseHandler
 
     public void getCenterLocations()
     {
-        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        {
             @Override
-            public void onCompleted(Exception e, JsonObject result) {
-                if (e == null) {
+            public void onCompleted(Exception e, JsonObject result)
+            {
+                if (e == null)
+                {
                     JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
                     JsonArray jsonCentersArray = new JsonArray();
-                    for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                    for (JsonElement element : jsonRegionsArray)
+                    {   //loopar regions. för varje region
                         JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
 
                         jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
                     }
 
-                    for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                    for (JsonElement centerElement : jsonCentersArray)
+                    {    //loopar centers
                         JsonObject center = centerElement.getAsJsonObject();
                         String centerId = center.get("id").getAsString();
                         String centerName = center.get("name").getAsString();
@@ -419,7 +448,8 @@ public class APIResponseHandler
 
                         centerNamesMap.put(centerId, centerName);
                     }
-                } else {
+                } else
+                {
                     Log.e("Info", "Could not get center names");
                 }
             }

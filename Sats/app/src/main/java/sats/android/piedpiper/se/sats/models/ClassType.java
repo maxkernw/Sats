@@ -2,9 +2,6 @@ package sats.android.piedpiper.se.sats.models;
 
 import java.util.ArrayList;
 
-/**
- * Created by RaBa on 12/05/15.
- */
 public class ClassType {
 
     public String description;
@@ -45,7 +42,6 @@ public class ClassType {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public String getVideoURL() {

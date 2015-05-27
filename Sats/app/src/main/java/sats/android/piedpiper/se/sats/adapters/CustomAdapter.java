@@ -1,7 +1,6 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,11 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import sats.android.piedpiper.se.sats.holders.BookedActivityHolder;
-import sats.android.piedpiper.se.sats.holders.OwnActivityHolder;
-import sats.android.piedpiper.se.sats.holders.PreviousActivityHolder;
+import sats.android.piedpiper.se.sats.activities.MoreInfoActivity;
+import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.adapters.holders.BookedActivityHolder;
+import sats.android.piedpiper.se.sats.adapters.holders.OwnActivityHolder;
+import sats.android.piedpiper.se.sats.adapters.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
@@ -276,7 +277,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             if (bookedActivityObj.getBooking() != null)
             {
                 holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getPositionInQueue()));
                 holder.center.setText(bookedActivityObj.getBooking().getCenter());
                 if (bookedActivityObj.getBooking().getPositionInQueue() == 0) {
                     RelativeLayout bookedPersons = (RelativeLayout) view.findViewById(R.id.participants);
@@ -292,12 +293,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 Klass realmClass = realmBooking.getKlasses().first();
 
                 int realmCenterId = Integer.valueOf(realmBooking.getCenter());
-                RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
-                Center realmCenter = realmCenters.first();
-                centerName = realmCenter.getName();
+                RealmResults<Center> realmCenters = realm.where(Center.class).findAll();
+                for (Center center : realmCenters) {
+                    if(center.getId() == realmCenterId){
+                        centerName = center.getName();
+                    }
+                }
 
                 holder.instructor.setText(realmClass.getInstructorId());
-                holder.participants.setText(String.valueOf(realmClass.getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(realmBooking.getPositionInQueue()));
                 holder.center.setText(centerName);
 
                 if (realmBooking.getPositionInQueue() == 0) {
@@ -332,7 +336,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         }else{
                             Toast.makeText(activity, "Kan inte hitta class",
@@ -356,7 +360,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending",String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         }else{
                             Toast.makeText(activity, "Kan inte hitta class",

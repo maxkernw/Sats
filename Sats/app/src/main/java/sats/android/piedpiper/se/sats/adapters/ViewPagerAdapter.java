@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.adapters;
 
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.youtube.player.internal.ac;
-
 import io.realm.Realm;
+import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
+import sats.android.piedpiper.se.sats.MyView;
+import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.models.Activity;
 
 public class ViewPagerAdapter extends PagerAdapter
@@ -57,7 +60,7 @@ public class ViewPagerAdapter extends PagerAdapter
         heightParam.height = 90;
         week.setText(MainActivity.dateView.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.dateView.plusWeeks(position + 1).getDayOfMonth() + "/" + MainActivity.dateView.plusWeeks(position + 1).getMonthOfYear());
 
-        int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear()+1;
+        int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear();
 
         week.setGravity(Gravity.CENTER);
         //Log.e("pos", "Position in viewpager: " + position);
@@ -111,7 +114,7 @@ public class ViewPagerAdapter extends PagerAdapter
         }
 
 
-        if(position == 20)
+        if(position == 14)
         {
             text = new MyView(container.getContext(), false, one, two, three);
 
@@ -128,13 +131,13 @@ public class ViewPagerAdapter extends PagerAdapter
         }
         else if(position < 52)
         {
-            if(position > 20)
+            if(position > 14)
             {
                 text = new MyView(container.getContext(), false, one, two, three);
             }
             else
             {
-                if(position == 19)
+                if(position == 13)
                 {
                     text = new MyView(container.getContext(), true, one, two, -1);
                 }
