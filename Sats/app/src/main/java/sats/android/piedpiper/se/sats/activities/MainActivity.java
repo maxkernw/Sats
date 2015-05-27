@@ -32,7 +32,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
-    ViewPagerAdapter graphAdapter;
+    public static ViewPagerAdapter graphAdapter;
     public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
 
     public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);

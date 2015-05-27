@@ -21,6 +21,8 @@ import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
+import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
@@ -125,6 +127,8 @@ public class APIResponseHandler
                             }
                         }
                     }
+
+                    MainActivity.graphAdapter.notifyDataSetChanged();
 
                     /*week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
                     for (int i = 0; i < myActivities.size(); i++)
