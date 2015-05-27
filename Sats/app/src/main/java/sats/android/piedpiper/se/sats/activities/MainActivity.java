@@ -259,7 +259,7 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View view)
             {
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
-                MainActivity.this.activity.startActivity(moreInfo, null);
+                activity.startActivity(moreInfo, null);
             }
         });
     }
