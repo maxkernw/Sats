@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats.activities;
 
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -29,8 +32,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     private GoogleApiClient gapi;
     public static HashMap<String, CenterInfo> markers = new HashMap();
     private View mGhost;
-    public static double longitude;
-    public static double latitude;
     private TextView txt;
 
 
@@ -96,10 +97,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                 }
             });
 
-
-
-
-
             map.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.sats_pin_small))
                             .position(coords).title(center).flat(true)
@@ -119,22 +116,19 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             });
         }
         map.setMyLocationEnabled(true);
-        if (latitude != 0 && longitude != 0)
-        {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 14));
-        }
-        else
-        {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.293761, 18.0785327), 8));
-        }
     }
 
     @Override
     public void onConnected(Bundle bundle)
     {
         Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
-        longitude = loc.getLongitude();
-        latitude = loc.getLatitude();
+
+        LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
+
+        map.animateCamera(cameraUpdate);
+
     }
 
     @Override
@@ -147,6 +141,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     {
 
     }
+
 }
 
 

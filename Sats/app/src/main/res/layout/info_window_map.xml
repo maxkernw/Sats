@@ -22,6 +22,7 @@
         android:scaleX="0.50"
         android:scaleY="0.50"
         android:layout_toRightOf="@id/text_map"
-        android:layout_marginLeft="35dp"/>
+        android:layout_marginLeft="35dp"
+        />
 
 </RelativeLayout>
