@@ -220,7 +220,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
-                APIResponseHandler responseHandler = new APIResponseHandler(activity);
+                //APIResponseHandler responseHandler = new APIResponseHandler(activity);
                 //responseHandler.clear(listView);
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 MainActivity.this.activity.startActivity(moreInfo, null);

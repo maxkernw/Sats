@@ -143,7 +143,14 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 classTypeObj = classType;
             }
         }
-        youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+        if(classTypeObj.getName().contains("Hot MOJO®")){
+            youTubePlayer.loadVideo("QWzlBfhE-qw");
+        }
+        else
+        {
+            Log.e("Class", "Class: " + classTypeObj.getName());
+            youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+        }
     }
 
     @Override
