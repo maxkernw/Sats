@@ -1,7 +1,6 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,11 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import sats.android.piedpiper.se.sats.holders.BookedActivityHolder;
-import sats.android.piedpiper.se.sats.holders.OwnActivityHolder;
-import sats.android.piedpiper.se.sats.holders.PreviousActivityHolder;
+import sats.android.piedpiper.se.sats.activities.MoreInfoActivity;
+import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.adapters.holders.BookedActivityHolder;
+import sats.android.piedpiper.se.sats.adapters.holders.OwnActivityHolder;
+import sats.android.piedpiper.se.sats.adapters.holders.PreviousActivityHolder;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;

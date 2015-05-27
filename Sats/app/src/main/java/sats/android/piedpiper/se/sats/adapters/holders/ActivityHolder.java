@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats.holders;
+package sats.android.piedpiper.se.sats.adapters.holders;
 
 import android.widget.TextView;
 

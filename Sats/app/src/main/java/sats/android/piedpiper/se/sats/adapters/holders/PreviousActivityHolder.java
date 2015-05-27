@@ -1,10 +1,8 @@
-package sats.android.piedpiper.se.sats.holders;
+package sats.android.piedpiper.se.sats.adapters.holders;
 
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import sats.android.piedpiper.se.sats.holders.ActivityHolder;
 
 public class PreviousActivityHolder extends ActivityHolder
 {

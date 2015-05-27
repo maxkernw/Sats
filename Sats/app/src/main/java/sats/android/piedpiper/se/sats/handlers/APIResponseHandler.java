@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.handlers;
 
 import android.util.Log;
 
@@ -15,15 +15,14 @@ import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
+import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
@@ -35,8 +34,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class APIResponseHandler
 {
-    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20141116&toDate=20161116";
-    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20141210&toDate=20160521";
+    public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
+    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20150101&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
@@ -47,7 +46,7 @@ public class APIResponseHandler
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
 
-    public static HashMap<String, YMCA> markers = new HashMap<>();
+    public static HashMap<String, CenterInfo> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
 
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
@@ -326,7 +325,7 @@ public class APIResponseHandler
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
                 LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, new YMCA(url, kord));
+                markers.put(centerName, new CenterInfo(url, kord));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
