@@ -70,6 +70,7 @@ public class StorageHandler
         }
         //Log.e("Storage", String.valueOf(myActivities));
         listView.setAdapter(new CustomAdapter(activity, myActivities));
+        realm.close();
     }
 
     private void getCenterNames()

@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -29,8 +30,9 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27).minusDays(1);//minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(1);//minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
+
+    public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
     public StickyListHeadersListView listView;
 
     public static int pos;
@@ -40,6 +42,7 @@ public class MainActivity extends ActionBarActivity
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
+    private static Realm realm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +53,7 @@ public class MainActivity extends ActionBarActivity
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
-        final ImageView findCenter = (ImageView) findViewById(R.id.logo_image);
+        final ImageView findCenter = (ImageView) findViewById(R.id.map_marker);
         graph = (ViewPager) findViewById(R.id.graph);
 
         activity = this;
@@ -60,24 +63,33 @@ public class MainActivity extends ActionBarActivity
         //Tom lista
         ArrayList<Activity> activitiesList = new ArrayList<>();
         //Starta en ny realm instance
-        final Realm realm = Realm.getInstance(this);
         //Load data
-        RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        realm = Realm.getInstance(this);
+        final RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        final int realmSize = realmActivities.size();
         //Behövs ion?
 
-        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
+        if(realmSize == 0)
+        { //om realm inte har data men mst komma om uppdaterat?
             //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
             //visat data
-        }else {
+        }
+        else
+        {
             StorageHandler sh = new StorageHandler(activity);
             sh.getAllActivities(listView);
 
+            realm = Realm.getInstance(this);
+
             //Convertera data
-            for (Activity activity : realmActivities){
+            for (Activity activity : realmActivities)
+            {
                 activitiesList.add(activity);
             }
+            realm.close();
+
             //Sortera data
             int x = activitiesList.size();
             int y;
@@ -131,7 +143,7 @@ public class MainActivity extends ActionBarActivity
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         graphAdapter = new ViewPagerAdapter(activity);
         graph.setAdapter(graphAdapter);
-        graph.setCurrentItem(18);
+        graph.setCurrentItem(12);
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -140,16 +152,16 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position < 21 && position > 14)
+                if (position < 15  && position > 9)
                 {
                     leftMarker.setVisibility(View.INVISIBLE);
                     rightMarker.setVisibility(View.INVISIBLE);
                 }
-                if (position < 15)
+                if (position < 9)
                 {
                     leftMarker.setVisibility(View.VISIBLE);
                 }
-                if (position > 20)
+                if (position >= 15)
                 {
                     rightMarker.setVisibility(View.VISIBLE);
                 }
@@ -158,7 +170,7 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onClick(View view)
                     {
-                        graph.setCurrentItem(18);
+                        graph.setCurrentItem(12);
                     }
                 });
                 leftMarker.setOnClickListener(new View.OnClickListener()
@@ -166,7 +178,7 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onClick(View view)
                     {
-                        graph.setCurrentItem(18);
+                        graph.setCurrentItem(12);
                     }
                 });
             }
@@ -174,11 +186,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position)
             {
-                int thePosition = (52+(position-3))%52;
+                int thePosition = position+3;
 
-                if(thePosition == 0){
-                    thePosition = 52;
-                }
+                Log.e("mainAc","position: " + String.valueOf(thePosition));
 
                 if(APIResponseHandler.activitesPerWeek.size() == 0){
                     if(StorageHandler.weekPosition.containsKey(thePosition)){
@@ -235,10 +245,12 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
+                if(realmSize > 0)
+                {
+                    Realm.deleteRealmFile(activity);
+                }
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                //responseHandler.clear(listView);
-                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
-                MainActivity.this.activity.startActivity(moreInfo, null);
+                responseHandler.clear(listView);
             }
         });
 
@@ -267,8 +279,8 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-
-
+                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
+                MainActivity.this.activity.startActivity(moreInfo, null);
             }
         });
     }
