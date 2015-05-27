@@ -49,8 +49,8 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     HashMap<String, YMCA> markers = new HashMap();
 
     private View mGhost;
-    public static double longitude = 18.0785538;
-    public static double latitude = 59.2937625;
+    public static double longitude;
+    public static double latitude;
 
 
     @Override
@@ -65,8 +65,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         mGhost.setVisibility(View.GONE);
         gapi = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
-
-
+        gapi.connect();
         markers = handler.markers;
         Log.e("Log", "Markers: " + markers.size());
         //handler.getCenterLocations();
@@ -74,7 +73,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         //markers = handler.getMarkers();
 
         setUpMapIfNeeded();
-        gapi.connect();
+
 
     }
 
@@ -93,7 +92,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             if (map != null) {
                 setUpMap();
             }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude) ,14) );
+
         }
     }
 
@@ -121,6 +120,13 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             });
         }
             map.setMyLocationEnabled(true);
+        if(latitude != 0 && longitude != 0){
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 14));
+
+        }else{
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.293761, 18.0785327), 8));
+        }
+
     }
 
 
@@ -128,9 +134,9 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     public void onConnected(Bundle bundle)
     {
         Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
-        //Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
-        //longitude = loc.getLongitude();
-        //latitude = loc.getLatitude();
+        Log.e("Loc", "Location: " + loc.getLatitude() + "long: " + loc.getLongitude());
+        longitude = loc.getLongitude();
+        latitude = loc.getLatitude();
     }
 
     @Override

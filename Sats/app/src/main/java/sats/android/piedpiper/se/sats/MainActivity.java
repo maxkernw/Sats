@@ -270,6 +270,7 @@ public class MainActivity extends ActionBarActivity
             {
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 MainActivity.this.activity.startActivity(moreInfo, null);
+
             }
         });
     }
