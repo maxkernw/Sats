@@ -40,7 +40,7 @@ public class APIResponseHandler
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
-    private HashMap<String, String> centerNamesMap;
+    public static HashMap<String, String> centerNamesMap;
     public static HashMap<String, String> urls = new HashMap<>();
     private static HashMap<String, LatLng> markers2 = new HashMap<>();
     private static Realm realm;

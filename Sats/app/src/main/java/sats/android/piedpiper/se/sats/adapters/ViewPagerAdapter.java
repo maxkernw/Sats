@@ -50,8 +50,10 @@ public class ViewPagerAdapter extends PagerAdapter
         week.setLayoutParams(params);
         LayoutParams heightParam = week.getLayoutParams();
         heightParam.height = 90;
-        week.setText(MainActivity.dateView.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.dateView.plusWeeks(position + 1).getDayOfMonth() + "/" + MainActivity.dateView.plusWeeks(position + 1).getMonthOfYear());
-        int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear();
+        week.setText(MainActivity.startTime.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.startTime.plusWeeks(position + 1).getDayOfMonth() + "/" + MainActivity.startTime.plusWeeks(position + 1).getMonthOfYear());
+
+        int thisWeek = MainActivity.startTime.plusWeeks(position + 1).getWeekOfWeekyear();
+
         week.setGravity(Gravity.CENTER);
         views.addView(week);
 
