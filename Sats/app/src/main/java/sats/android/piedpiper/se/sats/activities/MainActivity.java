@@ -55,6 +55,7 @@ public class MainActivity extends ActionBarActivity
         listView = (StickyListHeadersListView) findViewById(R.id.listan);
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        final Animation animFade = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
         final ImageView findCenter = (ImageView) findViewById(R.id.map_marker);
         graph = (ViewPager) findViewById(R.id.graph);
@@ -240,12 +241,12 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
-                if(realmSize > 0)
-                {
-                    Realm.deleteRealmFile(activity);
-                }
-                APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                responseHandler.clear(listView);
+//                if(realmSize > 0)
+//                {
+//                    Realm.deleteRealmFile(activity);
+//                }
+//                APIResponseHandler responseHandler = new APIResponseHandler(activity);
+//                responseHandler.clear(listView);
             }
         });
 
@@ -272,6 +273,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
+                findCenter.startAnimation(animFade);
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 activity.startActivity(moreInfo, null);
             }

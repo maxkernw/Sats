@@ -140,7 +140,7 @@ public class MyView extends View
         paint.setColor(getResources().getColor(R.color.orange));
 
         if(rightCell != -1){
-            canvas.drawLine(110, yPos[currentCell]+2, 340, yPos[rightCell]+2, paint);
+            canvas.drawLine(110, yPos[currentCell]+2, 343, yPos[rightCell]+2, paint);
         }
         canvas.drawLine(110, yPos[currentCell]+2, -90, yPos[leftCell]+2, paint);
     }
