@@ -47,7 +47,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     private GoogleMap map;
     private GoogleApiClient gapi ;
     HashMap<String, YMCA> markers = new HashMap();
-    APIResponseHandler handler = new APIResponseHandler(this);
+
     private View mGhost;
     public static double longitude = 18.0785538;
     public static double latitude = 59.2937625;
@@ -60,6 +60,7 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center_maps);
+        APIResponseHandler handler = new APIResponseHandler(this);
         Location location = new Location("My location");
         mGhost = new View(this);
         mGhost.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));

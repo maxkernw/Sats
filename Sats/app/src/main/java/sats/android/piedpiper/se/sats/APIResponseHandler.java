@@ -125,10 +125,10 @@ public class APIResponseHandler
                             }
                         }
                     }
+                    Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
                 } else {
-                    Log.e(TAG, "Could not get activities!");
                     e.printStackTrace();
                 }
             }

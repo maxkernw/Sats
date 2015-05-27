@@ -1,6 +1,7 @@
 package sats.android.piedpiper.se.sats;
 
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.youtube.player.internal.ac;
 
 import io.realm.Realm;
 import sats.android.piedpiper.se.sats.models.Activity;
@@ -62,8 +65,10 @@ public class ViewPagerAdapter extends PagerAdapter
 
         MyView text;
         int one,two,three;
-        if(realmExists(activity))
+        if(APIResponseHandler.activitesPerWeek.size() == 0)
         {
+            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
+            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(StorageHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = StorageHandler.activitesPerWeek.get(thisWeek);
             }else{
@@ -84,6 +89,8 @@ public class ViewPagerAdapter extends PagerAdapter
         }
         else
         {
+            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
+            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = APIResponseHandler.activitesPerWeek.get(thisWeek);
             }else{

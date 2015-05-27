@@ -29,8 +29,8 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27);//minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(7);//minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27).minusDays(2);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
     public StickyListHeadersListView listView;
 
     public static int pos;
@@ -50,12 +50,53 @@ public class MainActivity extends ActionBarActivity
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
-        final ImageView findCenter = (ImageView) findViewById(R.id.logo_image);
+        final ImageView findCenter = (ImageView) findViewById(R.id.map_marker);
         graph = (ViewPager) findViewById(R.id.graph);
-
 
         activity = this;
 
+        //efter
+
+        //Tom lista
+        ArrayList<Activity> activitiesList = new ArrayList<>();
+        //Starta en ny realm instance
+        final Realm realm = Realm.getInstance(this);
+        //Load data
+        RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        //Behövs ion?
+
+        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
+            //Hämta från ion
+            APIResponseHandler responseHandler = new APIResponseHandler(this);
+            responseHandler.getAllActivities(listView); //sparar i realm
+            //visat data
+        }else {
+            StorageHandler sh = new StorageHandler(activity);
+            sh.getAllActivities(listView);
+
+            //Convertera data
+            for (Activity activity : realmActivities){
+                activitiesList.add(activity);
+            }
+            //Sortera data
+            int x = activitiesList.size();
+            int y;
+            for (int m = x; m >= 0; m--) {
+                for (int i = 0; i < x - 1; i++) {
+                    y = i + 1;
+                    if (activitiesList.get(i).getDate().getTime() > activitiesList.get(y).getDate().getTime()) {
+                        Activity temp;
+                        temp = activitiesList.get(i);
+                        activitiesList.set(i, activitiesList.get(y));
+                        activitiesList.set(y, temp);
+                    }
+                }
+            }
+            //Visa lista & data
+            listView.setAdapter(new CustomAdapter(activity, activitiesList));
+        }
+
+        //efter
 
         leftMarker = new ImageView(activity);
         leftMarker.setImageResource(R.drawable.back_to_now_right);
@@ -88,7 +129,7 @@ public class MainActivity extends ActionBarActivity
         rl2.addView(rightMarker, lp2);
 
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        graphAdapter = new ViewPagerAdapter(this);
+        graphAdapter = new ViewPagerAdapter(activity);
         graph.setAdapter(graphAdapter);
         graph.setCurrentItem(18);
 
@@ -139,9 +180,16 @@ public class MainActivity extends ActionBarActivity
                     thePosition = 52;
                 }
 
-                if(StorageHandler.weekPosition.containsKey(thePosition)){
-                    listView.smoothScrollToPosition(StorageHandler.weekPosition.get(thePosition));
+                if(APIResponseHandler.activitesPerWeek.size() == 0){
+                    if(StorageHandler.weekPosition.containsKey(thePosition)){
+                        listView.smoothScrollToPosition(StorageHandler.weekPosition.get(thePosition));
+                    }
+                }else{
+                    if(APIResponseHandler.weekPosition.containsKey(thePosition)){
+                        listView.smoothScrollToPosition(APIResponseHandler.weekPosition.get(thePosition));
+                    }
                 }
+
             }
 
             @Override
@@ -180,40 +228,7 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        //Tom lista
-        ArrayList<Activity> activitiesList = new ArrayList<>();
-        //Starta en ny realm instance
-        final Realm realm = Realm.getInstance(this);
-        //Load data
-        RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
-        //Behövs ion?
-        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
-            //Hämta från ion
-            APIResponseHandler responseHandler = new APIResponseHandler(this);
-            responseHandler.getAllActivities(listView); //sparar i realm
-            //visat data
-        }else {
-            //Convertera data
-            for (Activity activity : realmActivities){
-                activitiesList.add(activity);
-            }
-            //Sortera data
-            int x = activitiesList.size();
-            int y;
-            for (int m = x; m >= 0; m--) {
-                for (int i = 0; i < x - 1; i++) {
-                    y = i + 1;
-                    if (activitiesList.get(i).getDate().getTime() > activitiesList.get(y).getDate().getTime()) {
-                        Activity temp;
-                        temp = activitiesList.get(i);
-                        activitiesList.set(i, activitiesList.get(y));
-                        activitiesList.set(y, temp);
-                    }
-                }
-            }
-            //Visa lista & data
-            listView.setAdapter(new CustomAdapter(activity, activitiesList));
-        }
+        //kod innan
 
         im.setOnClickListener(new View.OnClickListener() {
 
@@ -222,8 +237,7 @@ public class MainActivity extends ActionBarActivity
                 im.startAnimation(animRot);
                 //APIResponseHandler responseHandler = new APIResponseHandler(activity);
                 //responseHandler.clear(listView);
-                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
-                MainActivity.this.activity.startActivity(moreInfo, null);
+
             }
         });
 
@@ -252,8 +266,8 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-
-
+                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
+                MainActivity.this.activity.startActivity(moreInfo, null);
             }
         });
     }
