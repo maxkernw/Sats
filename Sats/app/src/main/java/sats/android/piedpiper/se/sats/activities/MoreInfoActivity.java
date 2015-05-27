@@ -65,7 +65,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
             classTitle.setText(classTypeObj.getName());
             duration.setText(intent.getStringExtra("duration") + "min");
 
-            posInQueue.setText(intent.getStringExtra("posInQueue")); //todo gör osunlig om 0
+            posInQueue.setText(intent.getStringExtra("posInQueue")); //todo gör osynlig om 0
 
             bookedPersons.setText(intent.getStringExtra("bookedCount"));
             maxBookedPersons.setText(intent.getStringExtra("maxAttending"));
@@ -133,11 +133,13 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         {
             if (classTypeObj.getName().contains("Hot MOJO®"))
             {
-                youTubePlayer.loadVideo("QWzlBfhE-qw");
+                //youTubePlayer.loadVideo("QWzlBfhE-qw");
+                youTubePlayer.cueVideo("QWzlBfhE-qw");
             }
             else
             {
-                youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+                //youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
+                youTubePlayer.cueVideo(classTypeObj.videoURL.substring(30, 41));
             }
         }
     }
