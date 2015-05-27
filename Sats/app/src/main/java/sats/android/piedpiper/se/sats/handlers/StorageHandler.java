@@ -75,6 +75,7 @@ public class StorageHandler
             }
         }
         listView.setAdapter(new CustomAdapter(activity, myActivities));
+        realm.close();
     }
 
     private void getCenterNames()
@@ -83,7 +84,6 @@ public class StorageHandler
         {
             for (Center center : realm.where(Center.class).findAll())
             {
-                Log.i(TAG, booking.getCenter());
                 String centerName = center.getName();
                 String url = center.getUrl();
                 double lati = center.getLati();

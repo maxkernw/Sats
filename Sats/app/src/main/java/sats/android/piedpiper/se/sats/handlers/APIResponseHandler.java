@@ -41,7 +41,6 @@ public class APIResponseHandler
     private ArrayList<Activity> myActivities;
     private ArrayList<ClassType> classTypes;
     public static HashMap<String, String> centerNamesMap;
-    private HashMap<String, String> activityNamesMap;
     public static HashMap<String, String> urls = new HashMap<>();
     private static HashMap<String, LatLng> markers2 = new HashMap<>();
     private static Realm realm;
@@ -61,7 +60,12 @@ public class APIResponseHandler
     {
         if (realm != null)
         {
-            Realm.deleteRealmFile(activity);
+            realm.close();
+            if (realm.allObjects(Activity.class).size() > 0)
+            {
+                realm.close();
+                Realm.deleteRealmFile(activity);
+            }
         }
         realm = Realm.getInstance(activity);
         getCenterNames();
@@ -328,7 +332,6 @@ public class APIResponseHandler
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
-                Log.e("Innuti APIrespHand. ", "Med namnet: " + centerName);
                 MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
@@ -361,7 +364,6 @@ public class APIResponseHandler
         {
             e.printStackTrace();
         }
-
         return classTypes;
     }
 
@@ -398,6 +400,7 @@ public class APIResponseHandler
     public void clear(final StickyListHeadersListView listView)
     {
         myActivities.clear();
+        Realm.getInstance(activity);
         getAllActivities(listView);
     }
 
@@ -432,11 +435,6 @@ public class APIResponseHandler
                 }
             }
         });
-    }
-
-    public HashMap<String, LatLng> getMarkers()
-    {
-        return markers2;
     }
 
     public String getActivityName(String subType)

@@ -2,6 +2,7 @@ package sats.android.piedpiper.se.sats.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -43,6 +44,7 @@ public class MainActivity extends ActionBarActivity
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
+    private static Realm realm = null;
     public static HashMap<String, CenterInfo> markers = new HashMap<>();
 
     @Override
@@ -59,22 +61,32 @@ public class MainActivity extends ActionBarActivity
         activity = this;
 
         ArrayList<Activity> activitiesList = new ArrayList<>();
-        final Realm realm = Realm.getInstance(this);
-        RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        //Starta en ny realm instance
+        //Load data
+        realm = Realm.getInstance(this);
+        final RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
+        final int realmSize = realmActivities.size();
+        //Behövs ion?
 
-        if(realmActivities.size() == 0){ //om realm inte har data men mst kolla om uppdaterat?
+        if(realmSize == 0)
+        {
+            //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
+            //visat data
         }
         else
         {
             StorageHandler sh = new StorageHandler(activity);
             sh.getAllActivities(listView);
 
+            realm = Realm.getInstance(this);
             for (Activity activity : realmActivities)
             {
                 activitiesList.add(activity);
             }
+
+            //Sortera data
             int x = activitiesList.size();
             int y;
             for (int m = x; m >= 0; m--) {
@@ -228,10 +240,12 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
+                if(realmSize > 0)
+                {
+                    Realm.deleteRealmFile(activity);
+                }
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
-
                 responseHandler.clear(listView);
-
             }
         });
 

@@ -258,6 +258,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private void setupBookedActivity(View view, int position)
     {
         BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
+
         final Activity bookedActivityObj = (Activity) getItem(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
         Integer min = bookedActivityObj.getDate().getMinutes();
@@ -531,21 +532,5 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private class HeaderViewHolder
     {
         TextView text;
-    }
-
-    public boolean realmExists(android.app.Activity activity)
-    {
-        int realmObjects = 0;
-        Realm realm = Realm.getInstance(activity);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
-
-        if (realmObjects <= 0)
-        {
-            return false;
-        } else
-        {
-            return true;
-        }
     }
 }
