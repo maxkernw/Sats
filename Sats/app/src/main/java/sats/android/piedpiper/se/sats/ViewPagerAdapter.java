@@ -111,7 +111,7 @@ public class ViewPagerAdapter extends PagerAdapter
         }
 
 
-        if(position == 20)
+        if(position == 14)
         {
             text = new MyView(container.getContext(), false, one, two, three);
 
@@ -128,13 +128,13 @@ public class ViewPagerAdapter extends PagerAdapter
         }
         else if(position < 52)
         {
-            if(position > 20)
+            if(position > 14)
             {
                 text = new MyView(container.getContext(), false, one, two, three);
             }
             else
             {
-                if(position == 19)
+                if(position == 13)
                 {
                     text = new MyView(container.getContext(), true, one, two, -1);
                 }

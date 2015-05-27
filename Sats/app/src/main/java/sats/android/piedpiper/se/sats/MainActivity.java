@@ -29,8 +29,8 @@ public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
-    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(27).minusDays(1);//minusDays(3);
-    public static DateTime today = new DateTime().minusWeeks(6).minusDays(1);//minusDays(3);
+    public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
+    public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
     public StickyListHeadersListView listView;
 
     public static int pos;
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity
         final SlidingUpPanelLayout slide = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         graphAdapter = new ViewPagerAdapter(activity);
         graph.setAdapter(graphAdapter);
-        graph.setCurrentItem(18);
+        graph.setCurrentItem(12);
 
         graph.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -140,16 +140,16 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position < 21 && position > 14)
+                if (position < 15  && position > 9)
                 {
                     leftMarker.setVisibility(View.INVISIBLE);
                     rightMarker.setVisibility(View.INVISIBLE);
                 }
-                if (position < 15)
+                if (position < 9)
                 {
                     leftMarker.setVisibility(View.VISIBLE);
                 }
-                if (position > 20)
+                if (position >= 15)
                 {
                     rightMarker.setVisibility(View.VISIBLE);
                 }
@@ -158,7 +158,7 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onClick(View view)
                     {
-                        graph.setCurrentItem(18);
+                        graph.setCurrentItem(12);
                     }
                 });
                 leftMarker.setOnClickListener(new View.OnClickListener()
@@ -166,7 +166,7 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onClick(View view)
                     {
-                        graph.setCurrentItem(18);
+                        graph.setCurrentItem(12);
                     }
                 });
             }
@@ -174,11 +174,9 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position)
             {
-                int thePosition = (52+(position-3))%52;
+                int thePosition = position+3;
 
-                if(thePosition == 0){
-                    thePosition = 52;
-                }
+                Log.e("mainAc","position: " + String.valueOf(thePosition));
 
                 if(APIResponseHandler.activitesPerWeek.size() == 0){
                     if(StorageHandler.weekPosition.containsKey(thePosition)){

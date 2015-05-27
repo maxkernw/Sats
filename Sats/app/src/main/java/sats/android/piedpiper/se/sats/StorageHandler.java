@@ -59,12 +59,12 @@ public class StorageHandler
                 week = joda.getWeekOfWeekyear();
             }
             if(joda.getWeekOfWeekyear() == week){
-                if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
-                    int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear()+1)){
+                    int value = activitesPerWeek.get(joda.getWeekOfWeekyear()+1);
                     value = value+1;
-                    activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                    activitesPerWeek.put(joda.getWeekOfWeekyear()+1, value);
                 }else{
-                    activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
+                    activitesPerWeek.put(joda.getWeekOfWeekyear()+1,1);
                 }
             }
         }

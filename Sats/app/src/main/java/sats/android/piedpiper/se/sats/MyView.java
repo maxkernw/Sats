@@ -133,31 +133,5 @@ public class MyView extends View
             canvas.drawLine(110, yPos[currentCell]+2, 340, yPos[rightCell], paint);
         }
         canvas.drawLine(110, yPos[currentCell]+2, -90, yPos[leftCell]+2, paint);
-
-        /*
-        if(rightCell != -1){
-            if(currentCell <= rightCell)
-            {
-                if(currentCell == 0 && currentCell != rightCell && rightCell != 1)
-                {
-                    canvas.drawLine(140, yPos[currentCell]-5, 308, yPos[rightCell], paint);
-                }
-                else
-                {
-                    canvas.drawLine(140, yPos[currentCell]+2, 300, yPos[rightCell], paint);
-                }
-            }
-            else
-            {
-                canvas.drawLine(140, yPos[currentCell] + 7, 300, yPos[rightCell] - 12, paint);
-            }
-        }
-
-        if(currentCell >= leftCell){
-            canvas.drawLine(80, yPos[currentCell]+2, -70, yPos[leftCell]+3, paint);
-        }else{
-            canvas.drawLine(80, yPos[currentCell]-10, -70, yPos[leftCell]+3, paint);
-        }
-        */
     }
 }
