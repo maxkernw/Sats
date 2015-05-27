@@ -48,7 +48,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         this.activity = activity;
         this.trainingList = trainingList;
-        Log.e("CustomAdapter", "activity list size: " + trainingList.size());
         inflater = activity.getLayoutInflater();
         dateToday = MainActivity.today.toDate();
         weeks = getWeeks();

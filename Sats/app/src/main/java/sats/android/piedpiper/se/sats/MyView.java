@@ -22,9 +22,26 @@ public class MyView extends View
     {
         super(context);
         this.filled = filled;
-        this.position = position;
-        this.leftCell = leftCell;
-        this.rightCell = rightCell;
+        
+        if(position < 6){
+            this.position = position;
+        }else{
+            this.position = 0;
+        }
+        if(leftCell < 6){
+            this.leftCell = leftCell;
+        }else{
+            this.leftCell = 0;
+        }
+        if(rightCell < 6){
+            this.rightCell = rightCell;
+        }else{
+            this.rightCell = 0;
+        }
+
+        //this.position = position;
+        //this.leftCell = leftCell;
+        //this.rightCell = rightCell;
         paint = new Paint();
     }
 
