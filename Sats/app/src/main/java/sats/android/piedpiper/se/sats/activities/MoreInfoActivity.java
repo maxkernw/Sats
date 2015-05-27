@@ -3,6 +3,8 @@ package sats.android.piedpiper.se.sats.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -65,7 +67,13 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
             classTitle.setText(classTypeObj.getName());
             duration.setText(intent.getStringExtra("duration") + "min");
 
-            posInQueue.setText(intent.getStringExtra("posInQueue")); //todo gör osynlig om 0
+            if(Integer.valueOf(intent.getStringExtra("posInQueue")) == 0){
+                ImageView peopleImage = (ImageView) findViewById(R.id.people);
+                peopleImage.setVisibility(View.INVISIBLE);
+                posInQueue.setVisibility(View.INVISIBLE);
+            }else{
+                posInQueue.setText(intent.getStringExtra("posInQueue")); //todo gör osynlig om 0
+            }
 
             bookedPersons.setText(intent.getStringExtra("bookedCount"));
             maxBookedPersons.setText(intent.getStringExtra("maxAttending"));
