@@ -1,4 +1,4 @@
-package sats.android.piedpiper.se.sats;
+package sats.android.piedpiper.se.sats.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,11 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.exceptions.RealmMigrationNeededException;
+import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.handlers.StorageHandler;
+import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
+import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
