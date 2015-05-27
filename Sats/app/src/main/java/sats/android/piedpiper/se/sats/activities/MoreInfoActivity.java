@@ -32,6 +32,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         APIResponseHandler h = new APIResponseHandler(this);
         ArrayList<ClassType> types = h.getClassTypes();
         ClassType classTypeObj = null;
+
         for (ClassType type : types)
         {
             if (type.getId().equals(classtypeId))
@@ -97,7 +98,6 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                         break;
                 }
             }
-
         }
         else
         {

@@ -11,7 +11,6 @@ public class CenterDetailView extends ActionBarActivity
 {
     public static Marker marker;
 
-
     public static void setMarker(Marker marker)
     {
         CenterDetailView.marker = marker;
@@ -36,8 +35,6 @@ public class CenterDetailView extends ActionBarActivity
 
         });
         web.loadUrl(MainActivity.markers.get(marker.getTitle()).getUrl());
-
-
 
     }
 }

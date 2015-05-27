@@ -11,19 +11,19 @@ public class Booking extends RealmObject
     private String id;
     private String status, center;
     private int positionInQueue;
-    private RealmList<Klass> klasses;
+    private RealmList<BookingClass> bookingClasses;
     @Ignore
-    private Klass aKlass;
+    private BookingClass aBookingClass;
 
     public Booking()
     {
     }
 
-    public Booking(String status, Klass aKlass, String center, String id,
+    public Booking(String status, BookingClass aBookingClass, String center, String id,
                    int positionInQueue)
     {
         this.status = status;
-        this.aKlass = aKlass;
+        this.aBookingClass = aBookingClass;
         this.center = center;
         this.id = id;
         this.positionInQueue = positionInQueue;
@@ -34,19 +34,19 @@ public class Booking extends RealmObject
         return status;
     }
 
-    public Klass getaKlass()
+    public BookingClass getaBookingClass()
     {
-        return aKlass;
+        return aBookingClass;
     }
 
-    public RealmList<Klass> getKlasses()
+    public RealmList<BookingClass> getBookingClasses()
     {
-        return klasses;
+        return bookingClasses;
     }
 
-    public void setKlasses(RealmList<Klass> klasses)
+    public void setBookingClasses(RealmList<BookingClass> bookingClasses)
     {
-        this.klasses = klasses;
+        this.bookingClasses = bookingClasses;
     }
 
     public String getCenter()
@@ -69,9 +69,9 @@ public class Booking extends RealmObject
         this.status = status;
     }
 
-    public void setaKlass(Klass aKlass)
+    public void setaBookingClass(BookingClass aBookingClass)
     {
-        this.aKlass = aKlass;
+        this.aBookingClass = aBookingClass;
     }
 
     public void setCenter(String center)

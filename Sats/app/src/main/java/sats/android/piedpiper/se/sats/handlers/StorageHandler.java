@@ -26,11 +26,9 @@ public class StorageHandler
     private ArrayList<Activity> myActivities;
     private HashMap<String, String> centerNamesMap;
     private static Realm realm;
-    //public static int[] weekPosition = new int[53];
     public static int week = 0;
-    //public static int[] activitesPerWeek = new int[53];
-    public static HashMap<Integer,Integer> weekPosition = new HashMap<>();
-    public static HashMap<Integer,Integer> activitesPerWeek = new HashMap<>();
+    public static HashMap<Integer, Integer> weekPosition = new HashMap<>();
+    public static HashMap<Integer, Integer> activitesPerWeek = new HashMap<>();
 
     public StorageHandler(android.app.Activity activity)
     {
@@ -43,7 +41,6 @@ public class StorageHandler
     public void getAllActivities(final StickyListHeadersListView listView)
     {
         RealmQuery<Activity> query = realm.where(Activity.class);
-
         RealmResults<Activity> result = query.findAll();
         result.sort("date");
         getCenterNames();
@@ -52,36 +49,41 @@ public class StorageHandler
         {
             myActivities.add(result.get(i));
         }
-        week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
-        for (int i = 0; i < myActivities.size(); i++) {
+        week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+
+        for (int i = 0; i < myActivities.size(); i++)
+        {
             DateTime joda = new DateTime(myActivities.get(i).getDate());
 
-            if(joda.getWeekOfWeekyear() != week){
+            if (joda.getWeekOfWeekyear() != week)
+            {
                 weekPosition.put(joda.getWeekOfWeekyear(), i);
                 week = joda.getWeekOfWeekyear();
             }
-            if(joda.getWeekOfWeekyear() == week){
-                if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
+            if (joda.getWeekOfWeekyear() == week)
+            {
+                if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
+                {
                     int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
-                    value = value+1;
+                    value = value + 1;
                     activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
-                }else{
-                    activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
+                }
+                else
+                {
+                    activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                 }
             }
         }
-        //Log.e("Storage", String.valueOf(myActivities));
         listView.setAdapter(new CustomAdapter(activity, myActivities));
         realm.close();
     }
 
     private void getCenterNames()
     {
-        for(Booking booking : realm.where(Booking.class).findAll())
+        for (Booking booking : realm.where(Booking.class).findAll())
         {
-            for(Center center : realm.where(Center.class).findAll())
+            for (Center center : realm.where(Center.class).findAll())
             {
-                Log.i(TAG, booking.getCenter());
                 String centerName = center.getName();
                 String url = center.getUrl();
                 double lati = center.getLati();

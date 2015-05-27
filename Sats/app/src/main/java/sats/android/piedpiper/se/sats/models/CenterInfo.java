@@ -1,7 +1,5 @@
 package sats.android.piedpiper.se.sats.models;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import io.realm.RealmObject;
 
 public class CenterInfo extends RealmObject
