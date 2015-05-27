@@ -22,7 +22,7 @@ public class MyView extends View
     {
         super(context);
         this.filled = filled;
-        
+
         if(position < 6){
             this.position = position;
         }else{
