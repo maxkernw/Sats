@@ -18,6 +18,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -27,12 +28,13 @@ import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
-    ViewPagerAdapter graphAdapter;
+    public static ViewPagerAdapter graphAdapter;
     public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
 
     public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
@@ -45,6 +47,7 @@ public class MainActivity extends ActionBarActivity
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
     private static ImageView rightMarker = null;
+    public static HashMap<String, CenterInfo> markers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,9 +71,9 @@ public class MainActivity extends ActionBarActivity
         final Realm realm = Realm.getInstance(this);
         //Load data
         RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
-        //Behövs ion?
 
-        if(realmActivities.size() == 0){ //om realm inte har data men mst komma om uppdaterat?
+        //Behövs ion?
+        if(realmActivities.size() == 0){ //om realm inte har data men mst kolla om uppdaterat?
             //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
             responseHandler.getAllActivities(listView); //sparar i realm
@@ -204,30 +207,36 @@ public class MainActivity extends ActionBarActivity
 
         activity = this;
 
-        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+        slide.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+        {
             @Override
-            public void onPanelSlide(View view, float v) {
+            public void onPanelSlide(View view, float v)
+            {
 
             }
 
             @Override
-            public void onPanelCollapsed(View view) {
+            public void onPanelCollapsed(View view)
+            {
 
             }
 
             @Override
-            public void onPanelExpanded(View view) {
+            public void onPanelExpanded(View view)
+            {
                 rightMarker.setVisibility(View.INVISIBLE);
                 leftMarker.setVisibility(View.INVISIBLE);
             }
 
             @Override
-            public void onPanelAnchored(View view) {
+            public void onPanelAnchored(View view)
+            {
 
             }
 
             @Override
-            public void onPanelHidden(View view) {
+            public void onPanelHidden(View view)
+            {
 
             }
         });
@@ -273,6 +282,7 @@ public class MainActivity extends ActionBarActivity
             {
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 MainActivity.this.activity.startActivity(moreInfo, null);
+
             }
         });
     }

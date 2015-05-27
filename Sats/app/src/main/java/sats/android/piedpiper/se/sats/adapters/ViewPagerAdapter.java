@@ -70,8 +70,6 @@ public class ViewPagerAdapter extends PagerAdapter
         int one,two,three;
         if(APIResponseHandler.activitesPerWeek.size() == 0)
         {
-            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
-            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(StorageHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = StorageHandler.activitesPerWeek.get(thisWeek);
             }else{
@@ -201,5 +199,8 @@ public class ViewPagerAdapter extends PagerAdapter
         {
             return false;
         }
+    }
+    public int getItemPosition(Object object){
+        return POSITION_NONE;
     }
 }

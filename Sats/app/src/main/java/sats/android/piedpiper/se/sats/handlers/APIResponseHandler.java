@@ -21,6 +21,8 @@ import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
+import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
@@ -46,7 +48,6 @@ public class APIResponseHandler
     private HashMap<String, String> centerNamesMap;
     private HashMap<String, String> activityNamesMap;
 
-    public static HashMap<String, CenterInfo> markers = new HashMap<>();
     public static HashMap<String,String> urls = new HashMap<>();
 
     private static HashMap<String,LatLng> markers2 = new HashMap<>();
@@ -107,7 +108,28 @@ public class APIResponseHandler
                         }
                     }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear()-1;
+                    for (int i = 0; i < myActivities.size(); i++) {
+                        DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                        if(joda.getWeekOfWeekyear() != week){
+                            weekPosition.put(joda.getWeekOfWeekyear(), i);
+                            week = joda.getWeekOfWeekyear();
+                        }
+                        if(joda.getWeekOfWeekyear() == week){
+                            if(activitesPerWeek.containsKey(joda.getWeekOfWeekyear())){
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                                value = value+1;
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                            }else{
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(),1);
+                            }
+                        }
+                    }
+
+                    MainActivity.graphAdapter.notifyDataSetChanged();
+
+                    /*week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
                     for (int i = 0; i < myActivities.size(); i++)
                     {
                         DateTime joda = new DateTime(myActivities.get(i).getDate());
@@ -119,17 +141,17 @@ public class APIResponseHandler
                         }
                         if (joda.getWeekOfWeekyear() == week)
                         {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear() + 1))
+                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
                             {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear() + 1);
+                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
                                 value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, value);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
                             } else
                             {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear() + 1, 1);
+                                activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                             }
                         }
-                    }
+                    }*/
                     Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
@@ -324,8 +346,8 @@ public class APIResponseHandler
                 String url = center.get("url").getAsString();
                 realmCenter.setUrl(url);
                 realm.commitTransaction();
-                LatLng kord = new LatLng(lati, longi);
-                markers.put(centerName, new CenterInfo(url, kord));
+                Log.e("Innuti APIrespHand. ", "Med namnet: " + centerName);
+                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
                 urls.put(centerName, url);
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }

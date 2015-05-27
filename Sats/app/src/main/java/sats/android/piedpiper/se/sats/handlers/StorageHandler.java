@@ -10,10 +10,12 @@ import java.util.HashMap;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.activities.MainActivity;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
@@ -78,11 +80,12 @@ public class StorageHandler
         {
             for(Center center : realm.where(Center.class).findAll())
             {
-                if(String.valueOf(center.getId()) == booking.getCenter())
-                {
-                    booking.setCenter(center.getName());
-                    Log.i(TAG, booking.getCenter());
-                }
+                Log.i(TAG, booking.getCenter());
+                String centerName = center.getName();
+                String url = center.getUrl();
+                double lati = center.getLati();
+                double longi = center.getLongi();
+                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
             }
         }
     }

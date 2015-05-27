@@ -296,7 +296,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             if (bookedActivityObj.getBooking() != null)
             {
                 holder.instructor.setText(bookedActivityObj.getBooking().getaKlass().getInstructorId());
-                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getaKlass().getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(bookedActivityObj.getBooking().getPositionInQueue()));
                 holder.center.setText(bookedActivityObj.getBooking().getCenter());
                 if (bookedActivityObj.getBooking().getPositionInQueue() == 0)
                 {
@@ -314,12 +314,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                 Klass realmClass = realmBooking.getKlasses().first();
 
                 int realmCenterId = Integer.valueOf(realmBooking.getCenter());
-                RealmResults<Center> realmCenters = realm.where(Center.class).equalTo("id", realmCenterId).findAll();
-                Center realmCenter = realmCenters.first();
-                centerName = realmCenter.getName();
+                RealmResults<Center> realmCenters = realm.where(Center.class).findAll();
+                for (Center center : realmCenters) {
+                    if(center.getId() == realmCenterId){
+                        centerName = center.getName();
+                    }
+                }
 
                 holder.instructor.setText(realmClass.getInstructorId());
-                holder.participants.setText(String.valueOf(realmClass.getBookedPersonsCount()));
+                holder.participants.setText(String.valueOf(realmBooking.getPositionInQueue()));
                 holder.center.setText(centerName);
 
                 if (realmBooking.getPositionInQueue() == 0)
@@ -359,7 +362,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         } else
                         {
@@ -386,7 +389,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime())); //todo formatera
+                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
                         } else
                         {

@@ -23,7 +23,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_toRightOf="@+id/logo_image"
-            android:text="MIN TRÄNING"
+            android:text="HITTA CENTER"
             android:textColor="#ff454545" />
 
         <ImageView
@@ -45,27 +45,6 @@
             android:layout_alignParentLeft="true"
             android:paddingRight="6dp"/>
 
-        <ImageView
-            android:id="@+id/logo_refresh"
-            android:src="@drawable/refresh_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleX="0.60"
-            android:scaleY="0.60"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"/>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/map_marker"
-            android:id="@+id/map_marker"
-            android:layout_toLeftOf="@id/logo_refresh"
-            android:layout_centerVertical="true"
-            android:scaleX="0.45"
-            android:scaleY="0.45"/>
-
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>
-
