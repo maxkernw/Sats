@@ -67,8 +67,8 @@ public class ViewPagerAdapter extends PagerAdapter
         int one,two,three;
         if(APIResponseHandler.activitesPerWeek.size() == 0)
         {
-            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
-            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
+//            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
+//            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(StorageHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = StorageHandler.activitesPerWeek.get(thisWeek);
             }else{
@@ -89,8 +89,8 @@ public class ViewPagerAdapter extends PagerAdapter
         }
         else
         {
-            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
-            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
+//            Log.e("viewPagerAdapter", "storage: " + String.valueOf(StorageHandler.activitesPerWeek.size()));
+//            Log.e("viewPagerAdapter", "apiresp: " + String.valueOf(APIResponseHandler.activitesPerWeek.size()));
             if(APIResponseHandler.activitesPerWeek.containsKey(thisWeek)){
                 one = APIResponseHandler.activitesPerWeek.get(thisWeek);
             }else{
