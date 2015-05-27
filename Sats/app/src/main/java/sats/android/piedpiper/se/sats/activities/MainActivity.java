@@ -277,7 +277,7 @@ public class MainActivity extends ActionBarActivity
                 Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
                 activity.startActivity(moreInfo, null);
 
-                //overridePendingTransition(R.anim.next_activity, R.anim.open_activity);
+                overridePendingTransition(R.anim.next_activity, R.anim.open_activity);
             }
         });
     }
