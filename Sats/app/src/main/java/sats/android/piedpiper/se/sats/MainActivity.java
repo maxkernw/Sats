@@ -30,6 +30,7 @@ public class MainActivity extends ActionBarActivity
     ViewPager graph;
     ViewPagerAdapter graphAdapter;
     public static DateTime dateView = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
+
     public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
     public StickyListHeadersListView listView;
 
@@ -50,7 +51,7 @@ public class MainActivity extends ActionBarActivity
         final TextView statusText = (TextView) findViewById(R.id.activity_status);
         final Animation animRot = AnimationUtils.loadAnimation(this, R.anim.rotate);
         final ImageView im = (ImageView) findViewById(R.id.logo_refresh);
-        final ImageView findCenter = (ImageView) findViewById(R.id.logo_image);
+        final ImageView findCenter = (ImageView) findViewById(R.id.map_marker);
         graph = (ViewPager) findViewById(R.id.graph);
 
         activity = this;
@@ -92,6 +93,7 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
             }
+            realm.close();
             //Visa lista & data
             listView.setAdapter(new CustomAdapter(activity, activitiesList));
         }
@@ -234,9 +236,9 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View view) {
                 im.startAnimation(animRot);
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
-                //responseHandler.clear(listView);
-                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
-                MainActivity.this.activity.startActivity(moreInfo, null);
+
+                responseHandler.clear(listView);
+
             }
         });
 
@@ -265,8 +267,8 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-
-
+                Intent moreInfo = new Intent(MainActivity.this.activity, CenterMapsActivity.class);
+                MainActivity.this.activity.startActivity(moreInfo, null);
             }
         });
     }

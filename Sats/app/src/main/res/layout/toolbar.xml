@@ -55,6 +55,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"/>
 
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/map_marker"
+            android:id="@+id/map_marker"
+            android:layout_toLeftOf="@id/logo_refresh"
+            android:layout_centerVertical="true"
+            android:scaleX="0.40"
+            android:scaleY="0.40"/>
+
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>

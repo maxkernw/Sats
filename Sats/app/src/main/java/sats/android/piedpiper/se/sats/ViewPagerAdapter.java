@@ -57,7 +57,7 @@ public class ViewPagerAdapter extends PagerAdapter
         heightParam.height = 90;
         week.setText(MainActivity.dateView.plusWeeks(position).getDayOfMonth() + "-" + MainActivity.dateView.plusWeeks(position + 1).getDayOfMonth() + "/" + MainActivity.dateView.plusWeeks(position + 1).getMonthOfYear());
 
-        int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear()+1;
+        int thisWeek = MainActivity.dateView.plusWeeks(position + 1).getWeekOfWeekyear();
 
         week.setGravity(Gravity.CENTER);
         //Log.e("pos", "Position in viewpager: " + position);

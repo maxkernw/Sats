@@ -61,7 +61,6 @@ public class APIResponseHandler
     public APIResponseHandler(android.app.Activity activity)
     {
         this.activity = activity;
-        realm = Realm.getInstance(activity);
         myActivities = new ArrayList<>();
         centerNamesMap = new HashMap<>();
         classTypes = new ArrayList<>();
@@ -69,6 +68,11 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
+        if(realm == null)
+        {
+            Realm.deleteRealmFile(activity);
+        }
+        realm = Realm.getInstance(activity);
         getCenterNames();
 
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
@@ -84,6 +88,8 @@ public class APIResponseHandler
                     {
                         myActivities.add(getActivityObj(element));
                     }
+
+                    realm.close();
 
                     int x = myActivities.size();
                     int y;
@@ -128,7 +134,8 @@ public class APIResponseHandler
                     Log.e("APIRESPONSEHANDLER", "size: " + String.valueOf(activitesPerWeek.size()));
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
 
-                } else {
+                } else
+                {
                     e.printStackTrace();
                 }
             }
@@ -187,7 +194,6 @@ public class APIResponseHandler
 
             realmActivity.getBookings().add(bookings.first());
         }
-
         return new Activity(booking, comment, date, distanceInKm, durationInMinutes, id, source, status, subType, type);
     }
 
@@ -386,7 +392,7 @@ public class APIResponseHandler
         return profileArray;
     }
 
-    public void clear(final StickyListHeadersListView listView, Realm realm)
+    public void clear(final StickyListHeadersListView listView)
     {
         myActivities.clear();
         getAllActivities(listView);
@@ -394,19 +400,24 @@ public class APIResponseHandler
 
     public void getCenterLocations()
     {
-        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
+        {
             @Override
-            public void onCompleted(Exception e, JsonObject result) {
-                if (e == null) {
+            public void onCompleted(Exception e, JsonObject result)
+            {
+                if (e == null)
+                {
                     JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
                     JsonArray jsonCentersArray = new JsonArray();
-                    for (JsonElement element : jsonRegionsArray) {   //loopar regions. för varje region
+                    for (JsonElement element : jsonRegionsArray)
+                    {   //loopar regions. för varje region
                         JsonObject regionObject = element.getAsJsonObject(); //en region ex sthlm
 
                         jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray()); //lägg till alla centers för ex sthlm
                     }
 
-                    for (JsonElement centerElement : jsonCentersArray) {    //loopar centers
+                    for (JsonElement centerElement : jsonCentersArray)
+                    {    //loopar centers
                         JsonObject center = centerElement.getAsJsonObject();
                         String centerId = center.get("id").getAsString();
                         String centerName = center.get("name").getAsString();
@@ -419,7 +430,8 @@ public class APIResponseHandler
 
                         centerNamesMap.put(centerId, centerName);
                     }
-                } else {
+                } else
+                {
                     Log.e("Info", "Could not get center names");
                 }
             }
