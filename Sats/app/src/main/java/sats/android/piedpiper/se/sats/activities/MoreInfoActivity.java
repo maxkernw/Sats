@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-
 import java.util.ArrayList;
-
 import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
 import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.models.ClassType;
@@ -24,26 +21,24 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
     private YouTubePlayer player;
     private String GOOGLE_KEY = "AIzaSyDUts-9-KshgP8Pj9KBaWvyjncDcY0gJ7s";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.class_info_view);
-        Log.i("ACTIVITETEN", "Create !!!!!");
-
-        Intent intent= getIntent();
+        Intent intent = getIntent();
         String classtypeId = intent.getStringExtra("classTypeId");
 
         APIResponseHandler h = new APIResponseHandler(this);
         ArrayList<ClassType> types = h.getClassTypes();
         ClassType classTypeObj = null;
-        for (ClassType type : types) {
-            if(type.getId().equals(classtypeId)){
+        for (ClassType type : types)
+        {
+            if (type.getId().equals(classtypeId))
+            {
                 classTypeObj = type;
             }
         }
-
 
         TextView classTitle = (TextView) findViewById(R.id.class_name);
         TextView duration = (TextView) findViewById(R.id.class_duration_time);
@@ -61,11 +56,8 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         ProgressBar balance = (ProgressBar) findViewById(R.id.balance_progress);
         ProgressBar elasticity = (ProgressBar) findViewById(R.id.elasticity_progress);
 
-
         videoUrlV = (YouTubePlayerView) findViewById(R.id.VideoURL);
         videoUrlV.initialize(GOOGLE_KEY, this);
-
-
 
         if (classTypeObj != null)
         {
@@ -86,7 +78,8 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
             ArrayList<Profile> profiles = classTypeObj.getProfile();
             for (Profile profile : profiles)
             {
-                switch (profile.id) {
+                switch (profile.id)
+                {
                     case "cardio":
                         kondition.setProgress(profile.value);
                         break;
@@ -105,34 +98,28 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 }
             }
 
-
-        }else{
+        }
+        else
+        {
             Log.e("Info", "classtypeobj is empty");
         }
-        //visa classType i layout
-
     }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-        //videoUrlV.getSettings().setJavaScriptEnabled(false);
     }
-
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b)
     {
         this.player = youTubePlayer;
+
         APIResponseHandler handler = new APIResponseHandler(this);
-
         ArrayList<ClassType> classTypes = handler.getClassTypes();
-
-        Intent intent= getIntent();
-
+        Intent intent = getIntent();
         String classtypeId = intent.getStringExtra("classTypeId");
-
         ClassType classTypeObj = null;
 
         for (ClassType classType : classTypes)
@@ -144,10 +131,12 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         }
         if (classTypeObj != null)
         {
-            if (classTypeObj.getName().contains("Hot MOJO®")) {
+            if (classTypeObj.getName().contains("Hot MOJO®"))
+            {
                 youTubePlayer.loadVideo("QWzlBfhE-qw");
-            } else {
-                Log.e("Class", "Class: " + classTypeObj.getName());
+            }
+            else
+            {
                 youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
             }
         }

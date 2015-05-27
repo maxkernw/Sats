@@ -11,6 +11,7 @@ public class CenterDetailView extends ActionBarActivity
 {
     public static Marker marker;
 
+
     public static void setMarker(Marker marker)
     {
         CenterDetailView.marker = marker;
