@@ -5,7 +5,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MyLocationListener implements LocationListener{
+public final class MyLocationListener implements LocationListener{
 
     public static LatLng myPosition;
 
@@ -32,7 +32,5 @@ public class MyLocationListener implements LocationListener{
         LatLng myP = new LatLng(location.getLatitude(), location.getLongitude());
 
         myPosition = myP;
-
-
     }
 }

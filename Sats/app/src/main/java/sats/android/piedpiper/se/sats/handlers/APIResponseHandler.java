@@ -29,10 +29,9 @@ import sats.android.piedpiper.se.sats.models.BookingClass;
 import sats.android.piedpiper.se.sats.models.Profile;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class APIResponseHandler
+public final class APIResponseHandler
 {
     public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
-    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20150101&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
@@ -75,64 +74,61 @@ public class APIResponseHandler
             @Override
             public void onCompleted(Exception e, JsonObject result)
             {
-                if (e == null)
+            if (e == null)
+            {
+                JsonArray jsonArray = result.getAsJsonArray("Activities");
+
+                for (JsonElement element : jsonArray)
                 {
-                    JsonArray jsonArray = result.getAsJsonArray("Activities");
-
-                    for (JsonElement element : jsonArray)
-                    {
-                        myActivities.add(getActivityObj(element));
-                    }
-
-                    realm.close();
-
-                    int x = myActivities.size();
-                    int y;
-                    for (int m = x; m >= 0; m--)
-                    {
-                        for (int i = 0; i < x - 1; i++)
-                        {
-                            y = i + 1;
-                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
-                            {
-                                Activity temp;
-                                temp = myActivities.get(i);
-                                myActivities.set(i, myActivities.get(y));
-                                myActivities.set(y, temp);
-                            }
-                        }
-                    }
-
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
-                    for (int i = 0; i < myActivities.size(); i++)
-                    {
-                        DateTime joda = new DateTime(myActivities.get(i).getDate());
-
-                        if (joda.getWeekOfWeekyear() != week)
-                        {
-                            weekPosition.put(joda.getWeekOfWeekyear(), i);
-                            week = joda.getWeekOfWeekyear();
-                        }
-                        if (joda.getWeekOfWeekyear() == week)
-                        {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
-                            {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
-                                value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
-                            } else
-                            {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
-                            }
-                        }
-                    }
-                    MainActivity.graphAdapter.notifyDataSetChanged();
-                    listView.setAdapter(new CustomAdapter(activity, myActivities));
-
-                } else
-                {
-                    e.printStackTrace();
+                    myActivities.add(getActivityObj(element));
                 }
+
+                realm.close();
+
+                int x = myActivities.size();
+                int y;
+                for (int m = x; m >= 0; m--)
+                {
+                    for (int i = 0; i < x - 1; i++)
+                    {
+                        y = i + 1;
+                        if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
+                        {
+                            Activity temp;
+                            temp = myActivities.get(i);
+                            myActivities.set(i, myActivities.get(y));
+                            myActivities.set(y, temp);
+                        }
+                    }
+                }
+
+                week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                for (int i = 0; i < myActivities.size(); i++)
+                {
+                    DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                    if (joda.getWeekOfWeekyear() != week)
+                    {
+                        weekPosition.put(joda.getWeekOfWeekyear(), i);
+                        week = joda.getWeekOfWeekyear();
+                    }
+                    if (joda.getWeekOfWeekyear() == week)
+                    {
+                        if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
+                        {
+                            int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                            value = value + 1;
+                            activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                        }else{
+                            activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
+                        }
+                    }
+                }
+                MainActivity.graphAdapter.notifyDataSetChanged();
+                listView.setAdapter(new CustomAdapter(activity, myActivities));
+            }else{
+                e.printStackTrace();
+            }
             }
         });
     }
@@ -169,8 +165,7 @@ public class APIResponseHandler
         {
             date = format.parse(dateString);
             realmActivity.setDate(date);
-        } catch (ParseException e)
-        {
+        }catch (ParseException e){
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
@@ -292,7 +287,6 @@ public class APIResponseHandler
         try
         {
             JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
-            Log.e("Result", "Result: " + result);
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
@@ -337,11 +331,7 @@ public class APIResponseHandler
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ExecutionException e)
+        catch (InterruptedException | ExecutionException e)
         {
             e.printStackTrace();
         }
@@ -371,7 +361,7 @@ public class APIResponseHandler
     {
         JsonObject object = element.getAsJsonObject();
 
-        ArrayList<Profile> stats = null;
+        ArrayList<Profile> stats;
         String description = object.get("description").getAsString();
         String videoURL = object.get("videoUrl").getAsString();
         String name = object.get("name").getAsString();

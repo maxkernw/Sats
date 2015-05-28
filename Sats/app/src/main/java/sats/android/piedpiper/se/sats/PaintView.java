@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
-public class MyView extends View
+public final class PaintView extends View
 {
     Paint paint;
     final boolean filled;
@@ -18,7 +18,7 @@ public class MyView extends View
     static int[] yPos = new int[]{411,373,298,226,150,73};
     int leftCell = 0, rightCell = 0;
 
-    public MyView(Context context, final boolean filled, final int position, final int leftCell, final int rightCell)
+    public PaintView(Context context, final boolean filled, final int position, final int leftCell, final int rightCell)
     {
         super(context);
         this.filled = filled;
@@ -39,24 +39,12 @@ public class MyView extends View
             this.rightCell = 0;
         }
 
-        //this.position = position;
-        //this.leftCell = leftCell;
-        //this.rightCell = rightCell;
-        paint = new Paint();
-    }
-
-    public MyView(Context context, final boolean filled, final int position)
-    {
-        super(context);
-        this.filled = filled;
-        this.position = position;
         paint = new Paint();
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-
         paint.setColor(getResources().getColor(R.color.orange));
         paint.setStrokeWidth(11);
 
@@ -64,8 +52,7 @@ public class MyView extends View
         {
             paint.setStyle(Paint.Style.FILL);
             radius = filledRadius;
-        } else
-        {
+        }else{
             paint.setStyle(Paint.Style.STROKE);
             radius = notFilledRadius;
         }
@@ -126,9 +113,7 @@ public class MyView extends View
         if (filled)
         {
             paint.setColor(Color.WHITE);
-        }
-        else
-        {
+        }else{
             paint.setColor(Color.BLACK);
         }
 

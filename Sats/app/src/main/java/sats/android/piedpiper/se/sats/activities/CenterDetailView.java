@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.google.android.gms.maps.model.Marker;
 import sats.android.piedpiper.se.sats.R;
 
-public class CenterDetailView extends ActionBarActivity
+public final class CenterDetailView extends ActionBarActivity
 {
     public static Marker marker;
 

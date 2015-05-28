@@ -2,7 +2,6 @@ package sats.android.piedpiper.se.sats.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -11,35 +10,35 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
 import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
-import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
 import sats.android.piedpiper.se.sats.R;
-import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.adapters.ViewPagerAdapter;
+import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
+import sats.android.piedpiper.se.sats.handlers.StorageHandler;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class MainActivity extends ActionBarActivity
+public final class MainActivity extends ActionBarActivity
 {
     ViewPager graph;
     public static ViewPagerAdapter graphAdapter;
-    //public static DateTime startTime = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
-    //public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
 
     public static DateTime startTime = new DateTime().withDate(2013,12,29);
     public static DateTime today = new DateTime().withDate(2015, 4, 7);
     
     public StickyListHeadersListView listView;
-    public static int pos;
-    //private Date date = startTime.toDate();
     private Date todaydate = today.toDate();
     private static android.app.Activity activity;
     private static ImageView leftMarker = null;
@@ -67,7 +66,6 @@ public class MainActivity extends ActionBarActivity
         realm = Realm.getInstance(this);
         final RealmResults<Activity> realmActivities = realm.allObjects(Activity.class);
         final int realmSize = realmActivities.size();
-        //Behövs ion?
 
         if(realmSize == 0)
         {
@@ -144,7 +142,6 @@ public class MainActivity extends ActionBarActivity
         {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
                 if (position < 15  && position > 9)
                 {
                     leftMarker.setVisibility(View.INVISIBLE);
@@ -255,7 +252,6 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView stickyListHeadersListView, View header, int i, long l)
             {
-                TextView txt = (TextView) findViewById(R.id.date_header);
 
                 if (todaydate.after(CustomAdapter.trainingList.get(i).getDate()))
                 {
@@ -280,22 +276,5 @@ public class MainActivity extends ActionBarActivity
                 overridePendingTransition(R.anim.next_activity, R.anim.open_activity);
             }
         });
-    }
-
-    public boolean realmExists(android.app.Activity activity)
-    {
-        int realmObjects = 0;
-        Realm realm = Realm.getInstance(activity);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
-
-        if(realmObjects > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

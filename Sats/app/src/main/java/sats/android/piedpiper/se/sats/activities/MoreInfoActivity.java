@@ -17,10 +17,9 @@ import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.Profile;
 
-public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener
+public final class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener
 {
     private YouTubePlayerView videoUrlV;
-    private YouTubePlayer player;
     private String GOOGLE_KEY = "AIzaSyDUts-9-KshgP8Pj9KBaWvyjncDcY0gJ7s";
 
     @Override
@@ -53,7 +52,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         TextView instructor = (TextView) findViewById(R.id.instructor);
         TextView description = (TextView) findViewById(R.id.class_information);
 
-        ProgressBar kondition = (ProgressBar) findViewById(R.id.fitness_progress);
+        ProgressBar condition = (ProgressBar) findViewById(R.id.fitness_progress);
         ProgressBar strength = (ProgressBar) findViewById(R.id.strength_progress);
         ProgressBar flexibility = (ProgressBar) findViewById(R.id.flexibility_progress);
         ProgressBar balance = (ProgressBar) findViewById(R.id.balance_progress);
@@ -72,14 +71,14 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 peopleImage.setVisibility(View.INVISIBLE);
                 posInQueue.setVisibility(View.INVISIBLE);
             }else{
-                posInQueue.setText(intent.getStringExtra("posInQueue")); //todo gör osynlig om 0
+                posInQueue.setText(intent.getStringExtra("posInQueue"));
             }
 
             bookedPersons.setText(intent.getStringExtra("bookedCount"));
             maxBookedPersons.setText(intent.getStringExtra("maxAttending"));
 
             center.setText(intent.getStringExtra("centerName"));
-            dateStartTime.setText(intent.getStringExtra("startTime")); //todo formatera date
+            dateStartTime.setText(intent.getStringExtra("startTime"));
             instructor.setText(intent.getStringExtra("instructor"));
 
             description.setText(classTypeObj.getDescription());
@@ -90,7 +89,7 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
                 switch (profile.id)
                 {
                     case "cardio":
-                        kondition.setProgress(profile.value);
+                        condition.setProgress(profile.value);
                         break;
                     case "strength":
                         strength.setProgress(profile.value);
@@ -122,8 +121,6 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b)
     {
-        this.player = youTubePlayer;
-
         APIResponseHandler handler = new APIResponseHandler(this);
         ArrayList<ClassType> classTypes = handler.getClassTypes();
         Intent intent = getIntent();
@@ -141,12 +138,10 @@ public class MoreInfoActivity extends YouTubeBaseActivity implements YouTubePlay
         {
             if (classTypeObj.getName().contains("Hot MOJO®"))
             {
-                //youTubePlayer.loadVideo("QWzlBfhE-qw");
                 youTubePlayer.cueVideo("QWzlBfhE-qw");
             }
             else
             {
-                //youTubePlayer.loadVideo(classTypeObj.videoURL.substring(30, 41));
                 youTubePlayer.cueVideo(classTypeObj.videoURL.substring(30, 41));
             }
         }

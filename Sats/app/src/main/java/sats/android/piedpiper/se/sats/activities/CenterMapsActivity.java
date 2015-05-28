@@ -26,14 +26,13 @@ import java.util.HashMap;
 import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 
-public class CenterMapsActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+public final class CenterMapsActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
     private GoogleMap map;
     private GoogleApiClient gapi;
     public static HashMap<String, CenterInfo> markers = new HashMap();
     private View mGhost;
     private TextView txt;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -102,8 +101,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
                             .position(coords).title(center).flat(true)
             );
 
-
-
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
             {
                 @Override
@@ -128,12 +125,12 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
 
         map.animateCamera(cameraUpdate);
-
     }
 
     @Override
     public void onConnectionSuspended(int i)
     {
+
     }
 
     @Override
