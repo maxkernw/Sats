@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity
     //public static DateTime startTime = new DateTime().minusYears(1).minusWeeks(21).minusDays(2);//minusDays(3);
     //public static DateTime today = new DateTime().minusWeeks(6).minusDays(2);//minusDays(3);
 
-    public static DateTime startTime = new DateTime().withDate(2013,12,29);
+    public static DateTime startTime = new DateTime().withDate(2013, 12, 29);
     public static DateTime today = new DateTime().withDate(2015, 4, 7);
     
     public StickyListHeadersListView listView;
@@ -72,6 +72,7 @@ public class MainActivity extends ActionBarActivity
         {
             //Hämta från ion
             APIResponseHandler responseHandler = new APIResponseHandler(this);
+            realm.close();
             responseHandler.getAllActivities(listView); //sparar i realm
             //visat data
         }
@@ -80,7 +81,6 @@ public class MainActivity extends ActionBarActivity
             StorageHandler sh = new StorageHandler(activity);
             sh.getAllActivities(listView);
 
-            realm = Realm.getInstance(this);
             for (Activity activity : realmActivities)
             {
                 activitiesList.add(activity);
@@ -100,8 +100,8 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
             }
-            realm.close();
             listView.setAdapter(new CustomAdapter(activity, activitiesList));
+            realm.close();
         }
 
         leftMarker = new ImageView(activity);
@@ -240,10 +240,6 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 im.startAnimation(animRot);
-                if(realmSize > 0)
-                {
-                    Realm.deleteRealmFile(activity);
-                }
                 APIResponseHandler responseHandler = new APIResponseHandler(activity);
                 responseHandler.clear(listView);
             }
@@ -276,22 +272,5 @@ public class MainActivity extends ActionBarActivity
                 activity.startActivity(moreInfo, null);
             }
         });
-    }
-
-    public boolean realmExists(android.app.Activity activity)
-    {
-        int realmObjects = 0;
-        Realm realm = Realm.getInstance(activity);
-        realmObjects = realm.allObjects(Activity.class).size();
-        realm.close();
-
-        if(realmObjects > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

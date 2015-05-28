@@ -58,18 +58,6 @@ public class APIResponseHandler
 
     public void getAllActivities(final StickyListHeadersListView listView)
     {
-        if (realm != null)
-        {
-            realm.close();
-            if (realm.allObjects(Activity.class).size() > 0)
-            {
-                realm.close();
-                Realm.deleteRealmFile(activity);
-            }
-        }
-        realm = Realm.getInstance(activity);
-        getCenterNames();
-
         Ion.with(activity).load(raspberryURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
         {
             @Override
@@ -77,14 +65,16 @@ public class APIResponseHandler
             {
                 if (e == null)
                 {
+                    Realm.deleteRealmFile(activity);
+                    realm = Realm.getInstance(activity);
+                    getCenterNames();
+
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
                     for (JsonElement element : jsonArray)
                     {
                         myActivities.add(getActivityObj(element));
                     }
-
-                    realm.close();
 
                     int x = myActivities.size();
                     int y;
@@ -128,6 +118,7 @@ public class APIResponseHandler
                     }
                     MainActivity.graphAdapter.notifyDataSetChanged();
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
+                    realm.close();
 
                 } else
                 {
@@ -400,41 +391,7 @@ public class APIResponseHandler
     public void clear(final StickyListHeadersListView listView)
     {
         myActivities.clear();
-        Realm.getInstance(activity);
         getAllActivities(listView);
-    }
-
-    public void getCenterLocations()
-    {
-        Ion.with(activity).load(centersURL).asJsonObject().setCallback(new FutureCallback<JsonObject>()
-        {
-            @Override
-            public void onCompleted(Exception e, JsonObject result)
-            {
-                if (e == null)
-                {
-                    JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
-                    JsonArray jsonCentersArray = new JsonArray();
-                    for (JsonElement element : jsonRegionsArray)
-                    {
-                        JsonObject regionObject = element.getAsJsonObject();
-                        jsonCentersArray.addAll(regionObject.get("centers").getAsJsonArray());
-                    }
-
-                    for (JsonElement centerElement : jsonCentersArray)
-                    {
-                        JsonObject center = centerElement.getAsJsonObject();
-                        String centerId = center.get("id").getAsString();
-                        String centerName = center.get("name").getAsString();
-                        double lati = center.get("lat").getAsDouble();
-                        double longi = center.get("long").getAsDouble();
-                        LatLng kord = new LatLng(lati, longi);
-                        markers2.put(centerName, kord);
-                        centerNamesMap.put(centerId, centerName);
-                    }
-                }
-            }
-        });
     }
 
     public String getActivityName(String subType)
