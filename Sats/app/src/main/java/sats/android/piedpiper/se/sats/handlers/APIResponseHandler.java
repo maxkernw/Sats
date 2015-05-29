@@ -2,37 +2,37 @@ package sats.android.piedpiper.se.sats.handlers;
 
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import org.joda.time.DateTime;
-import java.lang.String;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.activities.MainActivity;
-import sats.android.piedpiper.se.sats.models.CenterInfo;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
-import sats.android.piedpiper.se.sats.models.Center;
-import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.BookingClass;
+import sats.android.piedpiper.se.sats.models.Center;
+import sats.android.piedpiper.se.sats.models.CenterInfo;
+import sats.android.piedpiper.se.sats.models.ClassType;
 import sats.android.piedpiper.se.sats.models.Profile;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class APIResponseHandler
+public final class APIResponseHandler
 {
     public static final String raspberryURL = "http://80.217.172.201:8080/sats/se/training/activities/?fromDate=20150101&toDate=20160101";
-    public static final String sURL = "http://192.168.68.226:8080/sats-server/se/training/activities/?fromDate=20150101&toDate=20160521";
     public static final String centersURL = "https://api2.sats.com/v1.0/se/centers";
     private static final String TAG = "APIresponseHandler";
     public static final String classTypesURL = "https://api2.sats.com/v1.0/se/classtypes";
@@ -42,7 +42,6 @@ public class APIResponseHandler
     private ArrayList<ClassType> classTypes;
     public static HashMap<String, String> centerNamesMap;
     public static HashMap<String, String> urls = new HashMap<>();
-    private static HashMap<String, LatLng> markers2 = new HashMap<>();
     private static Realm realm;
     public static int week = 0;
     public static HashMap<Integer, Integer> weekPosition = new HashMap<>();
@@ -71,59 +70,56 @@ public class APIResponseHandler
 
                     JsonArray jsonArray = result.getAsJsonArray("Activities");
 
-                    for (JsonElement element : jsonArray)
-                    {
-                        myActivities.add(getActivityObj(element));
-                    }
+                for (JsonElement element : jsonArray)
+                {
+                    myActivities.add(getActivityObj(element));
+                }
 
-                    int x = myActivities.size();
-                    int y;
-                    for (int m = x; m >= 0; m--)
+                int x = myActivities.size();
+                int y;
+                for (int m = x; m >= 0; m--)
+                {
+                    for (int i = 0; i < x - 1; i++)
                     {
-                        for (int i = 0; i < x - 1; i++)
+                        y = i + 1;
+                        if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
                         {
-                            y = i + 1;
-                            if (myActivities.get(i).getDate().getTime() > myActivities.get(y).getDate().getTime())
-                            {
-                                Activity temp;
-                                temp = myActivities.get(i);
-                                myActivities.set(i, myActivities.get(y));
-                                myActivities.set(y, temp);
-                            }
+                            Activity temp;
+                            temp = myActivities.get(i);
+                            myActivities.set(i, myActivities.get(y));
+                            myActivities.set(y, temp);
                         }
                     }
+                }
 
-                    week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
-                    for (int i = 0; i < myActivities.size(); i++)
+                week = new DateTime(myActivities.get(0).getDate()).getWeekOfWeekyear() - 1;
+                for (int i = 0; i < myActivities.size(); i++)
+                {
+                    DateTime joda = new DateTime(myActivities.get(i).getDate());
+
+                    if (joda.getWeekOfWeekyear() != week)
                     {
-                        DateTime joda = new DateTime(myActivities.get(i).getDate());
-
-                        if (joda.getWeekOfWeekyear() != week)
+                        weekPosition.put(joda.getWeekOfWeekyear(), i);
+                        week = joda.getWeekOfWeekyear();
+                    }
+                    if (joda.getWeekOfWeekyear() == week)
+                    {
+                        if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
                         {
-                            weekPosition.put(joda.getWeekOfWeekyear(), i);
-                            week = joda.getWeekOfWeekyear();
-                        }
-                        if (joda.getWeekOfWeekyear() == week)
-                        {
-                            if (activitesPerWeek.containsKey(joda.getWeekOfWeekyear()))
-                            {
-                                int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
-                                value = value + 1;
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
-                            } else
-                            {
-                                activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
-                            }
+                            int value = activitesPerWeek.get(joda.getWeekOfWeekyear());
+                            value = value + 1;
+                            activitesPerWeek.put(joda.getWeekOfWeekyear(), value);
+                        }else{
+                            activitesPerWeek.put(joda.getWeekOfWeekyear(), 1);
                         }
                     }
+                }
                     MainActivity.graphAdapter.notifyDataSetChanged();
                     listView.setAdapter(new CustomAdapter(activity, myActivities));
                     realm.close();
-
-                } else
-                {
+                }else{
                     e.printStackTrace();
-                }
+            }
             }
         });
     }
@@ -160,8 +156,7 @@ public class APIResponseHandler
         {
             date = format.parse(dateString);
             realmActivity.setDate(date);
-        } catch (ParseException e)
-        {
+        }catch (ParseException e){
             e.printStackTrace();
             Log.e(TAG, "Could not parse dateString from json to date");
         }
@@ -283,7 +278,6 @@ public class APIResponseHandler
         try
         {
             JsonObject result = Ion.with(activity).load(centersURL).asJsonObject().get();
-            Log.e("Result", "Result: " + result);
             JsonArray jsonRegionsArray = result.getAsJsonArray("regions");
             JsonArray jsonCentersArray = new JsonArray();
 
@@ -328,11 +322,7 @@ public class APIResponseHandler
                 centerNamesMap.put(String.valueOf(centerId), centerName);
             }
         }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ExecutionException e)
+        catch (InterruptedException | ExecutionException e)
         {
             e.printStackTrace();
         }
@@ -362,7 +352,7 @@ public class APIResponseHandler
     {
         JsonObject object = element.getAsJsonObject();
 
-        ArrayList<Profile> stats = null;
+        ArrayList<Profile> stats;
         String description = object.get("description").getAsString();
         String videoURL = object.get("videoUrl").getAsString();
         String name = object.get("name").getAsString();

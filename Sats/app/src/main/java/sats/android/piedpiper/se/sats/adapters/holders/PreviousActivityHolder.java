@@ -4,7 +4,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PreviousActivityHolder extends ActivityHolder
+public final class PreviousActivityHolder extends ActivityHolder
 {
     public CheckBox checkbox;
     public TextView date;

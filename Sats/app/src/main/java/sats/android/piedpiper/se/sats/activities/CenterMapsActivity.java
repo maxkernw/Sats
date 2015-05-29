@@ -2,13 +2,16 @@ package sats.android.piedpiper.se.sats.activities;
 
 import android.content.Intent;
 import android.location.Location;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -16,18 +19,19 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.HashMap;
+
 import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 
-public class CenterMapsActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+public final class CenterMapsActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
     private GoogleMap map;
     private GoogleApiClient gapi;
     public static HashMap<String, CenterInfo> markers = new HashMap();
     private View mGhost;
-    public static double longitude;
-    public static double latitude;
+    private TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,11 +76,30 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             final String center = entry.getKey();
             final CenterInfo why = entry.getValue();
             LatLng coords = new LatLng(why.getLati(), why.getLongi());
+            map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+            {
+                @Override
+                public View getInfoWindow(Marker marker)
+                {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker)
+                {
+                    View v = getLayoutInflater().inflate(R.layout.info_window_map, null);
+                    txt = (TextView) v.findViewById(R.id.text_map);
+                    txt.setText("SATS " + marker.getTitle());
+
+                    return v;
+                }
+            });
 
             map.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.sats_pin_small))
                             .position(coords).title(center).flat(true)
             );
+
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
             {
                 @Override
@@ -89,22 +112,18 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
             });
         }
         map.setMyLocationEnabled(true);
-        if (latitude != 0 && longitude != 0)
-        {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 14));
-        }
-        else
-        {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.293761, 18.0785327), 8));
-        }
     }
 
     @Override
     public void onConnected(Bundle bundle)
     {
         Location loc = LocationServices.FusedLocationApi.getLastLocation(gapi);
-        longitude = loc.getLongitude();
-        latitude = loc.getLatitude();
+
+        LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
+
+        map.animateCamera(cameraUpdate);
     }
 
     @Override
@@ -115,7 +134,6 @@ public class CenterMapsActivity extends FragmentActivity implements GoogleApiCli
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult)
     {
-
     }
 }
 

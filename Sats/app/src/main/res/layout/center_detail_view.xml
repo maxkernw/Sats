@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/map_toolbar"
+        layout="@layout/toolbar_found_center"
         />
 
 

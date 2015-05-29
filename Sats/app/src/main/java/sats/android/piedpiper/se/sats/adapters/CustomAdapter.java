@@ -1,7 +1,6 @@
 package sats.android.piedpiper.se.sats.adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,26 +9,29 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
+import sats.android.piedpiper.se.sats.R;
 import sats.android.piedpiper.se.sats.activities.MainActivity;
 import sats.android.piedpiper.se.sats.activities.MoreInfoActivity;
-import sats.android.piedpiper.se.sats.R;
+import sats.android.piedpiper.se.sats.adapters.holders.ActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.BookedActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.OwnActivityHolder;
 import sats.android.piedpiper.se.sats.adapters.holders.PreviousActivityHolder;
-import sats.android.piedpiper.se.sats.handlers.APIResponseHandler;
 import sats.android.piedpiper.se.sats.models.Activity;
 import sats.android.piedpiper.se.sats.models.Booking;
-import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.BookingClass;
+import sats.android.piedpiper.se.sats.models.Center;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
-public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
+public final class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
     private final android.app.Activity activity;
     private final LayoutInflater inflater;
@@ -42,8 +44,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private static final int PREVIOUS = 0;
     private static final int BOOKED = 1;
     private static final int OWN = 2;
-    private int[] weeks;
     private String[] mWeeks;
+    private String previousDateFormat;
 
     public CustomAdapter(android.app.Activity activity, ArrayList<Activity> trainingList)
     {
@@ -51,42 +53,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.trainingList = trainingList;
         inflater = activity.getLayoutInflater();
         dateToday = MainActivity.today.toDate();
-        weeks = getWeeks();
         mWeeks = getHeaderText();
-    }
-
-    public int[] getWeeks()
-    {
-        if (!trainingList.isEmpty())
-        {
-            DateTime firstActivityDate = new DateTime(trainingList.get(0).getDate());
-            int week = firstActivityDate.getWeekOfWeekyear();
-            ArrayList<Integer> sectionIndices = new ArrayList<>();
-
-            for (int i = 0; i < trainingList.size(); i++)
-            {
-                if (trainingList.get(i).getDate().before(dateToday))
-                {
-                    DateTime activityDate = new DateTime(trainingList.get(i).getDate());
-                    int activityWeek = activityDate.getWeekOfWeekyear();
-                    if (activityWeek != week)
-                    {
-                        week = activityWeek;
-                        sectionIndices.add(i);
-                    }
-                } else
-                {
-                    sectionIndices.add(i);
-                }
-            }
-            int[] sections = new int[sectionIndices.size()];
-            for (int i = 0; i < sectionIndices.size(); i++)
-            {
-                sections[i] = sectionIndices.get(i);
-            }
-            return sections;
-        }
-        return new int[]{1};
     }
 
     public String[] getHeaderText()
@@ -141,13 +108,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         if (isPreviousActivity)
         {
             return PREVIOUS;
-        } else
-        {
+        }else{
             if (myTrainingActivityObj.getType().equals("GROUP"))
             {
                 return BOOKED;
-            } else
-            {
+            }else{
                 return OWN;
             }
         }
@@ -166,13 +131,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             if (isPreviousActivity)
             {
                 convertView = inflatePreviousActivity(parent);
-            } else
-            {
+            }else{
                 if (myTrainingActivityObj.getType().equals("GROUP"))
                 {
                     convertView = inflateBookedActivity(parent);
-                } else
-                {
+                }else{
                     convertView = inflateOwnActivity(parent);
                 }
             }
@@ -181,17 +144,14 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         if (isPreviousActivity)
         {
             setupPreviousActivity(convertView, position);
-        } else
-        {
+        }else{
             if (myTrainingActivityObj.getType().equals("GROUP"))
             {
                 setupBookedActivity(convertView, position);
-            } else
-            {
+            }else{
                 setupOwnActivity(convertView, position);
             }
         }
-
         return convertView;
     }
 
@@ -199,7 +159,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        OwnActivityHolder holder;
+        final OwnActivityHolder holder;
         holder = new OwnActivityHolder();
         newView = inflater.inflate(R.layout.own_activity_item, parent, false);
         holder.title = (TextView) newView.findViewById(R.id.own_activity_title);
@@ -213,7 +173,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        BookedActivityHolder holder;
+        final BookedActivityHolder holder;
         holder = new BookedActivityHolder();
         newView = inflater.inflate(R.layout.booked_activity_item, parent, false);
 
@@ -234,7 +194,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     {
         View newView;
 
-        PreviousActivityHolder holder;
+        final PreviousActivityHolder holder;
         holder = new PreviousActivityHolder();
         newView = inflater.inflate(R.layout.previous_training_item, parent, false);
         holder.title = (TextView) newView.findViewById(R.id.title);
@@ -247,7 +207,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupOwnActivity(View view, int position)
     {
-        OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
+        final OwnActivityHolder holder = (OwnActivityHolder) view.getTag();
         Activity ownActivityObj = (Activity) getItem(position);
 
         holder.title.setText(ownActivityObj.getSubType());
@@ -256,7 +216,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupBookedActivity(View view, int position)
     {
-        BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
+        final BookedActivityHolder holder = (BookedActivityHolder) view.getTag();
 
         final Activity bookedActivityObj = (Activity) getItem(position);
         Integer hrs = bookedActivityObj.getDate().getHours();
@@ -269,7 +229,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         holder.bigClockMinutes.setText(curMin);
         holder.classTotalTime.setText(String.valueOf(bookedActivityObj.getDurationInMinutes()) + " min");
         holder.title.setText(bookedActivityObj.getSubType());
-
 
         if (!bookedActivityObj.isValid())
         {
@@ -284,9 +243,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
                     bookedPersons.setVisibility(View.INVISIBLE);
                 }
             }
-        }
-        else
-        {
+        }else{
             Realm realm = Realm.getInstance(activity);
             final Booking realmBooking = bookedActivityObj.getBookings().first();
             if (realmBooking != null)
@@ -316,7 +273,6 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         RelativeLayout lay = (RelativeLayout) view.findViewById(R.id.bottom_right_box_booked);
 
-        final String finalCenterName = centerName;
         lay.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -336,22 +292,24 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                             moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
                             moreInfo.putExtra("instructor", classObj.getInstructorId());
-                            //moreInfo.putExtra("centerName", finalCenterName);
-                            moreInfo.putExtra("centerName", APIResponseHandler.centerNamesMap.get(classObj.getCenterId()));
-
+                            moreInfo.putExtra("centerName", holder.center.getText());
                             moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(bookingObj.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
+                            Date dateFromObject = classObj.getStartTime();
+                            mCalendar.setTime(dateFromObject);
+
+                            int day = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+                            int dayinweek = (day+7)%7;
+                            String dateText = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+
+                            moreInfo.putExtra("startTime", dateText);
                         }
-
                         CustomAdapter.this.activity.startActivity(moreInfo, null);
                     }
-                }
-                else
-                {
+                }else{
                     Booking realmBooking = bookedActivityObj.getBookings().first();
 
                     if (realmBooking != null)
@@ -362,23 +320,26 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
                             moreInfo.putExtra("classTypeId", classObj.getClassTypeId());
                             moreInfo.putExtra("instructor", classObj.getInstructorId());
-                            moreInfo.putExtra("centerName", finalCenterName);
+                            moreInfo.putExtra("centerName", holder.center.getText());
                             moreInfo.putExtra("duration", String.valueOf(classObj.getDurationInMinutes()));
                             moreInfo.putExtra("bookedCount", String.valueOf(classObj.getBookedPersonsCount()));
                             moreInfo.putExtra("maxAttending", String.valueOf(classObj.getMaxPersonsCount()));
                             moreInfo.putExtra("posInQueue", String.valueOf(realmBooking.getPositionInQueue()));
-                            moreInfo.putExtra("startTime", String.valueOf(classObj.getStartTime()));
 
-                        }
-                        else
-                        {
+                            Date dateFromObject = classObj.getStartTime();
+                            mCalendar.setTime(dateFromObject);
+
+                            int day = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+                            int dayinweek = (day+7)%7;
+                            String dateText = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+
+                            moreInfo.putExtra("startTime", dateText);
+                        }else{
                             Toast.makeText(activity, "Kan inte hitta class",
                                     Toast.LENGTH_LONG).show();
                         }
                         CustomAdapter.this.activity.startActivity(moreInfo, null);
-                    }
-                    else
-                    {
+                    }else{
                         Toast.makeText(activity, "Kan inte visa mer om passet",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -389,11 +350,11 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setupPreviousActivity(View view, int position)
     {
-        PreviousActivityHolder holder = (PreviousActivityHolder) view.getTag();
+        final PreviousActivityHolder holder = (PreviousActivityHolder) view.getTag();
         Activity previousActivity = (Activity) getItem(position);
         mCalendar.setTime(trainingList.get(position).getDate());
         int month = mCalendar.get(Calendar.MONTH);
-        String previousDateFormat = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + "/" + (month + 1);
+        previousDateFormat = swedish_days[mCalendar.get(Calendar.DAY_OF_WEEK) - 1] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + "/" + (month + 1);
 
         holder.title.setText(previousActivity.getSubType());
         holder.date.setText(previousDateFormat);
@@ -405,8 +366,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         {
             box.setImageResource(R.drawable.checkbox_filled);
             text.setText("Avklarat!");
-        } else
-        {
+        }else{
             box.setImageResource(R.drawable.checkbox_empty);
             text.setText("Avklarat?");
         }
@@ -414,8 +374,7 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     private void setActivityImage(PreviousActivityHolder previousActivityHolder, Activity previousActivity)
     {
-
-        int imageNo = 0;
+        int imageNo;
 
         if (previousActivity.getSubType().equals("cycle"))
         {
@@ -457,32 +416,43 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
     @Override
     public View getHeaderView(int position, View convertView, final ViewGroup parent)
     {
-        HeaderViewHolder holder;
+        ActivityHolder holder;
         if (convertView == null)
         {
-            holder = new HeaderViewHolder();
+            holder = new ActivityHolder();
             convertView = inflater.inflate(R.layout.date_header, parent, false);
-            holder.text = (TextView) convertView.findViewById(R.id.date_header);
+            holder.title = (TextView) convertView.findViewById(R.id.date_header);
             convertView.setTag(holder);
-        } else
-        {
-            holder = (HeaderViewHolder) convertView.getTag();
+        }else{
+            holder = (ActivityHolder) convertView.getTag();
         }
+
+        mCalendar.setTime(trainingList.get(position).getDate());
+        int dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+        int dayOfWeekRest = (dayOfWeek+7)%7;
+
         int weekNumber = new DateTime(trainingList.get(position).getDate()).getWeekOfWeekyear();
 
-        int weekStartDate = new DateTime().withWeekOfWeekyear(Integer.valueOf(mWeeks[position])).dayOfMonth().getMaximumValue();
-        int weekStartDate2 = new DateTime().withWeekOfWeekyear(weekNumber).getDayOfMonth() - 2;
-        weekStartDate = ((weekStartDate + weekStartDate2) % weekStartDate);
-        if (weekStartDate == 29)
-        {
-            weekStartDate = 30;
+        int weekStartDate = new DateTime(trainingList.get(position).getDate()).withWeekOfWeekyear(weekNumber).getDayOfMonth();
+        weekStartDate -= dayOfWeekRest;
+
+        int weekEndDate = weekStartDate +7;
+        int weekEndDate2 = new DateTime(trainingList.get(position).getDate()).withWeekOfWeekyear(weekNumber).dayOfMonth().getMaximumValue();
+
+        if(weekEndDate > weekEndDate2){
+            weekEndDate = new DateTime(trainingList.get(position+1).getDate()).withWeekOfWeekyear(weekNumber+1).getDayOfMonth();
+            mCalendar.setTime(trainingList.get(position+1).getDate());
+            dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            dayOfWeekRest = (dayOfWeek+7)%7;
+            weekEndDate -= dayOfWeekRest;
+            if(weekEndDate == 5){
+                weekEndDate++;
+            }
         }
 
-        int weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber).dayOfMonth().getMaximumValue();
-        int weekEndDate2 = new DateTime().withWeekOfWeekyear(weekNumber + 1).getDayOfMonth() - 2;
-        weekEndDate = ((weekEndDate + weekEndDate2) % weekEndDate);
+        weekEndDate = ((weekEndDate + weekEndDate2) % weekEndDate2);
 
-        int month = new DateTime().withWeekOfWeekyear(weekNumber + 1).getMonthOfYear();
+        int month = new DateTime(trainingList.get(position).getDate()).withWeekOfWeekyear(weekNumber + 1).getMonthOfYear();
 
         if (weekEndDate2 < 0)
         {
@@ -493,19 +463,15 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
         if (trainingList.get(position).getDate().before(dateToday))
         {
             headerText = "Vecka " + mWeeks[position] + " (" + weekStartDate + "-" + weekEndDate + "/" + month + ")";
-        }
-        else
-        {
+        }else{
             mCalendar.setTime(trainingList.get(position).getDate());
-            month = mCalendar.get(Calendar.MONTH);
             int day = mCalendar.get(Calendar.DAY_OF_WEEK) - 2;
             int dayinweek = (day+7)%7;
-            String previousDateFormat = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
+            previousDateFormat = swedish_days[dayinweek] + " " + mCalendar.get(Calendar.DAY_OF_MONTH) + " " + swedish_months[mCalendar.get(Calendar.MONTH)];
 
             headerText = previousDateFormat;
-
         }
-        holder.text.setText(headerText);
+        holder.title.setText(headerText);
         return convertView;
     }
 
@@ -517,14 +483,8 @@ public class CustomAdapter extends BaseAdapter implements StickyListHeadersAdapt
             Date activityDate = trainingList.get(i).getDate();
             mCalendar.setTime(activityDate);
             return mCalendar.get(Calendar.WEEK_OF_YEAR);
-        } else
-        {
+        }else{
             return i;
         }
-    }
-
-    private class HeaderViewHolder
-    {
-        TextView text;
     }
 }

@@ -43,19 +43,9 @@ public class Activity extends RealmObject
         return booking;
     }
 
-    public void setBooking(Booking booking)
-    {
-        this.booking = booking;
-    }
-
     public RealmList<Booking> getBookings()
     {
         return bookings;
-    }
-
-    public void setBookings(RealmList<Booking> bookings)
-    {
-        this.bookings = bookings;
     }
 
     public String getComment()
@@ -63,19 +53,9 @@ public class Activity extends RealmObject
         return comment;
     }
 
-    public void setComment(String comment)
-    {
-        this.comment = comment;
-    }
-
     public Date getDate()
     {
         return date;
-    }
-
-    public void setDate(Date date)
-    {
-        this.date = date;
     }
 
     public int getDistanceInKm()
@@ -83,19 +63,9 @@ public class Activity extends RealmObject
         return distanceInKm;
     }
 
-    public void setDistanceInKm(int distanceInKm)
-    {
-        this.distanceInKm = distanceInKm;
-    }
-
     public int getDurationInMinutes()
     {
         return durationInMinutes;
-    }
-
-    public void setDurationInMinutes(int durationInMinutes)
-    {
-        this.durationInMinutes = durationInMinutes;
     }
 
     public String getId()
@@ -103,19 +73,9 @@ public class Activity extends RealmObject
         return id;
     }
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
-
     public String getSource()
     {
         return source;
-    }
-
-    public void setSource(String source)
-    {
-        this.source = source;
     }
 
     public String getStatus()
@@ -123,24 +83,64 @@ public class Activity extends RealmObject
         return status;
     }
 
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
     public String getSubType()
     {
         return subType;
     }
 
-    public void setSubType(String subType)
-    {
-        this.subType = subType;
-    }
-
     public String getType()
     {
         return type;
+    }
+
+    public void setBooking(Booking booking)
+    {
+        this.booking = booking;
+    }
+
+    public void setBookings(RealmList<Booking> bookings)
+    {
+        this.bookings = bookings;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
+    public void setDistanceInKm(int distanceInKm)
+    {
+        this.distanceInKm = distanceInKm;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes)
+    {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public void setSource(String source)
+    {
+        this.source = source;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public void setSubType(String subType)
+    {
+        this.subType = subType;
     }
 
     public void setType(String type)

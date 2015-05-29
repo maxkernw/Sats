@@ -1,7 +1,5 @@
 package sats.android.piedpiper.se.sats.handlers;
 
-import android.util.Log;
-
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import io.realm.RealmResults;
 import sats.android.piedpiper.se.sats.activities.MainActivity;
 import sats.android.piedpiper.se.sats.adapters.CustomAdapter;
 import sats.android.piedpiper.se.sats.models.Activity;
-import sats.android.piedpiper.se.sats.models.Booking;
 import sats.android.piedpiper.se.sats.models.Center;
 import sats.android.piedpiper.se.sats.models.CenterInfo;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -21,10 +18,9 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class StorageHandler
 {
-    private static final String TAG = "StorageHandler";
     private final android.app.Activity activity;
     private ArrayList<Activity> myActivities;
-    private HashMap<String, String> centerNamesMap;
+    public static HashMap<String, String> centerNamesMap;
     private static Realm realm;
     public static int week = 0;
     public static HashMap<Integer, Integer> weekPosition = new HashMap<>();
@@ -80,16 +76,13 @@ public class StorageHandler
 
     private void getCenterNames()
     {
-        for (Booking booking : realm.where(Booking.class).findAll())
+        for (Center center : realm.where(Center.class).findAll())
         {
-            for (Center center : realm.where(Center.class).findAll())
-            {
-                String centerName = center.getName();
-                String url = center.getUrl();
-                double lati = center.getLati();
-                double longi = center.getLongi();
-                MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
-            }
+            String centerName = center.getName();
+            String url = center.getUrl();
+            double lati = center.getLati();
+            double longi = center.getLongi();
+            MainActivity.markers.put(centerName, new CenterInfo(url, lati, longi));
         }
     }
 }
