@@ -94,8 +94,12 @@ public final class MainActivity extends ActionBarActivity
                     }
                 }
             }
-            listView.setAdapter(new CustomAdapter(activity, activitiesList));
-            realm.close();
+            CustomAdapter adapter = new CustomAdapter(activity, activitiesList);
+            listView.setAdapter(adapter);
+            while(adapter.getItemViewType())
+            {
+                realm.close();
+            }
         }
 
         leftMarker = new ImageView(activity);

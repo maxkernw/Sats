@@ -46,6 +46,7 @@ public final class CustomAdapter extends BaseAdapter implements StickyListHeader
     private static final int OWN = 2;
     private String[] mWeeks;
     private String previousDateFormat;
+    private boolean itemViewTypeDone = false;
 
     public CustomAdapter(android.app.Activity activity, ArrayList<Activity> trainingList)
     {
@@ -107,12 +108,15 @@ public final class CustomAdapter extends BaseAdapter implements StickyListHeader
 
         if (isPreviousActivity)
         {
+            itemViewTypeDone = true;
             return PREVIOUS;
         }else{
             if (myTrainingActivityObj.getType().equals("GROUP"))
             {
+                itemViewTypeDone = true;
                 return BOOKED;
             }else{
+                itemViewTypeDone = true;
                 return OWN;
             }
         }
@@ -486,5 +490,10 @@ public final class CustomAdapter extends BaseAdapter implements StickyListHeader
         }else{
             return i;
         }
+    }
+
+    public boolean getItemViewType()
+    {
+        return itemViewTypeDone;
     }
 }
