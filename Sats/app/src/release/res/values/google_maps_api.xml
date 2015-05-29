@@ -7,7 +7,7 @@
 https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=DB:50:07:66:8C:EA:40:84:92:FE:F9:B2:03:11:5F:BC:28:11:01:90%3Bsats.android.piedpiper.se.sats
 
     You can also add your credentials to an existing key, using this line:
-    DB:50:07:66:8C:EA:40:84:92:FE:F9:B2:03:11:5F:BC:28:11:01:90;sats.android.piedpiper.se.sats
+    DB:50:07:66:8C:EA:40:84:92:FE:F9:B2:03:11:5F:BC:28:11:01:90;se.piedpiper.android.sats
 
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.

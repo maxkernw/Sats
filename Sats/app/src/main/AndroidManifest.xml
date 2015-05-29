@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="sats.android.piedpiper.se.sats" >
+    package="se.piedpiper.android.sats" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/MyTheme" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name="se.piedpiper.android.sats.activities.MainActivity"
             android:label="Sats"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MoreInfoActivity"
+            android:name="se.piedpiper.android.sats.activities.MoreInfoActivity"
             android:label="Sats2"
             android:configChanges="orientation|screenSize">
         </activity>
@@ -44,11 +44,11 @@
             android:value="AIzaSyDUts-9-KshgP8Pj9KBaWvyjncDcY0gJ7s" />
 
         <activity
-            android:name=".activities.CenterMapsActivity"
+            android:name="se.piedpiper.android.sats.activities.CenterMapsActivity"
             android:label="@string/title_activity_center_maps" >
         </activity>
         <activity
-            android:name=".activities.CenterDetailView"
+            android:name="se.piedpiper.android.sats.activities.CenterDetailView"
             android:label="@string/map_detail" >
         </activity>
     </application>
